@@ -1,1 +1,0 @@
-cmd /C 'set "GIT_USER=pnocera" && yarn deploy'

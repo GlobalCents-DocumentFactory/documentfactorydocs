@@ -1,0 +1,104 @@
+---
+sidebar_position: 1
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Link from "@docusaurus/Link";
+import CodeBlock from "@theme/CodeBlock";
+
+# Metadata
+
+The `metadata` property is used to insert dynamic values into a document by replacing tags within the document
+with corresponding values from a metadata object.
+
+## Basics usage
+
+For the metadata property, use a JSON string that represents an object with metadata to replace tags in the document.
+
+<Tabs>
+  <TabItem value="json" label="Pipeline" default>
+    ```json title="pipeline.json"
+    {
+        "metadata": "{\"title\":\"Document Title\",\"author\":\"John Doe\",\"date\":\"2023-10-10\"}"
+    }
+    ```
+  </TabItem>
+  <TabItem value="input" label="Input">
+    <pre>
+        <b>Title:</b> &#123;&#123; title &#125;&#125;
+        <b>Author:</b> &#123;&#123; author &#125;&#125;
+        <b>Date:</b> &#123;&#123; date &#125;&#125;
+    </pre>
+  </TabItem>
+  <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> Document Title
+        <b>Author:</b> John Doe
+        <b>Date:</b> 2023-10-10
+      </pre>
+
+  </TabItem>
+</Tabs>
+
+## Nested Metadata Object
+
+Nested objects are also supported, which allows to perform complex and detailed document settings.
+
+<Tabs>
+    <TabItem value="json" label="Pipeline" default>
+        ```json title="pipeline.json"
+        {
+            "metadata": "{\"document\":{\"title\":\"Document Title\",\"details\":{\"author\":\"Jane Doe\",\"date\":\"2023-10-10\"}}}"
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input">
+    <pre>
+        <b>Title:</b> &#123;&#123; document.title &#125;&#125;
+        <b>Author:</b> &#123;&#123; document.details.author &#125;&#125;
+        <b>Date:</b> &#123;&#123; document.details.date &#125;&#125;
+    </pre>
+    </TabItem>
+    <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> Document Title
+        <b>Author:</b> Jane Doe
+        <b>Date:</b> 2023-10-10
+      </pre>
+    </TabItem>
+</Tabs>
+
+## Modifying output with filters
+
+Liquid filters are used to modify the output of variables and objects. To apply filters to an output,
+add the filter and any filter parameters within the output's curly brace delimiters, preceded by a pipe character.
+Multiple filters can be used on one output. They’re parsed from left to right.
+
+<Tabs>
+    <TabItem value="json" label="Pipeline">
+        ```json title="pipeline.json"
+        {
+            "metadata": "{\"document\":{\"title\":\"Document Title\"}}"
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input" default>
+    <pre>
+        <b>Title:</b> &#123;&#123; product.title | upcase | remove: 'TITLE' &#125;&#125;
+    </pre>
+    </TabItem>
+    <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> DOCUMENT
+      </pre>
+    </TabItem>
+</Tabs>
+
+## Extras
+
+The metadata functionality is built on Liquid, a powerful and flexible templating language created by Shopify.
+Liquid allows for sophisticated templating features, enabling the dynamic insertion of metadata values into documents.
+
+For creating more complex solutions with the metadata property, refer to the **[original Liquid documentation](https://shopify.dev/docs/api/liquid#liquid_basics)**.
+It provides comprehensive details on using Liquid's advanced features, including filters, loops,
+and conditionals, to achieve sophisticated templating logic.

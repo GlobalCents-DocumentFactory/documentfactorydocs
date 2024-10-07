@@ -23,6 +23,11 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -83,24 +88,32 @@ const config: Config = {
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/GlobalCents-DocumentFactory/documentfactorydocs',
-          label: 'GitHub',
+          className: 'header-github-link',
           position: 'right',
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
           title: 'Docs',
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/docs/getting-started/overview',
             },
           ],
         },
-       
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/company/global-cents-gci-live-llc-/posts/?feedView=all',
+            },
+          ],
+        },
         {
           title: 'More',
           items: [
@@ -115,11 +128,14 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Built with ♥ by © ${new Date().getFullYear()} GCI Live, Llc.`,
+      copyright: `Designed and built by © ${new Date().getFullYear()} GCI Live, Llc.`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    mermaid: {
+      theme: {light: 'neutral', dark: 'dark'},
     },
   } satisfies Preset.ThemeConfig,
 };

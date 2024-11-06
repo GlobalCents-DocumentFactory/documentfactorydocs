@@ -1,0 +1,109 @@
+---
+sidebar_position: 1
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+import Link from "@docusaurus/Link";
+
+# Artifact
+Artifact is a common name for a schema of objects that manages resources and directories. For example, it can define
+and manage various external resources (artifacts) embedded into documents during the document processing pipeline
+or specify input and output directories, facilitating the organization and processing of documents.
+Below are the properties available for configuration along with their descriptions.
+
+## `asset`
+
+The property is used to define external resources. The `asset` property is an object that can have
+the following properties:
+
+- <Link to="#storetype">`storetype`</Link> - specifies the storage type where the external resource is located.
+- <Link to="#artifactfs">`artifactfs`</Link> - configuration details specific to the file system storage type.
+- <Link to="#artifactcs">`artifactcs`</Link> - configuration details specific to the Content Server storage type.
+- <Link to="#artifactnats">`artifactnats`</Link> - configuration details specific to the Nats storage type.
+
+### `storetype`
+
+Specifies the storage type where the external resource is located. This property enables to correctly
+access and retrieve the asset based on its storage mechanism. Each storage type corresponds to a different method
+of accessing and managing the resource, ensuring compatibility with various storage solutions.
+Can take the following storage type values: `none`, `fs`, `nats`, `ftp`, `s3`, `sharepoint`, `contentserver`, `url`.
+
+### `artifactfs`
+
+The `artifactfs` is used to provide additional configuration details specific to the file system storage type
+when <Link to="#storetype">`storetype`</Link> is set to `fs`. This property ensures that all necessary information
+regarding file locations and access methods are specified, allowing the **DocumentFactory** to correctly locate and handle
+assets stored on a file system.
+The `artifactfs` configuration includes the following settings:
+
+#### `fullname`
+
+The `fullname` property within the `artifactfs` configuration specifies the complete file path to the asset when
+the file system storage type (fs) is used. It provides a direct way to define the exact location of the asset
+on the file system.
+
+Example:
+```json title="pipeline.json"
+{
+  "merge": true,
+  "mergesettings": {
+    "saveformat": "pdf",
+    "intermediatepage":{
+      "asset": {
+        "storetype": "fs",
+        "artifactfs": {
+          "fullname": "C:\assets\Separator.pdf"
+        }
+      }
+    }
+  }
+}
+```
+
+#### `fsdocumentsavestrategy`
+
+The `fsdocumentsavestrategy` defines the strategy to be used for saving documents to the file system when
+the `fs` (file system) storage type is chosen. This property provides flexibility in determining how the documents
+are stored, managed, and accessed on the file system, ensuring that the saving mechanism aligns with the desired
+organizational and operational practices.
+The 'fsdocumentsavestrategy' configuration is defined by the following properties:
+
+ - <Link to="#storetype">`keepfolderstructure`</Link> - specifies whether the original folder structure of the source documents should be maintained.
+ - <Link to="#storetype">`namingpattern`</Link> - defines the pattern to be used for naming saved documents.
+ - <Link to="#storetype">`overwrite`</Link> - specifies whether existing files should be overwritten when saving a new document with the same name.
+ - <Link to="#storetype">`replaceoriginalextension`</Link> - specifies whether the original file extension should be replaced with a standard
+    extension when saving the document.
+ - <Link to="#storetype">`serverside`</Link> - specifies whether the document saving operations should be performed on the server side.
+
+##### `keepfolderstructure`
+
+Property specifies whether the original folder structure of the source documents should be maintained
+when saving them to the file system. When set to `true`, the original directory structure from the source location is
+preserved in the destination directory.
+
+##### `namingpattern`
+
+Property defines the pattern to be used for naming saved documents. You can find more detailed information about the use
+of `namingpattern` with examples in the section [**Naming Pattern**](docs/references/namingpattern.mdx).
+
+##### `overwrite`
+
+Property specifies whether existing files should be overwritten when saving a new document with the same name
+to the file system. When set to `true`, any existing file with the same name at the destination will be overwritten
+by the new file. When set to `false`, it prevents overwriting and can be combined with `namingpattern` to generate
+unique filenames.
+
+##### `replaceoriginalextension`
+
+Property specifies whether the original file extension should be replaced with a standard
+extension when saving the document. When set to true, the original file extension is replaced with a default or
+standard extension (such as .docx, .pdf, etc.) as defined by the saving strategy or system configuration.
+When set to false, the original file extension is retained, ensuring that the saved document keeps its initial format.
+
+##### `serverside`
+
+Property specifies whether the document saving operations should be performed on the server side.
+This is relevant for scenarios where the document processing and saving workflows are managed by a server.
+When set to true, all save operations are carried out on the server, which can be beneficial for performance
+and security reasons as it minimizes client-side operations.

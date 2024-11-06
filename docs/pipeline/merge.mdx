@@ -27,9 +27,10 @@ that allows for more granular control over how the merge is carried out.
 
 The `mergesettings` property is an object that can have the following properties:
 
-- <Link to="#intermediatepage">`intermediatepage`</Link>
+- <Link to="#intermediatepage">`intermediatepage`</Link> - defines whether an intermediate page should be included in the final
+    merged document.
 - <Link to="#namingpattern">`namingpattern`</Link> - defines output document name based on static or dynamic data.
-- <Link to="#settingswordmerge">`settingswordmerge`</Link>
+- <Link to="#settingswordmerge">`settingswordmerge`</Link> - configuration of the merging process for Word documents merging only.
 - <Link to="#saveformat">`saveformat`</Link> - determines which type of merge process should be performed.
 
 #### `namingpattern`
@@ -89,8 +90,8 @@ The possible values for this property are:
 ##### `columnset`
 
 The property allows to define the column layout for the document. The possible values for this property include:
-- `"none"`: The section will have a single-column layout.
-- `"twocols"`: Allows for the appending of columns from one page to the columns on the next page.
+- `none`: The section will have a single-column layout.
+- `twocols`: Allows for the appending of columns from one page to the columns on the next page.
 
 
 ##### `linebetweencols`
@@ -135,5 +136,8 @@ track changes at a less granular level.
 
 #### `intermediatepage`
 
-> **_NOTE:_**  Add the description. The object is found in the pipeline in several places.
->Need to think about how to make a description in one place.
+The `intermediatepage` property is used to define whether an intermediate page should be included in the final
+merged document. An intermediate page generally serves as a placeholder or separator when multiple documents
+are being combined. It can be used for various purposes such as indicating transitions, providing page breaks,
+or adding informational content between the merged documents.
+Check out the available setup configurations in the section.

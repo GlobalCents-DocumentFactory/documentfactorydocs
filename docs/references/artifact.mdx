@@ -18,6 +18,9 @@ The property is used to define external resources. The `asset` property is an ob
 the following properties:
 
 - <Link to="#storetype">`storetype`</Link> - specifies the storage type where the external resource is located.
+- <Link to="#mimetype">`mimetype`</Link> - specifies the mimetype of the external resource.
+- <Link to="#name">`name`</Link> - ???.
+- <Link to="#shouldbeprocessed">`shouldbeprocessed`</Link> - specifies whether the resource should be processed.
 - <Link to="#artifactfs">`artifactfs`</Link> - configuration details specific to the file system storage type.
 - <Link to="#artifactcs">`artifactcs`</Link> - configuration details specific to the Content Server storage type.
 - <Link to="#artifactnats">`artifactnats`</Link> - configuration details specific to the Nats storage type.
@@ -28,6 +31,46 @@ Specifies the storage type where the external resource is located. This property
 access and retrieve the asset based on its storage mechanism. Each storage type corresponds to a different method
 of accessing and managing the resource, ensuring compatibility with various storage solutions.
 Can take the following storage type values: `none`, `fs`, `nats`, `ftp`, `s3`, `sharepoint`, `contentserver`, `url`.
+
+### `mimetype`
+
+The `mimetype` property within the asset object is a string that defines the media type of the external resource.
+Correctly specifying this property ensures that the Document Factory platform can process and manage the asset properly,
+regardless of the stage it is used in the document handling workflow.
+
+Common MIME Types:
+
+- **application/pdf**: PDF document
+- **image/png**: PNG image
+- **image/jpeg**: JPEG image
+- **text/plain**: Plain text file
+- **application/msword**: Microsoft Word document
+- **application/vnd.openxmlformats-officedocument.wordprocessingml.document**: Microsoft Word (OpenXML format)
+
+Example:
+```json title="pipeline.json"
+{
+  "merge": true,
+  "mergesettings": {
+    "saveformat": "pdf",
+    "mimetype": "application/pdf",
+    "intermediatepage":{
+      "asset": {
+        "storetype": "fs",
+        "artifactfs": {
+          "fullname": "C:\assets\Separator.pdf"
+        }
+      }
+    }
+  }
+}
+```
+
+### `shouldbeprocessed`
+
+The `shouldbeprocessed` property within the asset object is a boolean that specifies whether the resource should
+be processed during the document handling workflow. Setting this property to `true` indicates that the resource
+should be included in the processing operations, while setting it to `false` excludes the resource from being processed.
 
 ### `artifactfs`
 
@@ -107,3 +150,56 @@ Property specifies whether the document saving operations should be performed on
 This is relevant for scenarios where the document processing and saving workflows are managed by a server.
 When set to true, all save operations are carried out on the server, which can be beneficial for performance
 and security reasons as it minimizes client-side operations.
+
+## `ordering`
+
+The `ordering` property specifies the order in which the artifact should be processed relative to other artifacts.
+This integer value is used to sequence the processing of multiple artifacts, ensuring they are handled
+in the defined order during document processing operations.
+
+Value Guidelines:
+
+- Use sequential integers starting from 1 to define the processing order.
+- Ensure that no two artifacts have the same ordering value to avoid conflicts or undefined behavior.
+- Higher ordering values represent later positions in the sequence.
+
+## `level`
+
+The `level` property is an integer that defines the hierarchical level or priority of the artifact.
+This property allows users to organize and manage artifacts based on their relative importance or their place
+in a hierarchical structure within the document processing workflow. It adds an additional dimension of organization
+beyond the `ordering` property, which sequences artifacts.
+
+Value Guidelines:
+
+- **Lower Values (e.g., 1)**: Indicate higher importance or higher-level priority.
+- **Higher Values**: Indicate lower importance or lower-level priority.
+- Ensure that the level values are assigned logically to reflect the actual hierarchical structure or priority of the artifacts.
+
+## `split`
+
+???
+
+## `metadata`
+???
+
+## `children`
+
+The children property within the **Artifact** type defines a hierarchical structure by containing an array of child artifacts.
+This allows for the nesting of multiple **Artifact** within a parent **Artifact**, enabling complex document structures
+and processing workflows that mirror hierarchical or nested relationships.
+This setup is useful for organizing documents with nested sections, chapters, or components that need to be processed
+in a hierarchical or nested order.
+
+:::note
+- Each item in the children array should be a valid Artifact object.
+- The children array can be empty ([]) if there are no child artifacts.
+- The hierarchical relationship should be meaningful and reflect the actual structure required for processing.
+:::
+
+
+
+## `statusinfo`
+???
+## `clientinfo`
+???

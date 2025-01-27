@@ -1,0 +1,176 @@
+---
+sidebar_position: 5
+---
+
+# Watermark
+
+The Watermark feature in Document Factory allows for adding various types of watermarks to documents, such as text,
+QR codes, images, or static images.
+
+## `actionwatermark`
+
+This feature can be activated within the document processing pipeline by setting the `actionwatermark` property to `true`
+within `processors` or `postprocess` arrays.
+
+## `settingswatermarks`
+
+Additionally, the `settingswatermarks` property provides configuration parameters for the Watermark action.
+The `settingswatermarks` property is an array of objects, each defining a specific watermark to be applied.
+Each object within the array can contain the following properties:
+
+### `watermarktype`
+
+The `watermarktype` property specifies the type of watermark to be applied and is of type string. This property allows
+to choose from a variety of watermark types, each serving different purposes and providing different visual effects.
+The available options for this property include:
+
+- `Text`: Applies a text-based watermark.
+- `Qrcode`: Applies a QR code as the watermark.
+- `Image`: Applies a general image as the watermark.
+- `Staticimage`: Applies a static (unchanging) image as the watermark.
+
+### `layername`
+
+The `layername` property defines the name of the layer where the watermark will be applied. This property allows
+to specify a distinct layer within the document's structure, ensuring that the watermark is placed in the correct location.
+The value for this property should be a string representing the name of the layer.
+
+:::note
+When a "Watermark" is applied to a document, the build process associates the specified "Layer Name" with the applied "Watermark."
+In order to delete previous watermarks from a PDF at a later time, this field must be filled out accurately.
+This ensures that the watermarks can be properly identified and removed if necessary.
+:::
+
+### `color`
+
+The color property determines the color of the watermark. This property allows you to specify the desired color,
+ensuring that the watermark text or image integrates seamlessly with the overall design and aesthetics of the document.
+The value for this property should be a string representing the color, which can be in various formats such as a color name,
+a hexadecimal code, or an RGB value.
+
+:::danger
+Add an info about the color formats.
+:::
+
+### `fontfamily`
+
+The `fontfamily` property determines the font family for the watermark text. This property allows you to select
+the desired typeface, ensuring that the watermark text matches your preferred style and aesthetic. The value for
+this property should be a string representing the chosen font family.
+
+The available options for this property include:
+
+- `COURIER`
+- `HELVETICA`
+- `TIMES_ROMAN`
+- `SYMBOL`
+- `ZAPFDINGBATS`
+- `UNDEFINED`
+
+### `fontsize`
+
+The fontsize property specifies the size of the font for the watermark text. This property allows you to set a specific
+font size, giving you control over how large or small the watermark text appears on the page.
+The value for this property should be a number.
+
+If the value is set to 0, the property will select an automatic mode where the font size is determined based on the
+watermark's height and width parameters. This ensures that the text size is appropriately scaled to fit within
+the designated dimensions of the watermark.
+
+
+### `rotation`
+
+The rotation property specifies the degree of rotation for the watermark on the page. This property allows you to set
+how much the watermark should be slanted or rotated, giving you control over its orientation. The value for this property
+should be a number, measured in degrees.
+
+A value of 0 indicates no rotation, meaning the watermark will remain horizontally aligned. A negative value will slant
+the watermark from lower on the right to higher on the left, creating a leftward tilt. Adjusting this property can help
+achieve the desired visual effect and alignment for the watermark within the document.
+
+
+### `height`
+
+The height property determines the height of the watermark within the border of the document. This property allows
+to specify how tall the watermark should be, offering control over its vertical dimensions and overall presence on the page.
+The value for this property should be a number, representing the measurement of the watermark's height.
+
+### `width`
+
+The width property determines the width of the watermark within the border of the document. This property allows
+to specify how wide the watermark should be, offering control over its horizontal dimensions and overall appearance on the page.
+The value for this property should be a number, representing the measurement of the watermark's width.
+
+### `text`
+
+The `text` property defines the text to be displayed in the watermark. This property allows you to specify custom text
+that will appear as the watermark on the document. Additionally, it supports the use of dynamic data based on
+the metadata pipeline property, which allows for the inclusion of variable or context-specific information within
+the watermark text.
+
+For more detailed information about using dynamic data, refer to the [**Metadata**](docs/pipeline/metadata.mdx) section.
+
+By setting the text property, you can customize the content of the watermark to suit your specific needs,
+whether you are using static text or dynamic metadata.
+
+### `underlayout`
+
+Specifies whether the watermark should be placed under the document layout.  If the `underlayout` property is set to `true`,
+it indicates that the watermark will be placed under the document content. Set this property to `false` if you want to
+place the watermark over the content.
+
+### `fontbold`
+
+The `fontbold` property specifies whether the watermark text should be bold.
+Bold text is typically used to add emphasis and make the text stand out more prominently within the document.
+Set this property to `true` to make the watermark text bold. When set, the characters in the watermark text will become
+thicker and more visually striking, enhancing their visibility and impact. If you do not want the watermark text to be bold
+and prefer it to maintain a regular weight, set this property to `false`.
+
+### `fontitalic`
+
+The `fontitalic` property specifies whether the watermark text should be italicized. By using this property, you can
+control the text style of your watermark, adding emphasis or stylistic variation to the text.
+
+Set this property to `true` to make the watermark text italic. This will slant the characters,giving them an oblique
+appearance typically used to highlight or distinguish the watermark text from regular text in the document.
+If you prefer the watermark text to remain in its standard form, set this property to `false`.
+
+### `verticalalign`
+
+The `verticalalign` property specifies the vertical alignment of the watermark within the document. It determines where
+the watermark will be placed along the vertical axis of the page. The available options for this property include:
+
+- `top`: Positions the watermark at the top of the document.
+- `center`: Places the watermark in the center of the document, evenly balanced between the top and bottom.
+- `bottom`: Aligns the watermark at the bottom of the document.
+
+### `texthorizontalalign`
+
+The `texthorizontalalign` property specifies the horizontal alignment of the watermark text within the document.
+This property allows you to control where the watermark text is positioned along the horizontal axis of the page,
+ensuring it is placed according to your design preferences.
+
+The available string options for this property include:
+
+- `left`: Aligns the watermark text to the left side of the document.
+- `center`: Centers the watermark text in the middle of the document.
+- `right`: Aligns the watermark text to the right side of the document.
+
+Selecting the appropriate texthorizontalalign option ensures that the watermark text is positioned exactly
+where you want it, enhancing the overall appearance and readability of the document.
+
+### `textverticalposition`
+
+The `textverticalposition` property specifies the vertical position of the watermark text within the document.
+This property allows you to control where the watermark text is positioned along the vertical axis of
+the page, ensuring it is placed according to your design preferences.
+
+The available string options for this property include:
+
+- `top`: Places the watermark text at the top of the document.
+- `center`: Centers the watermark text in the middle of the document.
+- `bottom`: Places the watermark text at the bottom of the document.
+
+Selecting the appropriate `textverticalposition` option ensures that the watermark text is positioned exactly where
+you want it, enhancing the overall appearance and readability of the document.

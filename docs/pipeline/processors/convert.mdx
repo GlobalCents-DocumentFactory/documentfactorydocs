@@ -1,0 +1,58 @@
+---
+sidebar_position: 2
+---
+
+# Convert
+
+The Convert feature in Document Factory allows for the conversion of documents from one format to another.
+
+## `actionconvert`
+
+This feature can be activated within the document processing pipeline by setting the `actionconvert` property to `true`
+within processors or postprocess arrays.
+
+## `settingsconvert`
+
+Additionally, the `settingsconvert` property provides configuration parameters for the Convert action.
+
+The `settingsconvert` can contain the following property:
+
+- `saveformat`: Specifies the format to which the document should be converted.
+
+### `saveformat`
+
+The `saveformat` property specifies the format to which the document should be converted. This property must be set
+to one of the supported format values, ensuring that the document is saved in the desired output format.
+The value for this property should be a string representing the chosen format.
+
+Supported format values:
+
+- `doc`: Microsoft Word Document
+- `docx`: Microsoft Word Open XML Document
+- `ppt`: Microsoft PowerPoint Presentation
+- `pptx`: Microsoft PowerPoint Open XML Presentation
+- `xls`: Microsoft Excel Spreadsheet
+- `xlsx`: Microsoft Excel Open XML Spreadsheet
+- `pdf`: Portable Document Format
+- `html`: HyperText Markup Language
+- `mhtml`: MIME Encapsulation of Aggregate HTML
+- `gif`: Graphics Interchange Format
+- `png`: Portable Network Graphics
+- `jpeg`: Joint Photographic Experts Group
+- `tiff`: Tagged Image File Format
+- `text`: Plain Text
+
+
+Example:
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+      "actionconvert": true,
+      "settingsconvert": {
+        "saveformat": "doc"
+      }
+    }
+  ]
+}
+```

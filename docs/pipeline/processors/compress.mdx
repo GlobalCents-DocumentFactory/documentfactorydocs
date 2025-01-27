@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Compress
@@ -12,3 +12,14 @@ The `actioncompress` property, when set to `true`, enables the compression of do
 Compression is intended to reduce the file size of documents, making them easier to store and share.
 This property can be included in either the processors or postprocess arrays, depending on when compression should be applied
 during the workflow.
+
+Example:
+```json title="pipeline.json"
+{
+ "postprocess": [
+    {
+      "actioncompress": true
+    }
+  ]
+}
+```

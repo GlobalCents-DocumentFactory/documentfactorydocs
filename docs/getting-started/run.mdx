@@ -29,14 +29,14 @@ In this scenario, you will use the executable ptfd8.exe to process your tasks.
 - Press Win + R to open the Run dialog.
 - Type cmd and press Enter.
 - In the command prompt window, navigate to the client folder by executing the following command:
-- 
+
 ```console
 cd C:\Program Files\DocumentFactory\client
 ```
 
 - If your installation location is different, replace the path accordingly.
 - Run the executable with the desired parameters. Use the following format for your command:
-- 
+
 ```console
 ./ptfd8.exe process -i <input> -o <output>
 ```
@@ -115,6 +115,30 @@ This documentation contains detailed explanations of the parameters that can be 
 Each parameter is thoroughly described to provide clarity on its purpose and usage within the pipeline. 
 Understanding these parameters is crucial for customizing and optimizing the document processing workflow.
 
-It is recommended to edit the pipeline.json file or custom pipeline file by opening it in Visual Studio Code.
-Use this documentation as well as the [configured Visual Studio Code autocomplete](./setup.mdx) 
-to create a pipeline that will work for your specific use case.
+### IDE configuration
+To efficiently edit the pipeline.json file or any custom pipeline file,
+it is recommended to use **[Visual Studio Code](https://code.visualstudio.com/)**,
+a free text editor developed by Microsoft.
+
+Visual Studio Code supports autocomplete functionality, which can greatly simplify the process of writing or modifying
+the DocumentFactory pipeline. To enable autocomplete in Visual Studio Code, follow these steps:
+
+- Open the command palette (either with F1 or Ctrl+Shift+P)
+- Type "open settings"
+- You are presented with a few options, choose "Open User Settings (JSON)"
+![settings.json](./img/vsc_settings.png)
+- Add the following section to the settings file:
+```shell
+"json.schemas": [
+    {
+        "fileMatch": [
+          "/pipeline.json"
+        ],
+        "url": "https://raw.githubusercontent.com/pnocera/ptfd8-jsonschema/main/model.json"
+    }
+]
+```
+By configuring this setting, Visual Studio Code will provide schema-based autocomplete suggestions for
+the DocumentFactory pipeline, making it easier to ensure accuracy and completeness in your configurations.
+
+If you are using another IDE, please configure autocomplete according to its documentation.

@@ -7,19 +7,37 @@ import Link from "@docusaurus/Link";
 import CodeBlock from "@theme/CodeBlock";
 
 # Metadata
+Document Factory allows to insert dynamic values by replacing tags with corresponding entries from a metadata object.
+These tags can be inserted into various parts of the document, including the content, title, and watermark text.
+This feature enables the creation of personalized and contextually accurate documents.
 
-The `metadata` property is used to insert dynamic values into a document by replacing tags within the document
-with corresponding values from a metadata object.
+## `metadata`
+
+The `metadata` property, located at the root of the pipeline, defines the JSON string that represents an object containing
+metadata used to replace tags in the document. Both plain and nested objects can be used.
+
+The replacement of tags based on the JSON metadata, as well as additional settings, are determined within the processors
+or postprocessors stages of the pipeline configuration. These stages handle the specifics of how and when the tags are
+substituted with the actual metadata values.
+
+For more detailed information on configuring and using metadata within processors and postprocessors, please refer
+to the [**Mergemeta**](docs/pipeline/processors/mergemeta.mdx) section.
 
 ## Basics usage
-
-For the metadata property, use a JSON string that represents an object with metadata to replace tags in the document.
 
 <Tabs>
   <TabItem value="json" label="Pipeline" default>
     ```json title="pipeline.json"
     {
-        "metadata": "{\"title\":\"Document Title\",\"author\":\"John Doe\",\"date\":\"2023-10-10\"}"
+        "metadata": "{\"title\":\"Document Title\",\"author\":\"John Doe\",\"date\":\"2023-10-10\"}",
+        "processors": [
+            {
+                "actionmergemeta": true,
+                "settingsmergemeta": {
+                    "mergenullorempty": false
+                }
+            }
+        ]
     }
     ```
   </TabItem>
@@ -42,13 +60,19 @@ For the metadata property, use a JSON string that represents an object with meta
 
 ## Nested Metadata Object
 
-Nested objects are also supported, which allows to perform complex and detailed document settings.
-
 <Tabs>
     <TabItem value="json" label="Pipeline" default>
         ```json title="pipeline.json"
         {
             "metadata": "{\"document\":{\"title\":\"Document Title\",\"details\":{\"author\":\"Jane Doe\",\"date\":\"2023-10-10\"}}}"
+            "processors": [
+                {
+                    "actionmergemeta": true,
+                    "settingsmergemeta": {
+                        "mergenullorempty": false
+                    }
+                }
+            ]
         }
         ```
     </TabItem>
@@ -70,7 +94,7 @@ Nested objects are also supported, which allows to perform complex and detailed 
 
 ## Modifying output with filters
 
-Liquid filters are used to modify the output of variables and objects. To apply filters to an output,
+The filters are used to modify the output of variables and objects. To apply filters to an output,
 add the filter and any filter parameters within the output's curly brace delimiters, preceded by a pipe character.
 Multiple filters can be used on one output. They’re parsed from left to right.
 
@@ -78,7 +102,15 @@ Multiple filters can be used on one output. They’re parsed from left to right.
     <TabItem value="json" label="Pipeline">
         ```json title="pipeline.json"
         {
-            "metadata": "{\"document\":{\"title\":\"Document Title\"}}"
+            "metadata": "{\"document\":{\"title\":\"Document Title\"}}",
+            "processors": [
+                {
+                    "actionmergemeta": true,
+                    "settingsmergemeta": {
+                        "mergenullorempty": false
+                    }
+                }
+            ]
         }
         ```
     </TabItem>
@@ -103,6 +135,6 @@ For creating more complex solutions with the metadata property, refer to the **[
 It provides comprehensive details on using Liquid's advanced features, including filters, loops,
 and conditionals, to achieve sophisticated templating logic.
 
-:::danger
+:::info
 Make an examples with watermark text or output file name.
 :::

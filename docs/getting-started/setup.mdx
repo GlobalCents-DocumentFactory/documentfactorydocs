@@ -4,13 +4,10 @@ sidebar_position: 2
 
 # Setup
 
-Document Factory is fully supported on the Windows operating system. To ensure a smooth installation and optimal performance,
-please ensure that your system meets the following requirements:
+Document Factory is fully supported on the Windows operating system. To guarantee a smooth installation
+and optimal performance, please make sure that your system meets the following requirements:
 
 > **_NOTE:_**  Is there some requirements?
-
-A code editor is also required for a test purposes. **[Visual Studio Code](https://code.visualstudio.com/)** is recommended.
-Visual Studio Code is a free,  text editor made by Microsoft.
 
 ## Downloading the Installer
 
@@ -18,6 +15,8 @@ To download and install the application, start by visiting the official **[Globa
 website where the software is available and use your credentials for log in.
 Find DocumentFactory among the applications available to you or use the search.
 Save the installer, typically named DocumentFactory-xx.x.x-Setup.exe,  file to your computer.
+
+> **_NOTE:_**  Insert the screenshot from cp.globalcents.com
 
 ## Installation
 
@@ -35,27 +34,4 @@ When the process is complete, click "Finish" to close the wizard. You can now la
 Watch the video of the installation process:
 > **_NOTE:_**  Insert the video
 
-## Visual Studio Code configuration
 
-Utilizing Visual Studio Code, we will generate a JSON file to configure the DocumentFactory pipeline.
-Edit the Visual Studio Code settings file located in :
-```shell
-C:\Users\<You>\AppData\Roaming\Code\User\settings.json
-```
-Open the file and add the following section:
-
-```shell
-"json.schemas": [
-    {
-        "fileMatch": [
-          "/pipeline.json"
-        ],
-        "url": "https://raw.githubusercontent.com/pnocera/ptfd8-jsonschema/main/model.json"
-    }
-]
-```
-
-> **_NOTE:_**  Describe the way to do that from command palette if file does not exists
-https://stackoverflow.com/questions/65908987/how-to-open-visual-studio-codes-settings-json-file
-
-This will provide auto-completion for editing the DocumentFactory pipeline file in Visual Studio Code.

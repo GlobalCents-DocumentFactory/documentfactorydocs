@@ -1,0 +1,79 @@
+---
+sidebar_position: 7
+toc_max_heading_level: 5
+---
+
+import Link from "@docusaurus/Link";
+
+# PDF Settings
+
+## `settingspdf`
+
+The `settingspdf` property is an auxiliary configuration object used to tailor various PDF generation processes such
+as conversion, compression, and more. This property is designed to provide additional settings that enhance and customize
+the PDF creation workflow within the Document Factory's document processing pipeline.
+
+The `settingspdf` property can be included within `processors` or `postprocess` arrays to ensure optimal configurations
+for distinct PDF-related tasks. Each section where these settings can be applied will include relevant references
+and links to the corresponding `settingspdf` properties.
+
+### `settingspdfcompression`
+
+The `settingspdfcompression` property is a configuration object nested within the `settingspdf` property,
+providing a set of parameters specifically for fine-tuning the PDF compression process. This property comes into play
+when the [**actioncompress**](docs/pipeline/processors/compress.mdx) flag is set to `true`, allowing for detailed control
+over how compression is applied to PDFs.
+
+The `settingsmergemeta` property can contain the following properties:
+
+- <Link to="#compress">`compress`</Link> - Indicates whether compression should be applied.
+- <Link to="#downsample">`downsample`</Link> - Specifies the resolution to which images should be downsampled.
+- <Link to="#jpegquality">`jpegquality`</Link> - Determines the quality of JPEG images.
+
+#### `compress`
+
+The compress property determines whether compression should be applied during the PDF generation process.
+When set to `true`, the PDF documents will be compressed to reduce file size. Set this property to `false` to disable compression.
+
+#### `downsample`
+
+The `downsample` property specifies the resolution, in dots per inch (DPI), to which images should be downsampled during
+the compression process. This integer value sets the image resolution to lower the overall file size of the PDF.
+For example, setting this property to 150 will downsample images to 150 DPI.
+
+#### `jpegquality`
+
+The `jpegquality` property sets the quality of JPEG images within the PDF after compression, on a scale from 0 to 100.
+This integer value determines the compression quality. Higher values maintain better image quality but result in larger files,
+while lower values reduce image quality for smaller file sizes.
+
+### `pdfformat`
+
+The `pdfformat` property is part of the `settingspdf` configuration object. It allows users to specify the desired
+PDF format for generated documents, such as during the [**conversion**](docs/pipeline/processors/convert.mdx) process,
+ensuring the resulting PDF meets specific format requirements.
+
+The value for this property can be a string or null, with the following options:
+
+- `PDF_A_1A`: PDF/A-1a format for long-term preservation, with full compliance for accessibility.
+- `PDF_A_1B`: PDF/A-1b format for long-term preservation, ensuring basic conformance without full accessibility.
+- `PDF_A_2A`: PDF/A-2a format for long-term preservation, based on PDF 1.7, with full accessibility.
+- `PDF_A_2B`: PDF/A-2b format ensures visual integrity for long-term preservation.
+- `PDF_A_2U`: PDF/A-2u format guarantees that all fonts used in the document are embedded.
+- `PDF_A_3A`: PDF/A-3a format for long-term preservation, based on PDF 1.7 Extension Level 3, with full accessibility.
+- `PDF_A_3B`: PDF/A-3b format ensures visual integrity for long-term preservation with embedded files.
+- `PDF_A_3U`: PDF/A-3u format that includes embedded files and guarantees that all fonts used in the document are embedded.
+- `v_1_0`: Adobe PDF version 1.0, the original PDF format.
+- `v_1_1`: Adobe PDF version 1.1, introduced in Acrobat 2.
+- `v_1_2`: Adobe PDF version 1.2, introduced in Acrobat 3.
+- `v_1_3`: Adobe PDF version 1.3, introduced in Acrobat 4.
+- `v_1_4`: Adobe PDF version 1.4, introduced in Acrobat 5.
+- `v_1_5`: Adobe PDF version 1.5, introduced in Acrobat 6.
+- `v_1_6`: Adobe PDF version 1.6, introduced in Acrobat 7.
+- `v_1_7`: Adobe PDF version 1.7, introduced in Acrobat 8.
+- `v_2_0`: The new version of the PDF standard, PDF 2.0, published by the ISO.
+- `PDF_UA_1`: PDF/UA-1 format for universally accessible documents.
+- `PDF_X_1A_2001`: PDF/X-1a:2001 format for graphic exchange, based on PDF 1.3.
+- `PDF_X_1A`: PDF/X-1a format for graphic arts, ensuring color-managed and reliable printing conditions.
+- `PDF_X_3`: PDF/X-3 format, supporting color management for reliable printing outputs.
+- `ZUGFeRD`: ZUGFeRD format for electronic invoicing, combining a PDF/A-3 document with XML data.

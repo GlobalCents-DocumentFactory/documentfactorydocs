@@ -4,18 +4,22 @@ sidebar_position: 2
 
 # Convert
 
-The Convert feature in Document Factory allows for the conversion of documents from one format to another.
+The Convert feature in Document Factory enables to transform documents from one format to another,
+facilitating seamless integration and interoperability across various platforms and applications.
+This capability is essential for organizations that handle a myriad of document types and need to ensure compatibility
+with multiple software tools and systems.
 
 ## `actionconvert`
 
 This feature can be activated within the document processing pipeline by setting the `actionconvert` property to `true`
-within processors or postprocess arrays.
+within `processors` or `postprocess` arrays.
 
 ## `settingsconvert`
 
-Additionally, the `settingsconvert` property provides configuration parameters for the Convert action.
+Additionally, the `settingsconvert` property provides configuration parameters for the Convert action,
+ensuring the output meets predefined requirements
 
-The `settingsconvert` can contain the following property:
+The `settingsconvert` property may include:
 
 - `saveformat`: Specifies the format to which the document should be converted.
 
@@ -42,15 +46,20 @@ Supported format values:
 - `tiff`: Tagged Image File Format
 - `text`: Plain Text
 
+Additional PDF format configuration for the compression process can be specified in the `pdfformat` property of `settingspdf`.
+For more details, see the [**PDF Settings**](docs/pipeline/processors/pdfsettings.mdx) section.
 
-Example:
+## Example
 ```json title="pipeline.json"
 {
   "processors": [
     {
       "actionconvert": true,
       "settingsconvert": {
-        "saveformat": "doc"
+        "saveformat": "pdf"
+      },
+      "settingspdf": {
+        "pdfformat": "v_1_7"
       }
     }
   ]

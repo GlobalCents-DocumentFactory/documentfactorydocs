@@ -14,12 +14,8 @@ the `actionocr` property to `true` within `processors` or `postprocess` arrays.
 ## `actionocr`
 
 The `actionocr` property activates the Optical Character Recognition (OCR) feature within the document processing pipeline.
-By setting this property to true within the `processors` or `postprocess` arrays, you enable the OCR functionality,
+By setting this property to `true` within the `processors` or `postprocess` arrays, enable the OCR functionality,
 which allows the system to recognize and extract text from images or scanned documents.
-
-This property is particularly useful for converting non-editable text, such as that found in scanned documents or images,
-into editable and searchable text. Ensuring the `actionocr` property is set correctly enhances the document processing
-workflow by enabling text recognition capabilities.
 
 ## `settingsocr`
 
@@ -98,8 +94,8 @@ the image by a factor of 2.
 Adjusting the `downscalefactor` allows you to balance the trade-off between processing efficiency and recognition accuracy,
 based on the specific requirements of your OCR workflow.
 
+## Example
 
-Example:
 ```json title="pipeline.json"
 {
     "processors": [

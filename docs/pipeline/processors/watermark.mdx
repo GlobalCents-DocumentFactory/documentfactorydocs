@@ -158,3 +158,204 @@ The available string options for this property include:
 - `top`: Places the watermark text at the top of the document.
 - `center`: Centers the watermark text in the middle of the document.
 - `bottom`: Places the watermark text at the bottom of the document.
+
+### `border`
+
+The `border` property specifies the thickness of the border around the watermark. This property defines how thick or thin
+the border should be, providing control over its prominence and appearance within the document. The value for
+this property should be a number, representing the measurement of the border's thickness in points.
+
+### `textmargin`
+
+The `textmargin` property specifies the margin around the watermark text. This property defines the amount of space
+to be maintained between the watermark text and the edges of its bounding box, providing control over text padding
+and overall layout within the document. The value for this property should be a number, representing the measurement
+of the margin in points.
+
+### `watermarkmarginhorizontal`
+
+The `watermarkmarginhorizontal` property specifies the horizontal margin around the watermark. This property defines
+the amount of space to be maintained between the edges of the watermark and the left and right borders of the document,
+determining the horizontal positioning of the watermark within the document. The value for this property should be a number,
+representing the measurement of the horizontal margin in points.
+
+### `watermarkmarginvertical`
+
+The `watermarkmarginvertical` property specifies the vertical margin around the watermark. This property defines
+the amount of space to be maintained between the edges of the watermark and the top and bottom borders of the document,
+providing control over the vertical positioning of the watermark within the document. The value for this property
+should be a number, representing the measurement of the vertical margin in points.
+
+### `borderradius`
+
+The `borderradius` property specifies the radius of the corners of the border around the watermark. This property defines
+how rounded or sharp the corners should be, influencing the border’s aesthetic within the document. The value for
+this property should be a number, representing the measurement of the radius in points.
+
+### `transparentbackground`
+
+The `transparentbackground` property determines whether the background of the watermark is transparent.
+Setting this property defines if the area behind the watermark remains visible or if it is obscured.The value
+for this property should be a boolean, where `true` makes the background transparent and `false` applies a solid background.
+
+### `watermarkon`
+
+The `watermarkon` property specifies which pages in the document the watermark should be applied to. This property
+allows for selective watermarking based on predefined options. The value for this property can be a string or null,
+with the following string options:
+
+- `watermarkfirstpage`: Apply the watermark only to the first page of the document.
+- `watermarklastpage`: Apply the watermark only to the last page of the document.
+- `watermarkallpages`: Apply the watermark to all pages of the document.
+
+### `watermarkfrompage`
+
+The `watermarkfrompage` property specifies the starting page number from which the watermark should be applied
+in the document. This property determines the first page that will include the watermark. The value for this property
+should be an integer representing the page number where watermarking begins.
+
+### `watermarktopage`
+
+The `watermarktopage` property specifies the ending page number up to which the watermark should be applied in the document.
+This property defines the last page that will include the watermark. The value for this property should be an integer
+representing the page number where watermarking concludes.
+
+### `opacity`
+
+The `opacity` property specifies the transparency level of the watermark. This property controls how visible or faint
+the watermark appears on the document. The value for this property should be a number between 0 and 1, where 0 represents
+complete transparency (fully invisible) and 1 represents full opacity (fully visible).
+
+### `barcodetype`
+The `barcodetype` property specifies the type of barcode to be generated and applied within the document. This property
+allows for selection from a wide range of barcode formats, ensuring compatibility with various standards and use cases.
+The value for this property can be a string or null, with the following options:
+
+- `None`
+- `Pdf417`
+- `MacroPdf417`
+- `GS1DataMatrix`
+- `MicroPdf417`
+- `GS1QR`
+- `MaxiCode`
+- `DotCode`
+- `AustraliaPost`
+- `Postnet`
+- `Planet`
+- `OneCode`
+- `RM4SCC`
+- `Mailmark`
+- `DatabarOmniDirectional`
+- `DatabarTruncated`
+- `DatabarLimited`
+- `DatabarExpanded`
+- `GS1CodablockF`
+- `CodablockF`
+- `UpcaGs1DatabarCoupon`
+- `UpcaGs1Code128Coupon`
+- `DutchKIX`
+- `DataLogic2of5`
+- `Aztec`
+- `Code32`
+- `SwissPostParcel`
+- `AustralianPosteParcel`
+- `SingaporePost`
+- `DatabarStackedOmniDirectional`
+- `DatabarStacked`
+- `DatabarExpandedStacked`
+- `PatchCode`
+- `DataMatrix`
+- `QR`
+- `UPCE`
+- `Code39Standard`
+- `Code39Extended`
+- `Code93Standard`
+- `Code93Extended`
+- `Code128`
+- `GS1Code128`
+- `EAN8`
+- `EAN13`
+- `EAN14`
+- `SCC14`
+- `SSCC18`
+- `UPCA`
+- `Pharmacode`
+- `ISBN`
+- `Code11`
+- `ISSN`
+- `Standard2of5`
+- `Interleaved2of5`
+- `Matrix2of5`
+- `ItalianPost25`
+- `IATA2of5`
+- `ITF14`
+- `ITF6`
+- `MSI`
+- `VIN`
+- `DeutschePostIdentcode`
+- `DeutschePostLeitcode`
+- `OPC`
+- `PZN`
+- `Code16K`
+- `ISMN`
+- `Codabar`
+
+By setting the `barcodetype` property, the appropriate barcode format can be integrated into the document,
+catering to various identification, tracking, and data encoding needs.
+
+### `displaybarcodetext`
+
+The `displaybarcodetext` property specifies whether the text representation of the barcode value should be displayed
+below the barcode. This property determines if a human-readable text label will be shown in conjunction with the barcode.
+The value for this property can be either true or false.
+
+### `barcodezoom`
+
+The `barcodezoom` property specifies the scaling factor for the barcode, determining how much the barcode's size should
+be increased or decreased. This property allows for precise control over the barcode dimensions within the document.
+The value for this property should be a number, representing the zoom level.
+
+### `image`
+
+The `image` property specifies the image to be used as a watermark within the document. This property defines the source
+for the watermark image, which can be in various formats such as PNG, JPEG, or other supported image types.
+
+image The image property specifies the image to be used as a watermark within the document.
+This property is an object, the structure of which is described in the [**Artifact**](docs/references/artifact.mdx) section.
+The image object includes various attributes that define the image source and other related settings.
+
+## Example
+
+ ```json title="pipeline.json"
+    {
+      "processors": [
+        {
+          "actionwatermark": true,
+          "settingswatermarks": [
+            {
+              "text": "Sample Watermark",
+              "layername": "watermark1",
+              "watermarktype": "Image",
+              "rotation": -25,
+              "fontsize": 60,
+              "fontfamily": "HELVETICA",
+              "width": 600,
+              "height": 150,
+              "color": "Red",
+              "opacity": 0.5,
+              "transparentbackground": true,
+              "underlayout": false,
+              "horizontalalign": "center",
+              "verticalalign": "center",
+              "texthorizontalalign": "center",
+              "textverticalposition": "center",
+              "border": 3,
+              "watermarkmarginhorizontal": 20,
+              "watermarkmarginvertical": 20,
+              "borderadius": 20
+            }
+          ]
+        }
+      ]
+    }
+```

@@ -3,7 +3,7 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'DocumentFactory',
+  title: 'Document Factory',
   tagline: 'Document Process Automation',
   favicon: 'img/favicon.ico',
 
@@ -86,11 +86,6 @@ const config: Config = {
           label: 'Tutorial',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          href: 'https://github.com/GlobalCents-DocumentFactory/documentfactorydocs',
-          className: 'header-github-link',
-          position: 'right',
-        },
       ],
     },
     footer: {
@@ -120,11 +115,7 @@ const config: Config = {
             {
               label: 'Blog',
               to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/GlobalCents-DocumentFactory/documentfactorydocs',
-            },
+            }
           ],
         },
       ],

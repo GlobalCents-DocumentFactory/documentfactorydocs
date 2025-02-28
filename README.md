@@ -41,7 +41,8 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 Example:
 
 ```
-cmd /C "set GIT_USER=aivanyshyn&& npm run deploy"
+cmd /C "set GIT_USER=<user>&& npm run deploy" - windows
+GIT_USER=<user> npm run deploy - macOS
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.

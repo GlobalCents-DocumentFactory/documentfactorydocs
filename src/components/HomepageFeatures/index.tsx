@@ -9,8 +9,40 @@ type FeatureItem = {
 };
 
 const FeatureList: FeatureItem[] = [
-  
+    {
+        title: 'Document Workflow Automation',
+        Svg: require('@site/static/img/home_integration.svg').default,
+        description: (
+            <>
+                Document Factory allows to automatically create, edit, and manage documents without manual intervention,
+                significantly saving time and reducing errors.
+            </>
+        ),
+    },
+    {
+        title: 'Flexible Integration',
+        Svg: require('@site/static/img/home_automation.svg').default,
+        description: (
+            <>
+                The platform easily integrates with other business applications and systems, making it a versatile
+                solution for companies of all sizes.
+            </>
+        ),
+    },
+    {
+        title: 'Flexible Document Management',
+        Svg: require('@site/static/img/home_workflow.svg').default,
+        description: (
+            <>
+                The system enables you to configure document workflow rules, control access, and audit changes.
+                This ensures full control and data security.
+            </>
+        ),
+    }
 ];
+
+
+
 
 function Feature({title, Svg, description}: FeatureItem) {
   return (

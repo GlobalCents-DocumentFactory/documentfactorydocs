@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocumentfactorydocs=self.webpackChunkdocumentfactorydocs||[]).push([[7472],{5513:t=>{t.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Documentation - first version","permalink":"/documentfactorydocs/blog/mdx-blog-post","unlisted":false,"date":"2025-02-28T00:00:00.000Z"}]}')}}]);

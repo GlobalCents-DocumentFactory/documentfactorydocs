@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocumentfactorydocs=self.webpackChunkdocumentfactorydocs||[]).push([[5380],{1549:o=>{o.exports=JSON.parse('{"metadata":{"permalink":"/documentfactorydocs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

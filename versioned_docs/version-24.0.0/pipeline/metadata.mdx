@@ -1,0 +1,140 @@
+---
+sidebar_position: 1
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Link from "@docusaurus/Link";
+import CodeBlock from "@theme/CodeBlock";
+
+# Metadata
+Document Factory allows to insert dynamic values by replacing tags with corresponding entries from a metadata object.
+These tags can be inserted into various parts of the document, including the content, title, and watermark text.
+This feature enables the creation of personalized and contextually accurate documents.
+
+## `metadata`
+
+The `metadata` property, located at the root of the pipeline, defines the JSON string that represents an object containing
+metadata used to replace tags in the document. Both plain and nested objects can be used.
+
+The replacement of tags based on the JSON metadata, as well as additional settings, are determined within the processors
+or postprocessors stages of the pipeline configuration. These stages handle the specifics of how and when the tags are
+substituted with the actual metadata values.
+
+For more detailed information on configuring and using metadata within processors and postprocessors, please refer
+to the [**Mergemeta**](docs/pipeline/processors/mergemeta.mdx) section.
+
+## Basics usage
+
+<Tabs>
+  <TabItem value="json" label="Pipeline" default>
+    ```json title="pipeline.json"
+    {
+        "metadata": "{\"title\":\"Document Title\",\"author\":\"John Doe\",\"date\":\"2023-10-10\"}",
+        "processors": [
+            {
+                "actionmergemeta": true,
+                "settingsmergemeta": {
+                    "mergenullorempty": false
+                }
+            }
+        ]
+    }
+    ```
+  </TabItem>
+  <TabItem value="input" label="Input">
+    <pre>
+        <b>Title:</b> &#123;&#123; title &#125;&#125;
+        <b>Author:</b> &#123;&#123; author &#125;&#125;
+        <b>Date:</b> &#123;&#123; date &#125;&#125;
+    </pre>
+  </TabItem>
+  <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> Document Title
+        <b>Author:</b> John Doe
+        <b>Date:</b> 2023-10-10
+      </pre>
+
+  </TabItem>
+</Tabs>
+
+## Nested Metadata Object
+
+<Tabs>
+    <TabItem value="json" label="Pipeline" default>
+        ```json title="pipeline.json"
+        {
+            "metadata": "{\"document\":{\"title\":\"Document Title\",\"details\":{\"author\":\"Jane Doe\",\"date\":\"2023-10-10\"}}}"
+            "processors": [
+                {
+                    "actionmergemeta": true,
+                    "settingsmergemeta": {
+                        "mergenullorempty": false
+                    }
+                }
+            ]
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input">
+    <pre>
+        <b>Title:</b> &#123;&#123; document.title &#125;&#125;
+        <b>Author:</b> &#123;&#123; document.details.author &#125;&#125;
+        <b>Date:</b> &#123;&#123; document.details.date &#125;&#125;
+    </pre>
+    </TabItem>
+    <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> Document Title
+        <b>Author:</b> Jane Doe
+        <b>Date:</b> 2023-10-10
+      </pre>
+    </TabItem>
+</Tabs>
+
+## Modifying output with filters
+
+The filters are used to modify the output of variables and objects. To apply filters to an output,
+add the filter and any filter parameters within the output's curly brace delimiters, preceded by a pipe character.
+Multiple filters can be used on one output. They’re parsed from left to right.
+
+<Tabs>
+    <TabItem value="json" label="Pipeline">
+        ```json title="pipeline.json"
+        {
+            "metadata": "{\"document\":{\"title\":\"Document Title\"}}",
+            "processors": [
+                {
+                    "actionmergemeta": true,
+                    "settingsmergemeta": {
+                        "mergenullorempty": false
+                    }
+                }
+            ]
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input" default>
+    <pre>
+        <b>Title:</b> &#123;&#123; product.title | upcase | remove: 'TITLE' &#125;&#125;
+    </pre>
+    </TabItem>
+    <TabItem value="output" label="Output">
+      <pre>
+        <b>Title:</b> DOCUMENT
+      </pre>
+    </TabItem>
+</Tabs>
+
+## Extras
+
+The metadata functionality is built on Liquid, a powerful and flexible templating language created by Shopify.
+Liquid allows for sophisticated templating features, enabling the dynamic insertion of metadata values into documents.
+
+For creating more complex solutions with the metadata property, refer to the **[original Liquid documentation](https://shopify.dev/docs/api/liquid#liquid_basics)**.
+It provides comprehensive details on using Liquid's advanced features, including filters, loops,
+and conditionals, to achieve sophisticated templating logic.
+
+:::info
+Make an examples with watermark text or output file name.
+:::

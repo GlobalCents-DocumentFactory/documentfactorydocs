@@ -1,0 +1,29 @@
+---
+sidebar_position: 2
+title: Typical Workflow
+---
+
+# Typical Workflow
+
+A typical DocumentFactory workflow includes the following steps:
+
+- **Install and configure the environment**
+
+Deploy DocumentFactory on a supported platform (Windows, Linux, or Kubernetes), and define the input, output, and data directories during setup.
+
+- **Define processing rules**
+
+Set up transformation parameters using input parameters or configuration files with the Console Client, or define them directly via the Web Client.
+This includes operations such as conversion to PDF, OCR, compression, and more.
+
+- **Submit documents for processing**
+
+Send documents using the Web Client, Console Client, or by placing them into configured input directories. DocumentFactory picks up files automatically based on your setup.
+
+- **Automated transformation**
+
+The engine processes each file according to the defined rules — converting, merging, compressing, applying OCR or watermarks, and saving the result to the output location.
+
+- **Retrieve the output**
+
+Processed documents are saved in the specified output directory or passed along to external systems, depending on the configured workflow.

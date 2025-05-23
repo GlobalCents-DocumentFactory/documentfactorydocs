@@ -1,0 +1,143 @@
+---
+sidebar_position: 2
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+import Link from "@docusaurus/Link";
+
+# Merge
+
+The Document Factory provides a tool for combining multiple document streams or data sources into a single,
+cohesive dataset.
+
+## Properties
+
+### `merge`
+
+The property determines whether the merge process should be part of the pipeline.
+If the `merge` property is set to `true`, it indicates that the input documents will be merged during the execution
+of the pipeline. Set this property to `false` if you prefer to process each original document individually,
+and create a separate output document for each original document.
+
+### `mergesettings`
+
+The `mergesettings` property provides detailed configuration options for the merge process. This is an extension
+that allows for more granular control over how the merge is carried out.
+
+The `mergesettings` property is an object that can have the following properties:
+
+- <Link to="#intermediatepage">`intermediatepage`</Link> - defines whether an intermediate page should be included in the final
+    merged document.
+- <Link to="#namingpattern">`namingpattern`</Link> - defines output document name based on static or dynamic data.
+- <Link to="#settingswordmerge">`settingswordmerge`</Link> - configuration of the merging process for Word documents merging only.
+- <Link to="#saveformat">`saveformat`</Link> - determines which type of merge process should be performed.
+
+#### `namingpattern`
+
+The `namingpattern` property allows to specify the pattern for naming output documents.
+It controls how the names for the output documents are structured. Both static and dynamic metadata-based data
+can be used to build a pattern.
+
+Example:
+```json title="pipeline.json"
+{
+  "metadata": "{\"document_name\":\"Output Document\"}",
+  "merge": true,
+  "mergesettings": {
+    "saveformat": "pdf",
+    "namingpattern": "New {{ document_name }}"
+  }
+}
+```
+
+In this example, the `namingpattern` property is set to `New {{ document_name }}`, indicating that the output documents
+will be named using the specified pattern, where "document_name" will be replaced with an appropriate value
+specified in `metadata`. Adjust the pattern as needed to fit your naming requirements.
+
+:::info
+If naming pattern is not specified, the output
+document name is equal to the name of the first document involved in the merging process.
+:::
+
+#### `saveformat`
+
+The `saveformat` property specifies the format in which the output documents will be saved.
+It also determines the type of merge process to be used, especially when unique settings
+(such as <Link to="#settingswordmerge">`settingswordmerge`</Link>) are involved.
+Can take the following document extension values:
+`doc`, `docx`, `ppt`, `pptx`, `xls`, `xlsx`, `pdf`, `html`, `mhtml`, `gif`, `png`, `jpeg`,`tiff`, `text`.
+
+
+#### `settingswordmerge`
+
+The section provides further choices for flexible configuration of the merging process for Word documents merging only:
+
+
+##### `sectionstart`
+
+The `sectionstart` property allows to define where a new section should begin within the document.
+The possible values for this property are:
+- `Continuous`: The new section starts immediately after the previous one, without any page breaks.
+- `NewColumn`: The new section begins at the top of the next column.
+- `NewPage`: The new section starts at the top of the next page.
+- `EvenPage`: The new section begins on the next even-numbered page. If the current page is even,
+    it will start on the next even page; otherwise, it may insert a blank page if necessary.
+- `OddPage`: The new section starts on the next odd-numbered page. If the current page is odd,
+    it will begin on the following odd page, possibly inserting a blank page if needed.
+
+
+##### `columnset`
+
+The property allows to define the column layout for the document. The possible values for this property include:
+- `none`: The section will have a single-column layout.
+- `twocols`: Allows for the appending of columns from one page to the columns on the next page.
+
+
+##### `linebetweencols`
+
+The property in the pipeline allows to specify whether a vertical line should be drawn between columns in a
+multi-column layout. If the `linebetweencols` property is set to `true`, it indicates that a vertical line
+will be drawn between the columns. Set this property to `false` if you prefer not to have a line between the columns.
+
+
+##### `inheritpagesetup`
+
+The property in the pipeline determines whether the new section should inherit
+the page setup (including margins, paper size, orientation, etc.) from the previous section.
+If the `inheritpagesetup` property is set to `true`, it indicates that the new section will inherit the page
+setup from the previous section. Set this property to `false` if you want the new section to have a distinct page setup.
+
+##### `endpagesectionstart`
+
+This property determines where the last page of the output document starts.
+The possible values for this property are:
+- `Continuous`: The last page appends to the previous page of the document.
+- `NewColumn`: The last page starts at the top of the next column.
+- `NewPage`: The last page starts at the top of the next page.
+- `EvenPage`: The last page starts on the next even-numbered page.
+    If the current page is even, it will start on the next even page; otherwise, it may insert a blank page if necessary.
+- `OddPage`: The last page starts on the next odd-numbered page.
+    If the current page is odd, it will begin on the following odd page, possibly inserting a blank page if needed.
+
+##### `mergetrackchanges`
+
+The property determines whether the track changes (such as insertions, deletions, and format changes if enabled
+in the Word document) should be merged and retained in the output document.
+If the `mergetrackchanges` property is set to `true`,it indicates that the track changes will be merged and retained
+in the output document. Set this property to `false` if you prefer not to include track changes in the merged document.
+
+
+The property in the pipeline specifies whether track changes should be merged and retained at the character level.
+This allows for finer granularity in tracking and merging text changes.
+If the `mergetrackchangescharacterlevel` property is set to `true`, it indicates that track changes will be merged and
+retained at the character level in the output document. Set this property to `false` if you prefer to handle
+track changes at a less granular level.
+
+#### `intermediatepage`
+
+The `intermediatepage` property is used to define whether an intermediate page should be included in the final
+merged document. An intermediate page generally serves as a placeholder or separator when multiple documents
+are being combined. It can be used for various purposes such as indicating transitions, providing page breaks,
+or adding informational content between the merged documents.
+Check out the available setup configurations in the section [**Artifact**](docs/references/artifact.mdx).

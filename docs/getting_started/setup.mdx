@@ -1,0 +1,80 @@
+---
+sidebar_position: 1
+title: Setup
+---
+
+import Link from "@docusaurus/Link";
+import DocImage from '@site/src/components/ImgFeatures/DocImage';
+
+# Installation
+
+## Supported Environments
+
+GCI DocumentFactory is designed to be platform-independent and can be deployed in the following environments:
+
+- Windows (Azure)
+- Linux (various distributions, tested on Ubuntu, CentOS, RHEL)
+- Kubernetes (for containerized, cloud-native deployments)
+
+DocumentFactory supports both on-premise and cloud deployments. Choose the environment that aligns with your
+organization’s infrastructure and scaling needs.
+
+## Downloading the Installer
+
+To get started, visit the official GCI website and log in using your credentials. Once you're signed in, locate
+**DocumentFactory** in the list of available applications or use the search function to find it quickly.
+Be sure to download the installer that matches your environment—for example, **Windows**, **Linux**, or **Kubernetes**.
+Save the installer to your computer to begin the installation process.
+
+## Installation Overview
+This section provides installation instructions for each supported environment. Depending on your platform, follow the relevant guide below:
+
+- <Link to="#Windows Installation">Windows Installation</Link>
+- <Link to="#Linux Installation">Linux Installation</Link>
+- <Link to="#Kubernetes Deployment">Kubernetes Deployment</Link>
+
+### Windows Installation
+Once you've launched the installer, follow the steps in the installation wizard.
+Each step includes a configuration option you may want to review before proceeding.
+
+1. **Accept the License Agreement**
+Review and accept the terms to proceed with the installation.
+
+<DocImage
+    src="setup/install_win_license.png"
+    alt="Installation License Agreement"
+    maxWidth="600px"/>
+
+2. **Select the Installation Location**
+Choose the folder where the application files will be installed. The default path is usually fine.
+
+<DocImage
+    src="setup/install_win_dest_location.png"
+    alt="Installation Destination Location"
+    maxWidth="600px"/>
+
+3. **Select the Data Directory**
+Choose a location where DocumentFactory will store essential runtime data, including necessary resources for the application to function.
+
+<DocImage
+    src="setup/install_win_data_location.png"
+    alt="Installation Data Location"
+    maxWidth="600px"/>
+
+4. **Ready to Install**
+Review your settings. If everything looks correct, click "Install" to begin the installation process.
+
+<DocImage
+    src="setup/install_win_ready_install.png"
+    alt="Installation Install Review"
+    maxWidth="600px"/>
+
+Once the installation is complete, the application files are unpacked into the directories specified during setup.
+Additionally, a Windows service named **GCI DocumentFactory Engine** is created.
+
+This service ensures that the document conversion engine starts automatically and operates continuously in the background,
+enabling automated document processing without requiring manual intervention.
+
+### Linux Installation
+
+### Kubernetes Deployment

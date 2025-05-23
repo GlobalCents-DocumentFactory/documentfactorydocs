@@ -1,0 +1,365 @@
+---
+sidebar_position: 2
+title: Console Client
+---
+import DocImage from '@site/src/components/ImgFeatures/DocImage';
+import Link from "@docusaurus/Link";
+
+# Console Client
+
+`dfclient` is a console application designed to interact with DocumentFactory. It can be installed as a background service
+or used manually to process documents and folders through the command line interface.
+
+It is automatically unpacked during the installation of DocumentFactory and does not require separate installation.
+The executable is placed in the Data Directory, which is specified by the user during the **Select the Data Directory** step
+of the DocumentFactory installation process. This directory also contains additional configuration files required for processing,
+which will be covered in this section.
+
+<DocImage
+    src="clients/client_win_dfclient_location.png"
+    alt="Installation License Agreement"
+    maxWidth="600px"/>
+
+In addition to local installation, dfclient can also be used on a client machine to interact remotely with the DocumentFactory server.
+In this case, the server address must be specified in the configuration file, which will be described later in this section.
+
+## Available Commands and Syntax
+
+```console
+dfclient [command] [flags]
+```
+
+- [command] —  specifies the operation to perform
+- [flags] — optional parameters such as --config or --help
+
+Available commands:
+- <Link to="#help">`help`</Link> -	Displays help for a specific command or general usage information
+- `install` -	Installs the DocumentFactory client as a service
+- `uninstall` -	Uninstalls the DocumentFactory client service
+- `run` -	Runs the client as a background service
+- `process` -	Processes a single document or a batch of documents
+- `processfolders` -	Processes each individual folder in a folder hierarchy
+- `completion` -	Generates an autocompletion script for supported shells
+
+### `help`
+Detailed usage instructions, flags, and command-specific options are available through the --help flag:
+```console
+dfclient --help
+#OR
+dfclient [command] --help
+```
+Example:
+```console
+dfclient process --help
+```
+Provides documentation on how the process command should be used, including available options and required parameters.
+
+### `install`
+
+The `install` command registers the **dfclient** application as a system service.
+Once installed, the service can run in the background to process documents and folders based on the specified configuration.
+
+This command is supported on both Windows and Linux platforms.
+On Windows, it registers the service with the Service Control Manager.
+On Linux, it typically installs the service as a systemd unit.
+
+:::note
+Administrative or root privileges are required to perform this operation.
+:::
+
+Syntax:
+```console
+dfclient install [flags]
+```
+
+Flags:
+- `--config` - (Optional) Path to a configuration file specifying server connection parameters
+- `-h`, `--help` - Displays usage information for the run command
+
+:::note Notes
+- By default, if no configuration file is explicitly specified via the `--config` flag, the application attempts to load
+configuration from the dfclient.env file located in the same directory as the executable.
+:::
+
+Example:
+```console
+dfclient install --config C:\config\dfclient.env
+```
+
+After installation, the service is registered and can be started using standard OS service management tools:
+
+- **Windows**: via the Services console or net start **dfclient**
+
+- **Linux**: via systemctl start **dfclient**
+
+When the service is running, document processing is performed automatically based on configuration file settings.
+For details on configuring server connection, monitored paths, and processing rules, refer to the
+<Link to="#configuration-files">Configuration Files</Link> section.
+
+For environments without persistent service use, it is also possible to run **dfclient** manually via the <Link to="#run">`run`</Link> command.
+
+### `uninstall`
+
+The `uninstall` command removes the system service named GCI DocumentFactory Client.
+This command unregisters the service from the operating system, making it no longer available for background execution.
+
+Supported on both Windows and Linux platforms.
+
+:::note
+Administrative or root privileges are required to perform this operation.
+:::
+
+Example:
+```console
+dfclient uninstall
+```
+
+### `run`
+
+The run command starts the dfclient application in the foreground as a regular process, without registering it as a system service.
+This mode is intended for manual execution, testing, or environments where running as a service is not required or feasible.
+
+While running, the application performs document processing based on the current configuration.
+
+Syntax:
+```console
+dfclient run [flags]
+```
+
+Flags:
+
+- `--config` - (Optional) Path to a configuration file specifying server connection parameters
+- `-h`, `--help` - Displays usage information for the run command
+
+:::note
+ - To stop the process, use standard interrupt signals (e.g., Ctrl+C).
+
+- By default, if no configuration file is explicitly specified via the `--config` flag, the application attempts to load
+configuration from the dfclient.env file located in the same directory as the executable.
+:::
+
+Example:
+```console
+dfclient run --config C:\config\dfclient.env
+```
+### `process`
+
+The process command initiates a one-time processing operation for a single document or a batch of documents.
+This command does not require running the service and is intended for ad-hoc or manual executions.
+
+Syntax:
+```console
+dfclient process [flags]
+```
+
+Flags:
+
+- `-i`, `--input` - Path to the document or folder to be processed (required)
+- `-o`, `--output` - Path to the output folder where processed results will be saved
+- `-e`, `--error` - Path to the error folder where failed documents will be moved
+- `-p`, `--pipeline` - Path to the pipeline definition file (default: pipeline.json)
+- `-m`, `--maxlevel` - Maximum recursion depth for folder processing (default: 3)
+- `-w`, `--watch` - Whether to watch the pipeline status after submission (default: true)
+- `-h`, `--help` - Displays help for the process command
+- `--config` - (Optional) Path to a configuration file specifying server connection parameters
+
+:::note Notes
+- By default, if no configuration file is explicitly specified via the `--config` flag, the application attempts to load
+configuration from the dfclient.env file located in the same directory as the executable.
+:::
+
+Example:
+```console
+dfclient process -i ./input -o ./output -e ./error -p pipeline.json
+```
+
+### `processfolders`
+
+The `processfolders` command performs recursive traversal of a directory tree and submits each encountered folder for
+individual document processing. Each folder is treated as a separate processing unit and processed according
+to the specified pipeline definition.
+
+This command is useful in scenarios where documents are organized into folder-based batches, such as by client, project, or date.
+
+Syntax:
+```console
+dfclient processfolders [flags]
+```
+
+Flags:
+
+- `-i`, `--input` - Path to the folder hierarchy to be processed (required)
+- `-o`, `--output` - (Unused) This flag is accepted but has no effect; output is created alongside each input folder
+- `-p`, `--pipeline` - Path to the pipeline definition file (default: pipeline.json)
+- `-w`, `--watch` - Whether to monitor pipeline status after submission (default: true)
+- `-h`, `--help` - Displays help for the `processfolders` command
+- `--config` - (Optional) Path to a configuration file specifying server connection parameters
+
+:::note Notes
+ - The `--input` parameter must point to a directory. All immediate subfolders (and optionally deeper, if supported) are
+processed individually.
+
+- Output for each folder is created as a sibling to the folder being processed, not in a centralized output directory.
+
+ - By default, if no configuration file is explicitly specified via the `--config` flag, the application attempts to load
+configuration from the `dfclient.env` file located in the same directory as the executable.
+:::
+
+Example:
+```console
+dfclient processfolders -i ./input -p ./pipeline/default.json
+```
+
+### `completion`
+
+The `completion` command generates an autocompletion script for the `dfclient` console application for a specified shell environment.
+The generated script enhances the user experience by providing tab-completion for commands, flags, and arguments in supported shells.
+
+Each supported shell has a dedicated subcommand, and detailed usage instructions are available via the corresponding `--help` option.
+
+Syntax:
+```console
+dfclient completion [shell]
+```
+Supported Shells:
+
+- `bash` - Generates autocompletion script for Bash
+- `zsh` - Generates autocompletion script for Zsh
+- `fish` - Generates autocompletion script for Fish
+- `powershell` - Generates autocompletion script for PowerShell
+
+Flags:
+- `-h`, `--help` - Displays help for the completion command
+
+Example:
+```console
+dfclient completion powershell | Out-String | Invoke-Expression
+```
+Loads completion in your current shell session
+
+:::note Notes
+- For shell-specific instructions on how to load the script, run:
+```console
+dfclient completion [shell] --help
+```
+- Autocompletion must be enabled in the shell configuration for the script to take effect (e.g., ~/.bashrc, ~/.zshrc).
+
+- These scripts are typically used in interactive environments and are not required for scripted or service-based usage.
+:::
+
+## Configuration Files
+
+The **Data Directory**, specified by the user during the **Select the Data Directory step** of the DocumentFactory installation process,
+contains not only the `dfclient` executable but also several configuration files necessary for proper operation and document processing.
+
+The primary configuration files located in this directory include:
+
+- `folderswatch.json` — contains configuration settings that define how folders are monitored and managed during document processing.
+
+- `dfclient.env` — contains environment variables and server connection settings used by dfclient.
+
+- `pipeline.json` — specifies the processing pipeline configuration, detailing the sequence of operations applied to documents.
+
+Further details and usage examples for each configuration file are provided in the sections below.
+
+### folderswatch.json
+The `folderswatch.json` file contains configuration settings that control how the service monitors and processes
+document folders. It defines one or more folder configurations specifying the input directories to watch, where
+to place processed and error documents, the processing pipeline to apply, and other related settings.
+
+Structure example:
+```json
+{
+  "folderConfigs": [
+    {
+      "input": "C:\\temp\\input",
+      "output": "C:\\temp\\output",
+      "error": "C:\\temp\\error",
+      "pipeline": "pipeline.json",
+      "maxLevel": 1,
+      "debounceTimeMillis": 1000
+    }
+  ]
+}
+```
+
+Field descriptions:
+- `folderConfigs` — an array of folder configuration objects. Each object defines settings for one folder monitoring task.
+- `input` — path to the directory that the service monitors for new documents or subfolders to process.
+- `output` — path where successfully processed documents are saved.
+- `error` — path where documents that failed processing are moved.
+- `pipeline` — path to the pipeline definition file that specifies the processing steps to be applied to documents in the corresponding input folder.
+- `maxLevel` — (optional) the maximum recursion depth when processing subfolders within the input directory.
+- `debounceTimeMillis` — (optional) the delay time in milliseconds used to debounce file system events, preventing multiple triggers on rapid changes.
+
+This configuration allows flexible setup for multiple folder monitoring workflows, enabling the service to watch
+different input locations and process documents according to specific pipelines and handling rules.
+
+### dfclient.env
+
+The `dfclient.env` file is an environment configuration file used by `dfclient` to define runtime settings, including
+server connection parameters and other environment-specific options. It follows the standard `dotenv` format, where each
+line defines a key-value pair.
+
+When no configuration file is explicitly provided via the --config flag, **dfclient** attempts to load `dfclient.env`
+from the same directory where the executable resides.
+
+Example structure:
+```console
+NATS_URL=nats://localhost:4222
+NATS_PUBLICKEY=UAWEEECHAJZUZGOOOI6N5TDJK7ZHXYG5IW2SZ6KK7EVHAXAK64RC4ICR
+NATS_PRIVATEKEY=SUAMCB5PRHKKQ44QS674C3UDVUHF2RTPTT2JM3KW4KMDKLYVMN2XQNQYVQ
+NATS_SERVERNAME=nats-server
+NATS_MAX_PENDING=10000
+NATS_INMEMORY=false
+
+MAX_THREADS=12
+
+MINIO_USE_MINIO=false
+MINIO_URL=localhost:9000
+MINIO_ACCESSKEY=documentfactory
+MINIO_SECRETKEY=secretpassword
+MINIO_REGION=us-east-1
+
+LOG_LEVEL=debug
+LOG_FOLDER=logs
+LOG_FORMAT=text
+LOG_STDOUT=true
+```
+
+Common configuration sections:
+- **[**NATS**](/docs/next/getting_started/terminology%20_and_concepts#nats) messaging settings**
+    - `NATS_URL` – Connection URL for the NATS server.
+    - `NATS_PUBLICKEY` - The public NKey used to identify the client to the NATS server. It is included in the authentication
+  process and is matched against the server’s list of allowed keys to determine access permissions (e.g., publish, subscribe).
+  This key is not secret and can safely be shared with the server.
+    - `NATS_PRIVATEKEY` – The private NKey seed used to cryptographically sign authentication challenges issued by the NATS server.
+  This proves the client owns the corresponding public key without exposing the private key itself.
+  This key is highly sensitive and must be kept secret.
+    - `NATS_SERVERNAME` – The expected server name for identity verification.
+    - `NATS_MAX_PENDING` – The maximum number of pending messages allowed.
+    - `NATS_INMEMORY` – Determines the storage backend for NATS JetStream. If set to true, document processing state and message streams
+  are stored in memory using MemoryStorage.If set to false, the client uses file-based storage (FileStorage), persisting data to disk.
+  This setting influences performance and durability trade-offs.
+
+- **Processing configuration**
+    - `MAX_THREADS` – defines the maximum number of processing threads used by the client.
+
+- **MinIO integration**
+    - `MINIO_USE_MINIO` – enables or disables MinIO integration.
+    - `MINIO_URL` – endpoint for MinIO service.
+    - `MINIO_ACCESSKEY`, `MINIO_SECRETKEY` – credentials for accessing the MinIO storage.
+    - `MINIO_REGION` – region configuration for S3-compatible APIs.
+
+- **Logging**
+
+    - `LOG_LEVEL` – sets the log verbosity level (*debug*, *info*, *warn*, *error*, *fatal*).
+    - `LOG_FOLDER` – directory where log files are saved.
+    - `LOG_FORMAT` – format of logs (*text*, *logfmt* or *json*).
+    - `LOG_STDOUT` – whether to also print logs to the console.
+
+This file centralizes all runtime configuration required for standalone or service-based execution, enabling flexible deployment and simplified management.
+
+
+
+

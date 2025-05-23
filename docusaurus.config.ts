@@ -83,7 +83,18 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
+          label: 'Tutorial In Work',
+        },
+        {
+          type: 'docsVersion',
+          position: 'left',
+          to: '/docs/category/getting-started',
           label: 'Tutorial',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          dropdownActiveClassDisabled: true,
         },
         {to: '/blog', label: 'Blog', position: 'left'},
       ],

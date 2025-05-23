@@ -1,0 +1,114 @@
+---
+sidebar_position: 4
+---
+
+import Link from "@docusaurus/Link";
+
+# OCR
+
+The OCR (Optical Character Recognition) feature in Document Factory allows for the conversion of different types
+of documents, such as scanned paper documents, PDFs, or images captured by a digital camera, into editable
+and searchable data. This feature can be activated within the document processing pipeline by setting
+the `actionocr` property to `true` within `processors` or `postprocess` arrays.
+
+## `actionocr`
+
+The `actionocr` property activates the Optical Character Recognition (OCR) feature within the document processing pipeline.
+By setting this property to `true` within the `processors` or `postprocess` arrays, enable the OCR functionality,
+which allows the system to recognize and extract text from images or scanned documents.
+
+## `settingsocr`
+
+Additionally, the `settingsocr` property provides configuration parameters for the OCR action.
+
+The `settingsocr` property can contain the following properties:
+
+- <Link to="#checknotextonly">`checknotextonly`</Link> - defines whether he Document Factory will skip the OCR process for those
+documents that already have the searchable text layer.
+- <Link to="#autorotateimages">`autorotateimages`</Link> - defines whether images in the document should be automatically
+rotated to correct orientation during the OCR process.
+- <Link to="#resolution">`resolution`</Link> - defines the resolution (DPI - Dots Per Inch) to be used for the OCR.
+- <Link to="#ocrdevice">`ocrdevice`</Link> - specifies the OCR device to be used for processing.
+- <Link to="#downscalefactor">`downscalefactor`</Link> - determines the factor by which the original image is downscaled
+before OCR processing.
+
+### `checknotextonly`
+
+The `checknotextonly` property determines whether the Optical Character Recognition (OCR) process should be skipped for
+documents that already contain a searchable text layer. By setting this property to `true`, the Document Factory will bypass
+the OCR process for such documents, thereby optimizing the processing time and efficiency. Conversely, setting this property
+to false will ensure that all documents undergo the OCR process, regardless of whether they already contain a searchable
+text layer.
+
+This property is useful for enhancing the document processing workflow by avoiding redundant OCR operations on documents
+that do not require text recognition, thereby saving resources and time.
+
+### `autorotateimages`
+
+The `autorotateimages` property specifies whether images in the document should be automatically rotated to the correct
+orientation during the OCR process. Enabling this feature ensures that images that may have been scanned or captured at
+an incorrect angle are properly aligned, which can significantly improve the accuracy of text recognition.
+
+Set the `autorotateimages` property to `true` to enable automatic image rotation. This adjustment ensures that
+the OCR process can accurately detect and extract text from images, even if they were originally misaligned.
+If set to false, images will retain their original orientation, which might impact the effectiveness of text recognition
+for incorrectly oriented images.
+
+### `resolution`
+
+The resolution property defines the resolution, measured in DPI (Dots Per Inch), to be used for OCR processing.
+Higher resolution values can enhance the accuracy of text recognition by providing clearer and more detailed images,
+but they may also increase processing time and resource usage.
+
+Use an integer to specify the value for the resolution property. For example, setting the value to 300 specifies
+a resolution of 300 DPI.
+
+Selecting an appropriate resolution value ensures a balance between recognition accuracy and processing efficiency,
+tailored to the specific needs of your document processing workflow.
+
+### `ocrdevice`
+
+The `ocrdevice` property specifies the OCR device to be used for processing. Different OCR devices may offer varied
+capabilities, such as different OCR engines or settings optimized for specific types of documents. By selecting
+the appropriate OCR device, you can enhance the accuracy and efficiency of text recognition.
+
+Setting this property to null will use the default OCR device. The available string options for this property include:
+
+Options:
+- `pdfocr8`: PDF OCR device with 8-bit processing.
+- `pdfocr24`: PDF OCR device with 24-bit processing.
+- `pdfocr32`: PDF OCR device with 32-bit processing.
+
+Choosing the right OCR device ensures that the document processing is tailored to the specific requirements of
+your documents, leveraging the strengths of each OCR device to achieve optimal results.
+
+### `downscalefactor`
+
+The `downscalefactor` property determines the factor by which the original image is downscaled before OCR processing.
+Downscaling can help reduce processing time and resource consumption, however, it may also impact the accuracy of
+text recognition due to the reduction in image detail.
+
+Use an integer to specify the value for the `downscalefactor` property. For example, setting the value to 2 will downscale
+the image by a factor of 2.
+
+Adjusting the `downscalefactor` allows you to balance the trade-off between processing efficiency and recognition accuracy,
+based on the specific requirements of your OCR workflow.
+
+## Example
+
+```json title="pipeline.json"
+{
+    "processors": [
+        {
+            "actionocr": true,
+            "settingsocr": {
+                "checknotextonly": true,
+                "autorotateimages": true,
+                "resolution": 300,
+                "ocrdevice": "pdfocr8",
+                "downscalefactor": 1
+            }
+        }
+    ]
+}
+```

@@ -1,4 +1,8 @@
 {
   "label": "Pipeline",
-  "position": 2
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "This section describes the structure and purpose of the pipeline configuration used by DocumentFactory. \nEach subsection explains the available options in the JSON file and how they control various stages of the document processing workflow."
+  }
 }

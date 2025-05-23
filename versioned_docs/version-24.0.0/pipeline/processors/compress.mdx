@@ -1,0 +1,39 @@
+---
+sidebar_position: 3
+---
+
+# Compress
+
+The Document Factory enables to optimize document workflows by incorporating compression capabilities.
+Compression is a crucial feature that helps reduce the file size of documents, making them more efficient for storage,
+transfer, and distribution. This can be particularly beneficial when dealing with a large number of documents or
+when document storage space and transfer speeds are a concern.
+
+## `actioncompress`
+
+The `actioncompress` property is a boolean flag used within the `processors` or `postprocess` arrays to control whether
+the compression process should be applied to documents. The `actioncompress` property, when set to `true`, enables the
+compression of documents within the specified pipeline stage.
+
+Additional properties for the compression process can be specified in the `settingspdfcompression` property of `settingspdf`.
+These settings allow for detailed control over how compression is applied, including parameters for image downsampling
+and JPEG quality. For more details, see the [**PDF Settings**](docs/pipeline/processors/pdfsettings.mdx) section.
+
+## Example
+
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+      "actioncompress": true,
+      "settingspdf": {
+        "settingspdfcompression": {
+          "compress": true,
+          "downsample": 150,
+          "jpegquality": 50
+        }
+      }
+    }
+  ]
+}
+```

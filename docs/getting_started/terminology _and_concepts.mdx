@@ -1,0 +1,53 @@
+---
+sidebar_position: 3
+title: Terminology & Concepts
+---
+
+# Terminology & Concepts
+
+This section provides definitions and explanations of fundamental terms and concepts used throughout the documentation.
+It serves as a reference point for understanding how DocumentFactory works at a conceptual level.
+
+## Pipeline
+
+A pipeline is the core configuration element that defines how documents are processed in **DocumentFactory**. I
+It specifies the sequence of operations applied to incoming files, enabling a flexible and automated transformation workflow.
+
+The pipeline configuration includes the following logical components:
+
+- **Processors** – define the primary operations on individual files, such as format conversion or Optical Character Recognition (OCR).
+
+- **Merge** – controls whether multiple documents should be combined into a single output file.
+
+- **Postprocessors** – specify actions that are applied after the main processing steps, such as adding watermarks or compressing output files.
+
+```mermaid
+graph LR;
+    doc_1(pdf)-->p_1_1(processor 1)-->p_2_1(processor 2)-->m(Merge)-->r_1(pdf,word,html...)-->pp(postprocessor 1)-->r_2(pdf,word,html...)
+    doc_2(word)-->p_1_2(processor 1)-->p_2_2(processor 2)-->m
+    doc_3(powerpoint)-->p_1_3(processor 1)-->p_2_3(processor 2)-->m
+```
+
+DocumentFactory uses the pipeline to determine exactly what should happen to each document and in what order. Whether converting documents, enhancing them for search, or preparing them for long-term archiving, the pipeline provides a structured and reusable way to define processing rules.
+
+The pipeline is provided as a JSON-formatted input parameter when starting a processing task. It can be created and modified manually or through available user interfaces.
+
+In essence, the pipeline is the central control point that guides document transformation—enabling automation, consistency, and efficiency across all processed content.
+
+## NATS
+**NATS** is a lightweight, high-performance open-source messaging system designed for cloud-native applications,
+IoT messaging, and microservices architectures. It provides a simple and reliable way to exchange messages between
+distributed components with minimal latency.
+
+Within the DocumentFactory ecosystem, NATS serves as the core communication backbone between client applications
+(such as dfclient) and the DocumentFactory server. It enables asynchronous, event-driven message exchange, which allows
+the system to efficiently coordinate document processing tasks, monitor job statuses, and handle inter-service notifications.
+
+By leveraging NATS, DocumentFactory achieves enhanced scalability and resilience. The messaging system supports both
+publish-subscribe and request-reply patterns, making it flexible for various communication scenarios in the document
+processing pipeline.
+
+Additionally, NATS JetStream—its persistence layer—can be configured to store messages either in memory or on disk,
+balancing performance and durability requirements according to deployment needs.
+
+For more information, please visit the official NATS website: [**https://nats.io**](https://nats.io)

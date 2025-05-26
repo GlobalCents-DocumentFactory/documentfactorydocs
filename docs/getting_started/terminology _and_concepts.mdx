@@ -33,21 +33,3 @@ DocumentFactory uses the pipeline to determine exactly what should happen to eac
 The pipeline is provided as a JSON-formatted input parameter when starting a processing task. It can be created and modified manually or through available user interfaces.
 
 In essence, the pipeline is the central control point that guides document transformation—enabling automation, consistency, and efficiency across all processed content.
-
-## NATS
-**NATS** is a lightweight, high-performance open-source messaging system designed for cloud-native applications,
-IoT messaging, and microservices architectures. It provides a simple and reliable way to exchange messages between
-distributed components with minimal latency.
-
-Within the DocumentFactory ecosystem, NATS serves as the core communication backbone between client applications
-(such as dfclient) and the DocumentFactory server. It enables asynchronous, event-driven message exchange, which allows
-the system to efficiently coordinate document processing tasks, monitor job statuses, and handle inter-service notifications.
-
-By leveraging NATS, DocumentFactory achieves enhanced scalability and resilience. The messaging system supports both
-publish-subscribe and request-reply patterns, making it flexible for various communication scenarios in the document
-processing pipeline.
-
-Additionally, NATS JetStream—its persistence layer—can be configured to store messages either in memory or on disk,
-balancing performance and durability requirements according to deployment needs.
-
-For more information, please visit the official NATS website: [**https://nats.io**](https://nats.io)

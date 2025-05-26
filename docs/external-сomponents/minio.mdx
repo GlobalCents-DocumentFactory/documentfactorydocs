@@ -1,0 +1,56 @@
+---
+sidebar_position: 2
+title: MinIO
+---
+
+# MinIO
+
+As an alternative to Nats, MinIO can be used as an object storage server within DocumentFactory.
+
+MinIO is an S3-compatible storage system that integrates with DocumentFactory to store processing data reliably.
+
+## When to Use MinIO
+
+MinIO is particularly suitable in scenarios such as:
+- Handling large document payloads or datasets
+- Ensuring persistent and durable storage beyond the scope of message queues
+- Meeting compliance and archival requirements
+- Integrating with S3-compatible infrastructure or cloud platforms
+
+By using MinIO, DocumentFactory can separate document storage from message processing, which may improve resilience
+and scalability in certain deployment models.
+
+## Installing MinIO
+
+MinIO is open-source and supports multiple platforms. Download the appropriate installer for your system from
+the official [**MinIO**](https://min.io/open-source/download) website and follow the installation instructions.
+
+For detailed information about MinIO, please refer to the [**official documentation**]( https://min.io/docs ).
+
+## MinIO Access Keys
+
+After installing MinIO, a web-based management interface — MinIO Console — becomes available. By default, it can be accessed via:
+```console
+http://localhost:9001
+```
+
+Use the root credentials that were set during installation (usually MINIO_ROOT_USER and MINIO_ROOT_PASSWORD) to log in.
+
+Once logged in:
+1. Navigate to the **"Access Keys"** section.
+
+2. Create a new access key by specifying:
+
+    - Access Key — a unique identifier.
+
+    - Secret Key — a secure password for the key.
+
+3. Save the credentials securely. These keys are used by clients to authenticate and interact with the object storage.
+
+In DocumentFactory and its client applications, if MinIO is selected as the object storage backend, the generated access and secret keys must
+be specified in the configuration file (dfclient.env) using the following parameters:
+
+```console
+MINIO_ACCESSKEY=<your-access-key>
+MINIO_SECRETKEY=<your-secret-key>
+```

@@ -1,0 +1,8 @@
+{
+  "label": "External Components",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "This section covers third-party software and services integrated with DocumentFactory."
+  }
+}

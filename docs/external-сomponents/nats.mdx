@@ -1,0 +1,93 @@
+---
+sidebar_position: 1
+title: Nats
+---
+import DocImage from '@site/src/components/ImgFeatures/DocImage';
+
+# NATS
+
+NATS is a high-performance, lightweight, and open-source messaging system that DocumentFactory uses for
+inter-process communication, coordination, and message persistence. It acts as the backbone for message-based
+communication between the client applications and the core DocumentFactory services.
+
+## Role in DocumentFactory
+
+By default, NATS is used as the primary message store and transport layer. It enables real-time communication and
+event-driven workflows across multiple clients and services. This includes:
+
+- Document submission from client applications to the processing pipeline.
+- Status monitoring and event tracking.
+- Queuing and buffering messages for processing.
+- Distributing workloads across multiple processing nodes.
+
+## Installation and Runtime
+
+NATS is installed automatically with DocumentFactory and does not require separate setup. The nats-server executable
+is extracted into the directory specified during the **Select the Installation Location** step of the DocumentFactory
+installation process.
+
+<DocImage
+    src="external/external_win_nats-server.png"
+    alt="Installation Data Location"
+    maxWidth="600px"/>
+
+The NATS server is launched automatically when DocumentFactory starts, making the messaging infrastructure immediately available.
+
+For more information about NATS and its capabilities, visit the [**official NATS documentation**](https://nats.io).
+
+## Generating NATS Keys
+
+To securely connect DocumentFactory and client applications with the NATS server, a pair of cryptographic keys must be generated:
+a public key and a private key. These keys are used for signing and verifying communication between clients and the NATS server.
+
+During the installation of DocumentFactory, the **nk** executable—a command-line utility provided by the NATS ecosystem—is
+unpacked into the Installation Location specified in the **Select the Installation Location** step of the setup process.
+
+<DocImage
+    src="external/external_win_nk.png"
+    alt="Installation Data Location"
+    maxWidth="600px"/>
+
+### Step-by-Step Key Generation
+
+To generate a new pair of NATS keys, open a terminal in the installation directory and run the following command:
+
+```console
+nk -gen user -pubout
+```
+
+This will generate two keys:
+
+- A public key (e.g., UAXXXXXXXX)
+- A private key (e.g., SAXXXXXXXX)
+
+### Usage in dfclient.env
+The generated keys should be added to the dfclient.env configuration file as follows:
+
+```env title="dfclient.env"
+NATS_PUBLICKEY=UAXXXXXXXX
+NATS_PRIVATEKEY=SAXXXXXXXX
+```
+
+:::note
+Replace the above values with the actual keys
+:::
+
+### Registering the Key in the NATS Server Config
+To authorize the client, the public key must also be registered in the NATS server config.
+
+This step ensures that the server recognizes and accepts incoming connections signed with the corresponding private key.
+
+The NATS server configuration file is typically named `nats.conf` and is located in the same directory as the
+nats-server executable — that is, in the Installation Location specified during the DocumentFactory setup.
+
+Add the generated public key to the list of authorized keys. For example:
+
+```hcl title="nats.conf"
+authorization: {
+   users: [
+    { nkey: UAXXXXXXXX }
+   ]
+}
+```
+After saving the configuration file, restart the NATS server for the changes to take effect.

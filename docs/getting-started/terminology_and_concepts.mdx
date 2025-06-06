@@ -33,3 +33,16 @@ DocumentFactory uses the pipeline to determine exactly what should happen to eac
 The pipeline is provided as a JSON-formatted input parameter when starting a processing task. It can be created and modified manually or through available user interfaces.
 
 In essence, the pipeline is the central control point that guides document transformation—enabling automation, consistency, and efficiency across all processed content.
+
+
+## Workflow
+
+A workflow is the runtime process in which a defined pipeline is applied to actual input data. It represents the execution phase,
+where documents or folder structures are processed step by step according to the pipeline’s logic. Each workflow instance is tied
+to a specific set of input and operates independently to produce results.
+
+## Task
+
+A task is the smallest unit of execution within a workflow. It represents a discrete operation performed on a document
+or a group of documents. During execution, the workflow is decomposed into multiple tasks, one for each combination
+of defined operations and target documents, enabling parallelism and precise control over processing.

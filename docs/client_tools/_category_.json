@@ -1,6 +1,6 @@
 {
   "label": "Client Tools",
-  "position": 3,
+  "position": 5,
   "link": {
     "type": "generated-index",
     "description": "This section describes the available interfaces for interacting with DocumentFactory. It covers both the Web Client and the Console Client, explaining how each can be used to submit documents, apply configurations, and run processing workflows based on your environment and needs."

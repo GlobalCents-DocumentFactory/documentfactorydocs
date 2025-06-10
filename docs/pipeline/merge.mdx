@@ -5,12 +5,14 @@ toc_max_heading_level: 5
 ---
 
 import Link from "@docusaurus/Link";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Merge
 
 The merging stage combines multiple documents or input sources into a single logical unit. This is commonly used
-to group related files—such as cover pages, attachments, and main content—into one structured dataset.
-Merge behavior is defined within the pipeline and can be adjusted to match specific workflow requirements.
+to group related files—such as cover pages, attachments, and main content—into one cohesive and structured dataset.
+The merge behavior is defined within the pipeline configuration and can be customized to fit specific workflow requirements.
 
 ## Properties
 
@@ -21,6 +23,56 @@ If the `merge` property is set to `true`, it indicates that the input documents 
 of the pipeline. Set this property to `false` if you prefer to process each original document individually,
 and create a separate output document for each original document.
 
+:::note
+Enabling the merge property in the pipeline does not automatically convert input documents to a single file type before
+merging. Merging documents of different types (for example, PDF and Word) may lead to processing errors.
+It is recommended to convert all input documents to a common file type (such as PDF) before the merge stage.
+This pre-processing step helps prevent compatibility issues and ensures consistent output.
+:::
+
+Example:
+<Tabs>
+    <TabItem value="json" label="Pipeline" default>
+        ```json title="pipeline.json"
+        {
+            "processors": [
+                {
+                    "actionconvert": true,
+                    "settingsconvert": {
+                    "saveformat": "pdf"
+                },
+                    "settingspdf": {
+                        "pdfformat": "v_1_7"
+                    }
+                }
+            ],
+            "merge": true,
+            "Pipelinesettings":{
+                "Deleteoriginalonsuccess": false
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input">
+        ```console title="input directory"
+        ├── DocumentSet
+            └── Document one.pdf
+            └── Document two.docx
+        ```
+    </TabItem>
+    <TabItem value="output" label="Output">
+        ```console title="input directory"
+        ├── DocumentSet.pdf
+        ```
+    </TabItem>
+</Tabs>
+
+By default, when using the **Console Client**, the resulting merged document takes the name of the directory containing
+the input documents. If multiple directories are involved, the name of the first directory is used as the output file name.
+
+When using the **Web Client**, the resulting merged document is, by default, named after the first input document
+and can be changed during the download process.
+
 ### `mergesettings`
 
 The `mergesettings` property provides detailed configuration options for the merge process. This is an extension
@@ -28,46 +80,7 @@ that allows for more granular control over how the merge is carried out.
 
 The `mergesettings` property is an object that can have the following properties:
 
-- <Link to="#intermediatepage">`intermediatepage`</Link> - defines whether an intermediate page should be included in the final
-    merged document.
-- <Link to="#namingpattern">`namingpattern`</Link> - defines output document name based on static or dynamic data.
 - <Link to="#settingswordmerge">`settingswordmerge`</Link> - configuration of the merging process for Word documents merging only.
-- <Link to="#saveformat">`saveformat`</Link> - determines which type of merge process should be performed.
-
-#### `namingpattern`
-
-The `namingpattern` property allows to specify the pattern for naming output documents.
-It controls how the names for the output documents are structured. Both static and dynamic metadata-based data
-can be used to build a pattern.
-
-Example:
-```json title="pipeline.json"
-{
-  "metadata": "{\"document_name\":\"Output Document\"}",
-  "merge": true,
-  "mergesettings": {
-    "saveformat": "pdf",
-    "namingpattern": "New {{ document_name }}"
-  }
-}
-```
-
-In this example, the `namingpattern` property is set to `New {{ document_name }}`, indicating that the output documents
-will be named using the specified pattern, where "document_name" will be replaced with an appropriate value
-specified in `metadata`. Adjust the pattern as needed to fit your naming requirements.
-
-:::info
-If naming pattern is not specified, the output
-document name is equal to the name of the first document involved in the merging process.
-:::
-
-#### `saveformat`
-
-The `saveformat` property specifies the format in which the output documents will be saved.
-It also determines the type of merge process to be used, especially when unique settings
-(such as <Link to="#settingswordmerge">`settingswordmerge`</Link>) are involved.
-Can take the following document extension values:
-`doc`, `docx`, `ppt`, `pptx`, `xls`, `xlsx`, `pdf`, `html`, `mhtml`, `gif`, `png`, `jpeg`,`tiff`, `text`.
 
 
 #### `settingswordmerge`
@@ -135,10 +148,3 @@ If the `mergetrackchangescharacterlevel` property is set to `true`, it indicates
 retained at the character level in the output document. Set this property to `false` if you prefer to handle
 track changes at a less granular level.
 
-#### `intermediatepage`
-
-The `intermediatepage` property is used to define whether an intermediate page should be included in the final
-merged document. An intermediate page generally serves as a placeholder or separator when multiple documents
-are being combined. It can be used for various purposes such as indicating transitions, providing page breaks,
-or adding informational content between the merged documents.
-Check out the available setup configurations in the section [**Artifact**](docs/references/artifact.mdx).

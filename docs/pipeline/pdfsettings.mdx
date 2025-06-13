@@ -37,15 +37,26 @@ When set to `true`, the PDF documents will be compressed to reduce file size. Se
 
 #### `downsample`
 
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = 150)</code>
+
 The `downsample` property specifies the resolution, in dots per inch (DPI), to which images should be downsampled during
 the compression process. This integer value sets the image resolution to lower the overall file size of the PDF.
-For example, setting this property to 150 will downsample images to 150 DPI.
+For example, if the PDF contains high-resolution images (e.g. 600 dpi), `downsample`: 150 means that these images will be
+downsampled to 150 dpi.
+
+- *Higher DPI (300–600)*: Better for printing, but larger files.
+- *Lower DPI (72–150)*: Good enough for on-screen viewing or archiving.
 
 #### `jpegquality`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = 100)</code>
 
 The `jpegquality` property sets the quality of JPEG images within the PDF after compression, on a scale from 0 to 100.
 This integer value determines the compression quality. Higher values maintain better image quality but result in larger files,
 while lower values reduce image quality for smaller file sizes.
+
+- *Higher values (e.g. 80–100)*: better image quality, but larger file size.
+- *Lower values (e.g. 40–60)*: significantly smaller file size, but noticeable quality degradation.
 
 ### `pdfformat`
 

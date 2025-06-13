@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 toc_min_heading_level: 2
 toc_max_heading_level: 5
 ---
@@ -16,7 +16,9 @@ The merge behavior is defined within the pipeline configuration and can be custo
 
 ## Properties
 
-### `merge`
+## `merge`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
 The property determines whether the merge process should be part of the pipeline.
 If the `merge` property is set to `true`, it indicates that the input documents will be merged during the execution
@@ -46,10 +48,7 @@ Example:
                     }
                 }
             ],
-            "merge": true,
-            "Pipelinesettings":{
-                "Deleteoriginalonsuccess": false
-            }
+            "merge": true
         }
         ```
     </TabItem>
@@ -75,6 +74,8 @@ and can be changed during the download process.
 
 ### `mergesettings`
 
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
+
 The `mergesettings` property provides detailed configuration options for the merge process. This is an extension
 that allows for more granular control over how the merge is carried out.
 
@@ -82,69 +83,36 @@ The `mergesettings` property is an object that can have the following properties
 
 - <Link to="#settingswordmerge">`settingswordmerge`</Link> - configuration of the merging process for Word documents merging only.
 
-
 #### `settingswordmerge`
+
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
 
 The section provides further choices for flexible configuration of the merging process for Word documents merging only:
 
-
 ##### `sectionstart`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
 
 The `sectionstart` property allows to define where a new section should begin within the document.
 The possible values for this property are:
-- `Continuous`: The new section starts immediately after the previous one, without any page breaks.
-- `NewColumn`: The new section begins at the top of the next column.
-- `NewPage`: The new section starts at the top of the next page.
-- `EvenPage`: The new section begins on the next even-numbered page. If the current page is even,
-    it will start on the next even page; otherwise, it may insert a blank page if necessary.
-- `OddPage`: The new section starts on the next odd-numbered page. If the current page is odd,
-    it will begin on the following odd page, possibly inserting a blank page if needed.
-
+- ***Continuous***: The new section starts immediately after the previous one, without any page breaks.
+- ***NewPage***: The new section starts at the top of the next page.
+- ***NewColumn***: The new section begins at the top of the next column.
 
 ##### `columnset`
 
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
 The property allows to define the column layout for the document. The possible values for this property include:
-- `none`: The section will have a single-column layout.
-- `twocols`: Allows for the appending of columns from one page to the columns on the next page.
+- ***none***: The section will have a single-column layout.
+- ***twocols***: Allows for the appending of columns from one page to the columns on the next page.
 
 
 ##### `linebetweencols`
 
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
 The property in the pipeline allows to specify whether a vertical line should be drawn between columns in a
 multi-column layout. If the `linebetweencols` property is set to `true`, it indicates that a vertical line
 will be drawn between the columns. Set this property to `false` if you prefer not to have a line between the columns.
-
-
-##### `inheritpagesetup`
-
-The property in the pipeline determines whether the new section should inherit
-the page setup (including margins, paper size, orientation, etc.) from the previous section.
-If the `inheritpagesetup` property is set to `true`, it indicates that the new section will inherit the page
-setup from the previous section. Set this property to `false` if you want the new section to have a distinct page setup.
-
-##### `endpagesectionstart`
-
-This property determines where the last page of the output document starts.
-The possible values for this property are:
-- `Continuous`: The last page appends to the previous page of the document.
-- `NewColumn`: The last page starts at the top of the next column.
-- `NewPage`: The last page starts at the top of the next page.
-- `EvenPage`: The last page starts on the next even-numbered page.
-    If the current page is even, it will start on the next even page; otherwise, it may insert a blank page if necessary.
-- `OddPage`: The last page starts on the next odd-numbered page.
-    If the current page is odd, it will begin on the following odd page, possibly inserting a blank page if needed.
-
-##### `mergetrackchanges`
-
-The property determines whether the track changes (such as insertions, deletions, and format changes if enabled
-in the Word document) should be merged and retained in the output document.
-If the `mergetrackchanges` property is set to `true`,it indicates that the track changes will be merged and retained
-in the output document. Set this property to `false` if you prefer not to include track changes in the merged document.
-
-
-The property in the pipeline specifies whether track changes should be merged and retained at the character level.
-This allows for finer granularity in tracking and merging text changes.
-If the `mergetrackchangescharacterlevel` property is set to `true`, it indicates that track changes will be merged and
-retained at the character level in the output document. Set this property to `false` if you prefer to handle
-track changes at a less granular level.
 

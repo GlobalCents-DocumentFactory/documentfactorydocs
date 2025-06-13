@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Compress
@@ -9,17 +9,25 @@ Compression is a crucial feature that helps reduce the file size of documents, m
 transfer, and distribution. This can be particularly beneficial when dealing with a large number of documents or
 when document storage space and transfer speeds are a concern.
 
-## `actioncompress`
+## Properties
+
+### `actioncompress`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
 The `actioncompress` property is a boolean flag used within the `processors` or `postprocess` arrays to control whether
 the compression process should be applied to documents. The `actioncompress` property, when set to `true`, enables the
 compression of documents within the specified pipeline stage.
 
-Additional properties for the compression process can be specified in the `settingspdfcompression` property of `settingspdf`.
-These settings allow for detailed control over how compression is applied, including parameters for image downsampling
-and JPEG quality. For more details, see the [**PDF Settings**](docs/pipeline/processors/pdfsettings.mdx) section.
+Compression can be applied to both PDF documents and image formats such as JPEG, PNG, and TIFF. This makes it especially
+useful when working with mixed content workflows that include scanned documents or embedded images.
 
-## Example
+For PDF documents specifically, additional compression settings can be defined using the
+[**`settingspdfcompression`**](./pdfsettings#settingspdfcompression) property inside the [**PDF Settings**](./pdfsettings) object.
+These settings allow for fine-grained control over how compression is applied, including parameters like image downsampling and JPEG quality.
+They are not applicable to image files directly, but rather influence how image content within PDFs is optimized.
+
+### Example
 
 ```json title="pipeline.json"
 {

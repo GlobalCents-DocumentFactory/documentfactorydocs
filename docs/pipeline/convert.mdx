@@ -1,0 +1,99 @@
+---
+sidebar_position: 2
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+import Link from "@docusaurus/Link";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Convert
+
+The Convert action in DocumentFactory transforms input documents from one format to another. This enables seamless
+integration and interoperability across different systems, ensuring documents remain usable and compatible with a wide
+range of tools and platforms.
+This capability is particularly useful for organizations that handle diverse file types and need to normalize them for
+storage, further processing, or delivery.
+
+## Properties
+
+### `actionconvert`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+To enable conversion, set the `actionconvert` property to `true` within either the `processors` or `postprocessors` array
+of the pipeline configuration. This activates the convert step during execution.
+
+### `settingsconvert`
+
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
+
+Additionally, the `settingsconvert` property provides configuration parameters for the Convert action,
+ensuring the output meets predefined requirements
+
+The `settingsconvert` property may include:
+
+- <Link to="#saveformat">`saveformat`</Link>: Specifies the format to which the document should be converted.
+
+#### `saveformat`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+The `saveformat` property specifies the format to which the document should be converted. This property must be set
+to one of the supported format values, ensuring that the document is saved in the desired output format.
+The value for this property should be a string representing the chosen format.
+
+Supported format values:
+
+- `doc`: Microsoft Word Document
+- `docx`: Microsoft Word Open XML Document
+- `ppt`: Microsoft PowerPoint Presentation
+- `pptx`: Microsoft PowerPoint Open XML Presentation
+- `xls`: Microsoft Excel Spreadsheet
+- `xlsx`: Microsoft Excel Open XML Spreadsheet
+- `pdf`: Portable Document Format
+- `html`: HyperText Markup Language
+- `mhtml`: MIME Encapsulation of Aggregate HTML
+- `gif`: Graphics Interchange Format
+- `png`: Portable Network Graphics
+- `jpeg`: Joint Photographic Experts Group
+- `tiff`: Tagged Image File Format
+- `text`: Plain Text
+
+When converting any document format to PDF, DocumentFactory uses PDF version 1.7.
+DocumentFactory also supports converting PDF documents between different PDF versions.
+To convert a PDF to a specific PDF version, specify the desired version in the [**pdfformat**](./pdfsettings#pdfformat)
+property within the [**settingspdf**](./pdfsettings) configuration.
+However, converting a non-PDF document (e.g., DOCX) directly to a specific PDF version is not supported in a single step.
+Instead, this must be done in two stages: first, convert the document to PDF version 1.7 (default), and then run a separate
+PDF-to-PDF conversion to change to the target PDF version.
+
+## Example
+
+<Tabs>
+    <TabItem value="json" label="Pipeline" default>
+        ```json title="pipeline.json"
+        {
+            "processors": [
+                {
+                    "actionconvert": true,
+                    "settingsconvert": {
+                        "saveformat": "pdf"
+                    }
+                }
+            ]
+        }
+        ```
+    </TabItem>
+    <TabItem value="input" label="Input">
+        ```console title="input directory"
+        ├── Document.docx
+        ```
+    </TabItem>
+    <TabItem value="output" label="Output">
+        ```console title="input directory"
+        ├── Document.pdf
+        ```
+    </TabItem>
+</Tabs>

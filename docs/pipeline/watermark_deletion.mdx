@@ -1,0 +1,51 @@
+---
+sidebar_position: 5
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+# Delete Watermark(s)
+
+The Delete Watermark(s) feature in DocumentFactory enables the removal of previously applied watermarks from documents.
+This functionality is useful when a document undergoes multiple processing stages, and temporary or staging watermarks
+need to be cleared before finalization or distribution.
+
+## Properties
+
+### `actiondeletewatermark`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+This feature can be enabled in the document processing pipeline by setting the `actiondeletewatermark` property to `true`
+within the `processors` or `postprocess` arrays.
+
+### `settingsdeletewatermarks`
+
+*Type:* <code style={{ color: '#0066cc' }}>array of strings</code>
+
+This property defines a list of watermark layer names that should be removed from the document. Each string corresponds
+to the [**`layername`**](./watemark#layername) previously used when applying a watermark.
+
+To ensure proper removal, the `layername` must have been explicitly defined during watermark insertion. This allows
+the system to identify and remove only the intended watermark layers, without affecting other content in the document.
+
+## Example
+
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+      "actiondeletewatermark": true,
+      "settingsdeletewatermarks": [
+        "watermark_example"
+      ]
+    }
+  ]
+}
+```
+
+In the example above:
+
+- The `actiondeletewatermark` flag initiates the watermark removal process.
+
+- The `settingsdeletewatermarks` array lists one watermark layer ("watermark_example") to be removed from the document.

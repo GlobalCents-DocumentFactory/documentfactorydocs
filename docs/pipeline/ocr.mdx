@@ -1,23 +1,32 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 import Link from "@docusaurus/Link";
 
 # OCR
 
-The OCR (Optical Character Recognition) feature in Document Factory allows for the conversion of different types
-of documents, such as scanned paper documents, PDFs, or images captured by a digital camera, into editable
-and searchable data. This feature can be activated within the document processing pipeline by setting
-the `actionocr` property to `true` within `processors` or `postprocess` arrays.
+The **OCR (Optical Character Recognition)** feature in DocumentFactory enables the extraction of machine-readable text
+from image-based content such as scanned PDFs or photos. This is particularly useful for processing PDF documents
+that consist of images only—such as those generated from scanned paper files—and converting them into searchable and indexable outputs.
 
-## `actionocr`
+OCR allows such documents to be transformed into editable data that can be archived, searched, or further automated.
+It can be enabled in the document processing pipeline by setting the `actionocr` property to true within either
+the `processors` or `postprocess` arrays.
+
+## Properties
+
+### `actionocr`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
 The `actionocr` property activates the Optical Character Recognition (OCR) feature within the document processing pipeline.
 By setting this property to `true` within the `processors` or `postprocess` arrays, enable the OCR functionality,
 which allows the system to recognize and extract text from images or scanned documents.
 
-## `settingsocr`
+### `settingsocr`
+
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
 
 Additionally, the `settingsocr` property provides configuration parameters for the OCR action.
 
@@ -34,6 +43,8 @@ before OCR processing.
 
 ### `checknotextonly`
 
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
 The `checknotextonly` property determines whether the Optical Character Recognition (OCR) process should be skipped for
 documents that already contain a searchable text layer. By setting this property to `true`, the Document Factory will bypass
 the OCR process for such documents, thereby optimizing the processing time and efficiency. Conversely, setting this property
@@ -44,6 +55,8 @@ This property is useful for enhancing the document processing workflow by avoidi
 that do not require text recognition, thereby saving resources and time.
 
 ### `autorotateimages`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
 The `autorotateimages` property specifies whether images in the document should be automatically rotated to the correct
 orientation during the OCR process. Enabling this feature ensures that images that may have been scanned or captured at
@@ -56,6 +69,8 @@ for incorrectly oriented images.
 
 ### `resolution`
 
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
 The resolution property defines the resolution, measured in DPI (Dots Per Inch), to be used for OCR processing.
 Higher resolution values can enhance the accuracy of text recognition by providing clearer and more detailed images,
 but they may also increase processing time and resource usage.
@@ -67,6 +82,8 @@ Selecting an appropriate resolution value ensures a balance between recognition 
 tailored to the specific needs of your document processing workflow.
 
 ### `ocrdevice`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
 
 The `ocrdevice` property specifies the OCR device to be used for processing. Different OCR devices may offer varied
 capabilities, such as different OCR engines or settings optimized for specific types of documents. By selecting
@@ -83,6 +100,8 @@ Choosing the right OCR device ensures that the document processing is tailored t
 your documents, leveraging the strengths of each OCR device to achieve optimal results.
 
 ### `downscalefactor`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
 
 The `downscalefactor` property determines the factor by which the original image is downscaled before OCR processing.
 Downscaling can help reduce processing time and resource consumption, however, it may also impact the accuracy of

@@ -1,0 +1,465 @@
+---
+sidebar_position: 5
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+import ColorPicker from '@site/src/components/Colors/colorPicker';
+import Link from "@docusaurus/Link";
+
+# Watermark
+
+The Watermark feature in DocumentFactory enables the insertion of visible markers—such as text, images, QR codes,
+or static graphics—into PDF documents and images as part of the processing pipeline. This functionality is commonly
+used for branding, classification, or ensuring the authenticity of generated outputs.
+
+## Properties
+
+### `actionwatermark`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+This feature can be activated within the document processing pipeline by setting the `actionwatermark` property to `true`
+within `processors` or `postprocess` arrays.
+
+### `settingswatermarks`
+
+*Type:* <code style={{ color: '#0066cc' }}>array</code>
+
+The `settingswatermarks` property defines a list of visual elements to be applied to the document during processing.
+It is an array of objects, each describing a separate overlay—such as a text label, image, or QR code.
+Multiple entries can be used to apply several elements within the same document.
+
+Each object may include the following properties:
+
+#### `watermarktype`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+The `watermarktype` property specifies the type of watermark to be applied. This property allows
+to choose from a variety of watermark types, each serving different purposes and providing different visual effects.
+The available options for this property include:
+
+- `Text`: Applies a text-based watermark.
+- `Qrcode`: Applies a QR code as the watermark.
+- `Image`: Applies a general image as the watermark.
+
+#### `layername`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+When a watermark is applied to a document, the build process associates the specified `layername` with the applied watermark.
+In order to delete previous watermarks from a PDF at a later time, this field must be filled out accurately.
+This ensures that the watermarks can be properly identified and removed if necessary.
+
+#### `color`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image</code>
+
+The color property specifies the color of the watermark, helping it blend smoothly with the overall design and aesthetics
+of the document. The value should be a string selected from a predefined palette of available colors using a color picker.
+
+<ColorPicker />
+
+#### `fontfamily`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image</code>
+
+The `fontfamily` property defines the font used for text-based watermarks.
+Its value must correspond to one of the supported font families available in the system:
+
+- `COURIER`
+- `HELVETICA`
+- `TIMES_ROMAN`
+- `SYMBOL`
+- `ZAPFDINGBATS`
+- `UNDEFINED`
+
+#### `fontsize`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `fontsize` property specifies the size of the font for the watermark text. This property allows to set a specific
+font size, giving control over how large or small the watermark text appears on the page.
+
+#### `rotation`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `rotation` property specifies the degree of rotation applied to the watermark on the page, controlling its orientation.
+The rotation value is given in degrees.
+
+A value of 0 means no rotation. Positive values rotate the watermark clockwise, while negative values rotate it counterclockwise.
+
+#### `height`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image, Qrcode</code>
+
+The `height` property sets the vertical size of the watermark on the document page, controlling how tall the watermark
+appears within the document boundaries.
+
+#### `width`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image, Qrcode</code>
+
+The `width` property sets the horizontal size of the watermark on the document page, defining how wide the watermark
+appears within the document boundaries.
+
+#### `text`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `text` property specifies the content displayed as the watermark on the document. It defines the exact text that will
+appear as the watermark.
+
+#### `underlayout`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Qrcode, Image</code>
+
+Specifies whether the watermark should be placed under the document layout.  If the `underlayout` property is set to `true`,
+it indicates that the watermark will be placed under the document content. Set this property to `false` if you want to
+place the watermark over the content.
+
+#### `fontbold`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image</code>
+
+The `fontbold` property specifies whether the watermark text should be bold.
+Bold text is typically used to add emphasis and make the text stand out more prominently within the document.
+If set to `true`, the text will be bold. If set to `false`, the text will be displayed in regular weight.
+
+#### `fontitalic`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image</code>
+
+The `fontitalic` property specifies whether the watermark text should be displayed in italics. If set to `true`, the text
+will be italicized. If set to `false`, the text will be displayed in regular style.
+
+#### `verticalalign`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `verticalalign` property specifies the vertical alignment of the watermark within the document. It determines where
+the watermark will be placed along the vertical axis of the page. The available options for this property include:
+
+- `top`: Positions the watermark at the top of the document.
+- `center`: Places the watermark in the center of the document, evenly balanced between the top and bottom.
+- `bottom`: Aligns the watermark at the bottom of the document.
+
+#### `horizontalalign`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `horizontalalign` property specifies the horizontal alignment of the watermark within the document.
+It determines where the watermark will be placed along the horizontal axis of the page. The available options for this property include:
+
+- `left`: Positions the watermark on the left side of the document.
+- `center`: Places the watermark in the center of the document, evenly balanced between the left and right sides.
+- `right`: Aligns the watermark on the right side of the document.
+
+#### `textverticalposition`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+Specifies the vertical alignment of the text within the watermark area, rather than within the entire document.
+This property controls how the text is positioned along the vertical axis inside the defined watermark dimensions.
+The resulting position may also depend on other configuration parameters that influence layout and spacing.
+
+The available string options for this property include:
+
+- `top`: Places the watermark text at the top of the document.
+- `center`: Centers the watermark text in the middle of the document.
+- `bottom`: Places the watermark text at the bottom of the document.
+
+#### `texthorizontalalign`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+Specifies the horizontal alignment of the text within the watermark area, rather than within the entire document.
+This setting controls how the text is positioned inside the defined dimensions of the watermark element.
+The final position may also be influenced by other configuration parameters that affect placement.
+
+The available string options for this property include:
+
+- `left`: Aligns the watermark text to the left side of the document.
+- `center`: Centers the watermark text in the middle of the document.
+- `right`: Aligns the watermark text to the right side of the document.
+
+#### `border`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+
+The `border` property specifies the thickness of the border around the watermark. This property defines how thick or thin
+the border should be, providing control over its prominence and appearance within the document. The value for
+this property should be a number, representing the measurement of the border's thickness in points.
+
+#### `textmargin`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+The `textmargin` property specifies the margin around the watermark text. This property defines the amount of space
+to be maintained between the watermark text and the edges of its bounding box, with the margin measured in points.
+
+#### `watermarkmarginhorizontal`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `watermarkmarginhorizontal` property specifies the horizontal margin around the watermark. This property defines
+the amount of space to be maintained between the edges of the watermark and the left and right borders of the document,
+determining the horizontal positioning of the watermark within the document. The margin is measured in points.
+
+#### `watermarkmarginvertical`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `watermarkmarginvertical` property specifies the vertical margin around the watermark. This property defines
+the amount of space to be maintained between the edges of the watermark and the top and bottom borders of the document,
+providing control over the vertical positioning of the watermark within the document. The margin is measured in points.
+
+#### `borderradius`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+The `borderradius` property specifies the radius of the corners of the border around the watermark. This property defines
+how rounded or sharp the corners should be, influencing the border’s aesthetic within the document. The measurement is expressed in points.
+
+#### `transparentbackground`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
+
+The `transparentbackground` property determines whether the background of the watermark is visible. When enabled, the area
+behind the watermark remains visible; otherwise, it is covered by a solid background.
+
+#### `watermarkon`
+
+*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `watermarkon` property specifies which pages in the document the watermark should be applied to. This property
+allows for selective watermarking based on predefined options. This property accepts the following options to control
+where the watermark appears:
+
+- `watermarkfirstpage`: Apply the watermark only to the first page of the document.
+- `watermarklastpage`: Apply the watermark only to the last page of the document.
+- `watermarkallpages`: Apply the watermark to all pages of the document.
+
+#### `watermarkfrompage`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `watermarkfrompage` property specifies the starting page number from which the watermark should be applied
+in the document. This property determines the first page that will include the watermark.
+
+#### `watermarktopage`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `watermarktopage` property specifies the ending page number up to which the watermark should be applied in the document.
+This property defines the last page that will include the watermark.
+
+#### `opacity`
+
+*Type:* <code style={{ color: '#0066cc' }}>number</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
+
+The `opacity` property specifies the transparency level of the watermark. This property controls how visible or faint
+the watermark appears on the document. The value for this property should be a number between 0 and 1, where 0 represents
+complete transparency (fully invisible) and 1 represents full opacity (fully visible).
+
+#### `barcodetype`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
+
+The `barcodetype` property specifies the type of barcode to be generated and applied within the document. This property
+allows for selection from a wide range of barcode formats, ensuring compatibility with various standards and use cases.
+This property supports the following options::
+
+- `None`
+- `Pdf417`
+- `MacroPdf417`
+- `GS1DataMatrix`
+- `MicroPdf417`
+- `GS1QR`
+- `MaxiCode`
+- `DotCode`
+- `AustraliaPost`
+- `Postnet`
+- `Planet`
+- `OneCode`
+- `RM4SCC`
+- `Mailmark`
+- `DatabarOmniDirectional`
+- `DatabarTruncated`
+- `DatabarLimited`
+- `DatabarExpanded`
+- `GS1CodablockF`
+- `CodablockF`
+- `UpcaGs1DatabarCoupon`
+- `UpcaGs1Code128Coupon`
+- `DutchKIX`
+- `DataLogic2of5`
+- `Aztec`
+- `Code32`
+- `SwissPostParcel`
+- `AustralianPosteParcel`
+- `SingaporePost`
+- `DatabarStackedOmniDirectional`
+- `DatabarStacked`
+- `DatabarExpandedStacked`
+- `PatchCode`
+- `DataMatrix`
+- `QR`
+- `UPCE`
+- `Code39Standard`
+- `Code39Extended`
+- `Code93Standard`
+- `Code93Extended`
+- `Code128`
+- `GS1Code128`
+- `EAN8`
+- `EAN13`
+- `EAN14`
+- `SCC14`
+- `SSCC18`
+- `UPCA`
+- `Pharmacode`
+- `ISBN`
+- `Code11`
+- `ISSN`
+- `Standard2of5`
+- `Interleaved2of5`
+- `Matrix2of5`
+- `ItalianPost25`
+- `IATA2of5`
+- `ITF14`
+- `ITF6`
+- `MSI`
+- `VIN`
+- `DeutschePostIdentcode`
+- `DeutschePostLeitcode`
+- `OPC`
+- `PZN`
+- `Code16K`
+- `ISMN`
+- `Codabar`
+
+By setting the `barcodetype` property, the appropriate barcode format can be integrated into the document,
+catering to various identification, tracking, and data encoding needs.
+
+#### `displaybarcodetext`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
+
+The `displaybarcodetext` property specifies whether the text representation of the barcode value should be displayed
+below the barcode. This property determines if a human-readable text label will be shown in conjunction with the barcode.
+The value for this property can be either true or false.
+
+#### `barcodezoom`
+
+*Type:* <code style={{ color: '#0066cc' }}>number</code>
+
+*Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
+
+The `barcodezoom` property specifies the scaling factor for the barcode, determining how much the barcode's size should
+be increased or decreased. This property allows for precise control over the barcode dimensions within the document.
+The value for this property should be a number, representing the zoom level.
+
+### Example
+
+ ```json title="pipeline.json"
+    {
+      "processors": [
+        {
+          "actionwatermark": true,
+          "settingswatermarks": [
+            {
+              "text": "Sample Watermark",
+              "layername": "watermark_example",
+              "watermarktype": "Image",
+              "rotation": -25,
+              "fontsize": 60,
+              "fontfamily": "HELVETICA",
+              "width": 600,
+              "height": 150,
+              "color": "Red",
+              "opacity": 0.5,
+              "transparentbackground": true,
+              "underlayout": false,
+              "horizontalalign": "center",
+              "verticalalign": "center",
+              "texthorizontalalign": "center",
+              "textverticalposition": "center",
+              "border": 3,
+              "watermarkmarginhorizontal": 20,
+              "watermarkmarginvertical": 20,
+              "borderadius": 20
+            }
+          ]
+        }
+      ]
+    }
+```
+
+In the example above:
+
+- A watermark is added to the document using the `actionwatermark` processor with custom styling and layout.
+- Displays the string "Sample Watermark" as the watermark content.
+- Positioned centered on the page.
+- Uses red semi-transparent text rotated by -25 degrees.
+- Includes defined margins.
+- Has a border with rounded corners.
+- Features a transparent background.
+- The <Link to="#layername">`layername`</Link> "watermark_example" enables referencing the watermark for removal later.

@@ -10,17 +10,13 @@ The **OCR (Optical Character Recognition)** feature in DocumentFactory enables t
 from image-based content such as scanned PDFs or photos. This is particularly useful for processing PDF documents
 that consist of images only—such as those generated from scanned paper files—and converting them into searchable and indexable outputs.
 
-OCR allows such documents to be transformed into editable data that can be archived, searched, or further automated.
-It can be enabled in the document processing pipeline by setting the `actionocr` property to true within either
-the `processors` or `postprocess` arrays.
-
 ## Properties
 
 ### `actionocr`
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-The `actionocr` property activates the Optical Character Recognition (OCR) feature within the document processing pipeline.
+The `actionocr` setting activates the Optical Character Recognition (OCR) feature within the document processing pipeline.
 By setting this property to `true` within the `processors` or `postprocess` arrays, enable the OCR functionality,
 which allows the system to recognize and extract text from images or scanned documents.
 
@@ -28,9 +24,9 @@ which allows the system to recognize and extract text from images or scanned doc
 
 *Type:* <code style={{ color: '#0066cc' }}>object</code>
 
-Additionally, the `settingsocr` property provides configuration parameters for the OCR action.
+Additionally, the `settingsocr` object provides configuration parameters for the OCR action.
 
-The `settingsocr` property can contain the following properties:
+It may include the following options:
 
 - <Link to="#checknotextonly">`checknotextonly`</Link> - defines whether he Document Factory will skip the OCR process for those
 documents that already have the searchable text layer.
@@ -45,7 +41,7 @@ before OCR processing.
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-The `checknotextonly` property determines whether the Optical Character Recognition (OCR) process should be skipped for
+The `checknotextonly` setting determines whether the Optical Character Recognition (OCR) process should be skipped for
 documents that already contain a searchable text layer. By setting this property to `true`, the Document Factory will bypass
 the OCR process for such documents, thereby optimizing the processing time and efficiency. Conversely, setting this property
 to false will ensure that all documents undergo the OCR process, regardless of whether they already contain a searchable
@@ -54,32 +50,40 @@ text layer.
 This property is useful for enhancing the document processing workflow by avoiding redundant OCR operations on documents
 that do not require text recognition, thereby saving resources and time.
 
-### `autorotateimages`
-
-*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
-
-The `autorotateimages` property specifies whether images in the document should be automatically rotated to the correct
-orientation during the OCR process. Enabling this feature ensures that images that may have been scanned or captured at
-an incorrect angle are properly aligned, which can significantly improve the accuracy of text recognition.
-
-Set the `autorotateimages` property to `true` to enable automatic image rotation. This adjustment ensures that
-the OCR process can accurately detect and extract text from images, even if they were originally misaligned.
-If set to false, images will retain their original orientation, which might impact the effectiveness of text recognition
-for incorrectly oriented images.
-
 ### `resolution`
 
 *Type:* <code style={{ color: '#0066cc' }}>integer</code>
 
-The resolution property defines the resolution, measured in DPI (Dots Per Inch), to be used for OCR processing.
-Higher resolution values can enhance the accuracy of text recognition by providing clearer and more detailed images,
-but they may also increase processing time and resource usage.
+The `resolution` defines the scanning resolution, in DPI (dots per inch), used during OCR processing.
+Higher values provide more detailed images and can improve text recognition accuracy—especially for low-quality scans
+or small fonts. However, increasing the resolution may also lead to longer processing times and higher memory usage.
 
-Use an integer to specify the value for the resolution property. For example, setting the value to 300 specifies
-a resolution of 300 DPI.
+Specify the value as an integer. For example, setting resolution to 300 means the OCR engine will interpret images at 300 DPI.
 
-Selecting an appropriate resolution value ensures a balance between recognition accuracy and processing efficiency,
-tailored to the specific needs of your document processing workflow.
+Recommended values:
+
+- **200 DPI** – minimum acceptable for clear, typed text.
+- **300 DPI** – standard value balancing quality and performance (recommended).
+- **400–600 DPI** – for high-precision OCR (e.g. degraded scans, small fonts).
+- **Over 600 DPI** – rarely necessary; may not yield better results but will slow down processing.
+
+Choosing an appropriate resolution helps balance accuracy and efficiency for your document processing needs.
+
+### `ocrdevice`
+
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
+Specifies the OCR device used for text recognition during document processing. Different OCR devices offer varying
+processing capabilities, such as different color depths or optimized performance for specific document types.
+Selecting the appropriate OCR device helps balance output quality, file size, and processing efficiency.
+
+If set to null, the system will use the default OCR device.
+
+Available options include:
+
+- `pdfocr8` — outputs PDF with 8-bit grayscale images.
+- `pdfocr24` — outputs PDF with 24-bit color images (RGB).
+- `pdfocr32` — outputs PDF with 32-bit color images (CMYK).
 
 ### `ocrdevice`
 
@@ -101,17 +105,24 @@ your documents, leveraging the strengths of each OCR device to achieve optimal r
 
 ### `downscalefactor`
 
-*Type:* <code style={{ color: '#0066cc' }}>integer</code>
+*Type:* <code style={{ color: '#0066cc' }}>integer(1-8)</code>
 
-The `downscalefactor` property determines the factor by which the original image is downscaled before OCR processing.
-Downscaling can help reduce processing time and resource consumption, however, it may also impact the accuracy of
-text recognition due to the reduction in image detail.
+Defines the factor by which the internally rendered image is downscaled before OCR is performed. This helps optimize
+performance by reducing the image resolution passed to the OCR engine, especially when the internal rendering resolution
+(e.g., 600 DPI) exceeds what is typically necessary for accurate text recognition.
 
-Use an integer to specify the value for the `downscalefactor` property. For example, setting the value to 2 will downscale
-the image by a factor of 2.
+For example, if the internal rendering is done at 600 DPI and `downscalefactor` is set to 3, the image passed to OCR
+will be effectively 200 DPI.
 
-Adjusting the `downscalefactor` allows you to balance the trade-off between processing efficiency and recognition accuracy,
-based on the specific requirements of your OCR workflow.
+Usage recommendations:
+
+- **1**: No downscaling (full resolution is used).
+- **2–3**: Common values for balancing speed and accuracy.
+- **4–8**: Use with caution; may significantly reduce OCR accuracy.
+
+:::note
+Values above 8 are not supported.
+:::
 
 ## Example
 
@@ -122,12 +133,19 @@ based on the specific requirements of your OCR workflow.
             "actionocr": true,
             "settingsocr": {
                 "checknotextonly": true,
-                "autorotateimages": true,
                 "resolution": 300,
-                "ocrdevice": "pdfocr8",
+                "ocrdevice": "pdfocr24",
                 "downscalefactor": 1
             }
         }
     ]
 }
 ```
+In the example above:
+
+- OCR is enabled as part of the processing pipeline using the `actionocr` flag.
+- The `checknotextonly` setting tells the system to skip OCR for documents that already include searchable text, which helps
+    save time and resources.
+- OCR will be performed at a resolution of 300 DPI, providing a solid balance between quality and performance for most scanned documents.
+- The selected OCR device is `pdfocr24`, which generates PDFs with 24-bit RGB color depth — a good choice for color documents.
+- No downscaling is applied (downscalefactor: 1), meaning the images are processed at full resolution for optimal recognition accuracy.

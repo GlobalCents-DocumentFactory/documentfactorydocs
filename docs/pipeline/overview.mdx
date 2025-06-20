@@ -3,6 +3,23 @@ sidebar_position: 1
 title: Overview
 ---
 
-:::note
-make overview with basic pipeline
-:::
+# Overview
+
+**Pipeline Actions** define the individual processing steps that are applied to documents within a configured pipeline.
+Each action corresponds to a specific task—such as format conversion, Optical Character Recognition (OCR), watermarking,
+or file compression—and determines how a document is transformed as it moves through the processing workflow.
+
+Actions are grouped under two main arrays in the pipeline configuration:
+- **processors** – the primary actions executed during the main processing phase.
+- **postprocessors** – the actions performed after the core processing is complete, typically used for final enhancements
+    or output adjustments.
+
+Each action is enabled using a dedicated flag (e.g., `actionocr`) and can be supplemented with a corresponding
+configuration object (e.g., `settingsocr`) for more granular control over how the action behaves.
+
+In addition to these actions, the pipeline may also include a `merge` directive, which determines whether multiple input
+documents should be combined into a single output file before postprocessing. This allows for advanced document composition
+and batch processing scenarios.
+
+Together, these components enable the creation of flexible, automated, and reusable workflows that can handle diverse
+document processing requirements with consistency and efficiency.

@@ -29,7 +29,7 @@ of the pipeline configuration. This activates the convert step during execution.
 
 *Type:* <code style={{ color: '#0066cc' }}>object</code>
 
-Additionally, the `settingsconvert` property provides configuration parameters for the Convert action,
+Additionally, the `settingsconvert` defines configuration parameters for the Convert action,
 ensuring the output meets predefined requirements
 
 The `settingsconvert` property may include:
@@ -38,11 +38,9 @@ The `settingsconvert` property may include:
 
 #### `saveformat`
 
-*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
 
-The `saveformat` property specifies the format to which the document should be converted. This property must be set
-to one of the supported format values, ensuring that the document is saved in the desired output format.
-The value for this property should be a string representing the chosen format.
+The `saveformat` property defines the target format for saving the document, which should be one of the supported options.
 
 Supported format values:
 

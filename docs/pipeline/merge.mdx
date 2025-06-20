@@ -20,7 +20,7 @@ The merge behavior is defined within the pipeline configuration and can be custo
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-The property determines whether the merge process should be part of the pipeline.
+Determines whether the merge process should be part of the pipeline.
 If the `merge` property is set to `true`, it indicates that the input documents will be merged during the execution
 of the pipeline. Set this property to `false` if you prefer to process each original document individually,
 and create a separate output document for each original document.
@@ -41,8 +41,8 @@ Example:
                 {
                     "actionconvert": true,
                     "settingsconvert": {
-                    "saveformat": "pdf"
-                },
+                        "saveformat": "pdf"
+                    },
                     "settingspdf": {
                         "pdfformat": "v_1_7"
                     }
@@ -76,8 +76,8 @@ and can be changed during the download process.
 
 *Type:* <code style={{ color: '#0066cc' }}>object</code>
 
-The `mergesettings` property provides detailed configuration options for the merge process. This is an extension
-that allows for more granular control over how the merge is carried out.
+Provides detailed configuration options for the merge process. This is an extension that allows for more granular control
+over how the merge is carried out.
 
 The `mergesettings` property is an object that can have the following properties:
 
@@ -103,7 +103,7 @@ The possible values for this property are:
 
 *Type:* <code style={{ color: '#0066cc' }}>string</code>
 
-The property allows to define the column layout for the document. The possible values for this property include:
+Specifies the column layout for the document. The possible values for this property include:
 - ***none***: The section will have a single-column layout.
 - ***twocols***: Allows for the appending of columns from one page to the columns on the next page.
 
@@ -112,7 +112,6 @@ The property allows to define the column layout for the document. The possible v
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-The property in the pipeline allows to specify whether a vertical line should be drawn between columns in a
-multi-column layout. If the `linebetweencols` property is set to `true`, it indicates that a vertical line
-will be drawn between the columns. Set this property to `false` if you prefer not to have a line between the columns.
+Indicates whether a vertical line should be drawn between columns in a multi-column layout.
+If set to `true`, a vertical line will appear between columns. Set this property to `false` to disables the line.
 

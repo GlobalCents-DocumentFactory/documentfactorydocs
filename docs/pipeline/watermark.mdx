@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 toc_min_heading_level: 2
 toc_max_heading_level: 5
 ---
@@ -19,8 +19,9 @@ used for branding, classification, or ensuring the authenticity of generated out
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-This feature can be activated within the document processing pipeline by setting the `actionwatermark` property to `true`
-within `processors` or `postprocess` arrays.
+The `actionwatermark` setting activates the watermarking feature within the document processing pipeline.
+By setting this property to `true` within the `processors` or `postprocessors` arrays, the system applies a watermark
+to documents according to the specified parameters.
 
 ### `settingswatermarks`
 
@@ -70,8 +71,8 @@ The value should be chosen from a predefined palette via a color picker.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image</code>
 
-The `fontfamily` property defines the font used for text-based watermarks.
-Its value must correspond to one of the supported font families available in the system:
+Defines the font used for text-based watermarks. Its value must correspond to one of the supported font families
+available in the system:
 
 - `COURIER`
 - `HELVETICA`
@@ -123,7 +124,7 @@ appears within the document boundaries.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
 
-The `text` property specifies the content displayed as the watermark on the document. It defines the exact text that will
+Specifies the content displayed as the watermark on the document. It defines the exact text that will
 appear as the watermark.
 
 #### `underlayout`
@@ -132,7 +133,7 @@ appear as the watermark.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Qrcode, Image</code>
 
-Specifies whether the watermark should be placed under the document layout.  If the `underlayout` property is set to `true`,
+Determines whether the watermark should be placed under the document layout.  If the `underlayout` property is set to `true`,
 it indicates that the watermark will be placed under the document content. Set this property to `false` if you want to
 place the watermark over the content.
 
@@ -235,9 +236,9 @@ Sets the margin around the watermark text, defining space between the text and t
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
 
-The `watermarkmarginhorizontal` property specifies the horizontal margin around the watermark. It defines
-the amount of space to be maintained between the edges of the watermark and the left and right borders of the document,
-determining the horizontal positioning of the watermark within the document. The margin is measured in points.
+Determines the horizontal margin around the watermark, defining the amount of space between the edges of the watermark
+and the left and right borders of the document. This setting controls the horizontal positioning of the watermark within
+the document, with the margin measured in points.
 
 #### `watermarkmarginvertical`
 
@@ -245,9 +246,9 @@ determining the horizontal positioning of the watermark within the document. The
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
 
-The `watermarkmarginvertical` property specifies the vertical margin around the watermark. It defines
-the amount of space to be maintained between the edges of the watermark and the top and bottom borders of the document,
-providing control over the vertical positioning of the watermark within the document. The margin is measured in points.
+Determines the vertical margin around the watermark, defining the space between the edges of the watermark and the top
+and bottom borders of the document. This controls the vertical positioning of the watermark within the document,
+with the margin measured in points.
 
 #### `borderradius`
 
@@ -255,7 +256,7 @@ providing control over the vertical positioning of the watermark within the docu
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
 
-Determines how rounded the watermark border corners are, measured in points.
+Defines the degree of rounding for the watermark border corners, measured in points.
 
 #### `transparentbackground`
 
@@ -263,8 +264,8 @@ Determines how rounded the watermark border corners are, measured in points.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Image</code>
 
-The `transparentbackground` property determines whether the background of the watermark is visible. When enabled, the area
-behind the watermark remains visible; otherwise, it is covered by a solid background.
+Determines whether the watermark background is transparent. When enabled, the area behind the watermark remains visible.
+Otherwise, it is covered by a solid background.
 
 #### `watermarkon`
 
@@ -302,9 +303,9 @@ last page that will include the watermark.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Text, Image, Qrcode</code>
 
-The `opacity` property specifies the transparency level of the watermark. It controls how visible or faint
-the watermark appears on the document. The value for this property should be a number between 0 and 1, where 0 represents
-complete transparency (fully invisible) and 1 represents full opacity (fully visible).
+Specifies the transparency level of the watermark. It controls how visible or faint the watermark appears on the document.
+The value for this property should be a number between 0 and 1, where 0 represents complete transparency (fully invisible)
+and 1 represents full opacity (fully visible).
 
 #### `barcodetype`
 
@@ -312,7 +313,7 @@ complete transparency (fully invisible) and 1 represents full opacity (fully vis
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
 
-Specifies the type of barcode to be generated and applied within the document. Supports a wide variety of standards and
+Determines the type of barcode to be generated and applied within the document. Supports a wide variety of standards and
 options such as:
 
 - `None`
@@ -393,7 +394,7 @@ catering to various identification, tracking, and data encoding needs.
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
 
-Determines whether the human-readable text representation of the barcode appears below it.
+Specifies whether the human-readable text representation of the barcode appears below it.
 
 #### `barcodezoom`
 
@@ -401,7 +402,7 @@ Determines whether the human-readable text representation of the barcode appears
 
 *Watermark Type:* <code style={{ color: '#0066cc' }}>Qrcode</code>
 
-Specifies the scaling factor for the barcode, adjusting its size inside the document.
+Determines the scaling factor for the barcode, adjusting its size inside the document.
 
 
 

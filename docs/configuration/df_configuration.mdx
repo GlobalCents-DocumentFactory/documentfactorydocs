@@ -9,8 +9,9 @@ import DocImage from '@site/src/components/ImgFeatures/DocImage';
 # Configuration
 
 DocumentFactory relies on a configuration file named `.env` located in the **Installation Directory**, which is specified
-during the installation process (referred to as **Select the Installation Location**). This file defines essential runtime
-parameters that control the behavior of various components such as workflow processing, object storage, and messaging.
+during the [**installation process**](../getting-started/setup#installation-overview) (referred to as **Select the Installation Location**).
+This file defines essential runtime parameters that control the behavior of various components such as workflow processing,
+object storage, and messaging.
 
 
 <DocImage
@@ -54,6 +55,7 @@ Configuration sections:
 - **Environment**
     - `DOTNET_ENVIRONMENT` specifies the environment in which DocumentFactory is running (e.g., Development, Staging, or Production).
   It affects configuration loading, logging levels, and component behavior at runtime.
+  In most cases, this option should be left at its default value unless there is a specific need to change the deployment environment.
 
 - **Workflow Processing Settings**
 
@@ -68,7 +70,7 @@ Configuration sections:
     - `PTFD_WORKFLOWS_SECONDSTIMEOUT` - defines the timeout (in seconds) for an entire workflow.
     Ensures stuck or long-running workflows do not block the system indefinitely.
 
-- **[**MinIO**](../external-сomponents/minio) Integration:** If using MinIO as an external object store, configure its connection parameters here.
+- **MinIO Integration:** If using [**MinIO**](../external-сomponents/minio) as an external object store, configure its connection parameters here.
 
     - `S3_SERVER_START` – Enables or disables the embedded S3-compatible server. Set to true to start the server automatically with DocumentFactory.
 

@@ -26,12 +26,10 @@ which allows the system to recognize and extract text from images or scanned doc
 
 Additionally, the `settingsocr` object provides configuration parameters for the OCR action.
 
-It may include the following options:
+It may include the following properties:
 
 - <Link to="#checknotextonly">`checknotextonly`</Link> - defines whether he Document Factory will skip the OCR process for those
 documents that already have the searchable text layer.
-- <Link to="#autorotateimages">`autorotateimages`</Link> - defines whether images in the document should be automatically
-rotated to correct orientation during the OCR process.
 - <Link to="#resolution">`resolution`</Link> - defines the resolution (DPI - Dots Per Inch) to be used for the OCR.
 - <Link to="#ocrdevice">`ocrdevice`</Link> - specifies the OCR device to be used for processing.
 - <Link to="#downscalefactor">`downscalefactor`</Link> - determines the factor by which the original image is downscaled
@@ -84,24 +82,6 @@ Available options include:
 - `pdfocr8` — outputs PDF with 8-bit grayscale images.
 - `pdfocr24` — outputs PDF with 24-bit color images (RGB).
 - `pdfocr32` — outputs PDF with 32-bit color images (CMYK).
-
-### `ocrdevice`
-
-*Type:* <code style={{ color: '#0066cc' }}>string</code>
-
-The `ocrdevice` property specifies the OCR device to be used for processing. Different OCR devices may offer varied
-capabilities, such as different OCR engines or settings optimized for specific types of documents. By selecting
-the appropriate OCR device, you can enhance the accuracy and efficiency of text recognition.
-
-Setting this property to null will use the default OCR device. The available string options for this property include:
-
-Options:
-- `pdfocr8`: PDF OCR device with 8-bit processing.
-- `pdfocr24`: PDF OCR device with 24-bit processing.
-- `pdfocr32`: PDF OCR device with 32-bit processing.
-
-Choosing the right OCR device ensures that the document processing is tailored to the specific requirements of
-your documents, leveraging the strengths of each OCR device to achieve optimal results.
 
 ### `downscalefactor`
 

@@ -3,6 +3,6 @@
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "This section guides users through the initial steps to set up and begin using DocumentFactory. It covers essential tasks such as installation, basic configuration, and running your first document processing workflow to help you quickly start leveraging the platform’s capabilities."
+    "description": "The Getting Started section provides a quick introduction to using DocumentFactory. It covers installation steps, the typical processing workflow, and key terminology to help understand core concepts from the outset."
   }
 }

@@ -20,51 +20,39 @@ The merge behavior is defined within the pipeline configuration and can be custo
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-Determines whether the merge process should be part of the pipeline.
-If the `merge` property is set to `true`, it indicates that the input documents will be merged during the execution
-of the pipeline. Set this property to `false` if you prefer to process each original document individually,
-and create a separate output document for each original document.
+The `merge` setting enables the document merging feature within the processing pipeline.
+By setting this property to `true`, the system will combine multiple input documents into a single output file during execution.
+Set this property to `false` if you prefer to process each original document individually, and create a separate output
+document for each original document.
 
 :::note
-Enabling the merge property in the pipeline does not automatically convert input documents to a single file type before
-merging. Merging documents of different types (for example, PDF and Word) may lead to processing errors.
+Enabling merging in the pipeline does not automatically convert input documents to a single file format before
+they are combined. Merging documents of different types (for example, PDF and Word) may lead to processing errors.
 It is recommended to convert all input documents to a common file type (such as PDF) before the merge stage.
 This pre-processing step helps prevent compatibility issues and ensures consistent output.
 :::
 
 Example:
-<Tabs>
-    <TabItem value="json" label="Pipeline" default>
-        ```json title="pipeline.json"
+```json title="pipeline.json"
+{
+    "processors": [
         {
-            "processors": [
-                {
-                    "actionconvert": true,
-                    "settingsconvert": {
-                        "saveformat": "pdf"
-                    },
-                    "settingspdf": {
-                        "pdfformat": "v_1_7"
-                    }
-                }
-            ],
-            "merge": true
+            "actionconvert": true,
+            "settingsconvert": {
+                "saveformat": "pdf"
+            }
         }
-        ```
-    </TabItem>
-    <TabItem value="input" label="Input">
-        ```console title="input directory"
-        ├── DocumentSet
-            └── Document one.pdf
-            └── Document two.docx
-        ```
-    </TabItem>
-    <TabItem value="output" label="Output">
-        ```console title="input directory"
-        ├── DocumentSet.pdf
-        ```
-    </TabItem>
-</Tabs>
+    ],
+    "merge": true
+}
+```
+
+In the example above:
+
+- The `actionconvert` property is enabled, triggering the conversion step in the processing pipeline.
+- The `settingsconvert` block specifies that all input documents should be converted to PDF format.
+- The `merge` option is set to `true`, instructing the system to combine the converted documents into a single output file.
+- This configuration is suitable for handling input files in various formats which will first be converted to PDF before being merged.
 
 By default, when using the **Console Client**, the resulting merged document takes the name of the directory containing
 the input documents. If multiple directories are involved, the name of the first directory is used as the output file name.
@@ -76,10 +64,10 @@ and can be changed during the download process.
 
 *Type:* <code style={{ color: '#0066cc' }}>object</code>
 
-Provides detailed configuration options for the merge process. This is an extension that allows for more granular control
-over how the merge is carried out.
+Additionally, the `mergesettings` object provides detailed configuration options for the merge process. This is an
+extension that allows for more granular control over how the merge is carried out.
 
-The `mergesettings` property is an object that can have the following properties:
+The `mergesettings` object may include:
 
 - <Link to="#settingswordmerge">`settingswordmerge`</Link> - configuration of the merging process for Word documents merging only.
 
@@ -93,7 +81,7 @@ The section provides further choices for flexible configuration of the merging p
 
 *Type:* <code style={{ color: '#0066cc' }}>string</code>
 
-The `sectionstart` property allows to define where a new section should begin within the document.
+Defines where a new section should begin within the document.
 The possible values for this property are:
 - ***Continuous***: The new section starts immediately after the previous one, without any page breaks.
 - ***NewPage***: The new section starts at the top of the next page.

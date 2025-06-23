@@ -16,9 +16,9 @@ including input/output directories, maximum concurrency settings, and integratio
 
 2. **Define the Processing Pipeline**
 
-Create one or more pipelines (see [**how to build a pipeline**](../category/pipeline)) that define the sequence
+Create one or more pipelines (see [**how to build a pipeline**](../category/pipeline-actions)) that define the sequence
 of processing steps to apply to incoming documents - see [**pipeline definition**](./terminology_and_concepts#pipeline)
-for more details on what a pipeline is.  Pipelines are managed via the Web Client or defined using configuration files.
+for more details on what a pipeline is.
 
 3. **Trigger Workflows**
 
@@ -33,4 +33,4 @@ The engine executes [**workflows**](./terminology_and_concepts#workflow) by brea
 5. **Store or Deliver Output**
 
 Once processing completes, results are stored in the defined output directory or uploaded to external systems such as
-MinIO (used as an S3-compatible object store). Metadata, logs, and status information are retained for monitoring and auditing purposes.
+[**MinIO**](../external-сomponents/minio) (used as an S3-compatible object store). Metadata, logs, and status information are retained for monitoring and auditing purposes.

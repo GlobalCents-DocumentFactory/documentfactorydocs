@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 toc_max_heading_level: 5
 ---
 
@@ -9,31 +9,29 @@ import Link from "@docusaurus/Link";
 
 ## `settingspdf`
 
-The `settingspdf` property is an auxiliary configuration object used to tailor various PDF generation processes such
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
+
+The `settingspdf` is an auxiliary configuration object used to tailor various PDF generation processes such
 as conversion, compression, and more. This property is designed to provide additional settings that enhance and customize
 the PDF creation workflow within the Document Factory's document processing pipeline.
 
-The `settingspdf` property can be included within `processors` or `postprocess` arrays to ensure optimal configurations
+The `settingspdf` object can be included within `processors` or `postprocess` arrays to ensure optimal configurations
 for distinct PDF-related tasks. Each section where these settings can be applied will include relevant references
 and links to the corresponding `settingspdf` properties.
 
 ### `settingspdfcompression`
 
-The `settingspdfcompression` property is a configuration object nested within the `settingspdf` property,
-providing a set of parameters specifically for fine-tuning the PDF compression process. This property comes into play
+*Type:* <code style={{ color: '#0066cc' }}>object</code>
+
+The `settingspdfcompression` is a configuration object nested within the `settingspdf`, providing a set of parameters
+specifically for fine-tuning the PDF compression process. This property comes into play
 when the [**actioncompress**](docs/pipeline/processors/compress.mdx) flag is set to `true`, allowing for detailed control
 over how compression is applied to PDFs.
 
 The `settingsmergemeta` property can contain the following properties:
 
-- <Link to="#compress">`compress`</Link> - Indicates whether compression should be applied.
 - <Link to="#downsample">`downsample`</Link> - Specifies the resolution to which images should be downsampled.
 - <Link to="#jpegquality">`jpegquality`</Link> - Determines the quality of JPEG images.
-
-#### `compress`
-
-The compress property determines whether compression should be applied during the PDF generation process.
-When set to `true`, the PDF documents will be compressed to reduce file size. Set this property to `false` to disable compression.
 
 #### `downsample`
 
@@ -60,11 +58,13 @@ while lower values reduce image quality for smaller file sizes.
 
 ### `pdfformat`
 
+*Type:* <code style={{ color: '#0066cc' }}>string</code>
+
 The `pdfformat` property is part of the `settingspdf` configuration object. It allows users to specify the desired
-PDF format for generated documents, such as during the [**conversion**](docs/pipeline/processors/convert.mdx) process,
+PDF format for generated documents, such as during the [**conversion**](./convert.mdx) process,
 ensuring the resulting PDF meets specific format requirements.
 
-The value for this property can be a string or null, with the following options:
+The value for this property can be one of the following options:
 
 - `PDF_A_1A`: PDF/A-1a format for long-term preservation, with full compliance for accessibility.
 - `PDF_A_1B`: PDF/A-1b format for long-term preservation, ensuring basic conformance without full accessibility.

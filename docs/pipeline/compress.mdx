@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Compress
 
-The Document Factory enables to optimize document workflows by incorporating compression capabilities.
+The DocumentFactory enables to optimize document workflows by incorporating compression capabilities.
 Compression is a crucial feature that helps reduce the file size of documents, making them more efficient for storage,
 transfer, and distribution. This can be particularly beneficial when dealing with a large number of documents or
 when document storage space and transfer speeds are a concern.
@@ -15,15 +15,15 @@ when document storage space and transfer speeds are a concern.
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-The `actioncompress` property is a boolean flag used within the `processors` or `postprocess` arrays to control whether
-the compression process should be applied to documents. The `actioncompress` property, when set to `true`, enables the
-compression of documents within the specified pipeline stage.
+The `actioncompress` setting enables the document compression feature within the processing pipeline.
+By setting this property to `true` within the processors or postprocessors arrays, the system will automatically apply
+compression to documents during execution—reducing file size and improving storage efficiency or transmission speed.
 
 Compression can be applied to both PDF documents and image formats such as JPEG, PNG, and TIFF. This makes it especially
 useful when working with mixed content workflows that include scanned documents or embedded images.
 
 For PDF documents specifically, additional compression settings can be defined using the
-[**`settingspdfcompression`**](./pdfsettings#settingspdfcompression) property inside the [**PDF Settings**](./pdfsettings) object.
+[**`settingspdfcompression`**](./pdfsettings#settingspdfcompression) property inside the [**settingspdf**](./pdfsettings) object.
 These settings allow for fine-grained control over how compression is applied, including parameters like image downsampling and JPEG quality.
 They are not applicable to image files directly, but rather influence how image content within PDFs is optimized.
 
@@ -36,7 +36,6 @@ They are not applicable to image files directly, but rather influence how image 
       "actioncompress": true,
       "settingspdf": {
         "settingspdfcompression": {
-          "compress": true,
           "downsample": 150,
           "jpegquality": 50
         }
@@ -45,3 +44,9 @@ They are not applicable to image files directly, but rather influence how image 
   ]
 }
 ```
+In the example above:
+
+- The `actioncompress` property is set to true, enabling document compression during processing.
+- The `settingspdf` object contains a `settingspdfcompression` section, which defines specific compression parameters:
+    - `downsample`: 150 reduces the resolution of images within the PDF to 150 DPI.
+    - `jpegquality`: 50 sets the JPEG image quality to 50%, balancing visual fidelity with file size reduction.

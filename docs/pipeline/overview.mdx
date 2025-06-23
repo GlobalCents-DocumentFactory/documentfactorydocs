@@ -14,8 +14,8 @@ Actions are grouped under two main arrays in the pipeline configuration:
 - **postprocessors** – the actions performed after the core processing is complete, typically used for final enhancements
     or output adjustments.
 
-Each action is enabled using a dedicated flag (e.g., `actionocr`) and can be supplemented with a corresponding
-configuration object (e.g., `settingsocr`) for more granular control over how the action behaves.
+Each action is enabled using a dedicated flag (e.g., `actionconvert`) and can be supplemented with a corresponding
+configuration object (e.g., `actionconvert`) for more granular control over how the action behaves.
 
 In addition to these actions, the pipeline may also include a `merge` directive, which determines whether multiple input
 documents should be combined into a single output file before postprocessing. This allows for advanced document composition

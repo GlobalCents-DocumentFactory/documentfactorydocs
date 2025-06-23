@@ -22,17 +22,18 @@ storage, further processing, or delivery.
 
 *Type:* <code style={{ color: '#0066cc' }}>boolean</code>
 
-To enable conversion, set the `actionconvert` property to `true` within either the `processors` or `postprocessors` array
-of the pipeline configuration. This activates the convert step during execution.
+The `actionconvert` setting activates the document conversion feature within the processing pipeline.
+By setting this property to `true` within the processors or postprocessors arrays, the system will automatically convert
+documents to the desired output format during execution.
 
 ### `settingsconvert`
 
 *Type:* <code style={{ color: '#0066cc' }}>object</code>
 
-Additionally, the `settingsconvert` defines configuration parameters for the Convert action,
+Additionally, the `settingsconvert` object provides configuration parameters for the Convert action,
 ensuring the output meets predefined requirements
 
-The `settingsconvert` property may include:
+The `settingsconvert` object may include:
 
 - <Link to="#saveformat">`saveformat`</Link>: Specifies the format to which the document should be converted.
 
@@ -69,29 +70,21 @@ PDF-to-PDF conversion to change to the target PDF version.
 
 ## Example
 
-<Tabs>
-    <TabItem value="json" label="Pipeline" default>
-        ```json title="pipeline.json"
+```json title="pipeline.json"
+{
+    "processors": [
         {
-            "processors": [
-                {
-                    "actionconvert": true,
-                    "settingsconvert": {
-                        "saveformat": "pdf"
-                    }
-                }
-            ]
+            "actionconvert": true,
+            "settingsconvert": {
+                "saveformat": "pdf"
+            }
         }
-        ```
-    </TabItem>
-    <TabItem value="input" label="Input">
-        ```console title="input directory"
-        ├── Document.docx
-        ```
-    </TabItem>
-    <TabItem value="output" label="Output">
-        ```console title="input directory"
-        ├── Document.pdf
-        ```
-    </TabItem>
-</Tabs>
+    ]
+}
+```
+In the example above:
+
+- The `actionconvert` property is set to true, enabling the Convert action in the processing pipeline.
+- The `settingsconvert` object is defined to provide additional configuration.
+- The `saveformat` property is set to "pdf", indicating that the input document should be converted to PDF format.
+- During execution, DocumentFactory will automatically convert the input file to PDF version 1.7.

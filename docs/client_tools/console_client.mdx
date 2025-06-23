@@ -7,13 +7,13 @@ import Link from "@docusaurus/Link";
 
 # Console Client
 
-`dfclient` is a console application designed to interact with DocumentFactory. It can be installed as a background service
+**dfclient** is a console application designed to interact with DocumentFactory. It can be installed as a background service
 or used manually to process documents and folders through the command line interface.
 
 It is automatically unpacked during the installation of DocumentFactory and does not require separate installation.
 The executable is placed in the Data Directory, which is specified by the user during the **Select the Data Directory** step
-of the DocumentFactory installation process. This directory also contains additional configuration files required for processing,
-which will be covered in this section.
+of the DocumentFactory [**installation process**](../getting-started/setup#installation-overview). This directory also
+contains additional configuration files required for processing, which will be covered in this section.
 
 <DocImage
     src="clients/client_win_dfclient_location.png"
@@ -33,13 +33,13 @@ dfclient [command] [flags]
 - [flags] — optional parameters such as --config or --help
 
 Available commands:
-- <Link to="#help">`help`</Link> -	Displays help for a specific command or general usage information
-- `install` -	Installs the DocumentFactory client as a service
-- `uninstall` -	Uninstalls the DocumentFactory client service
-- `run` -	Runs the client as a background service
-- `process` -	Processes a single document or a batch of documents
-- `processfolders` -	Processes each individual folder in a folder hierarchy
-- `completion` -	Generates an autocompletion script for supported shells
+- <Link to="#help">`help`</Link> - Displays help for a specific command or general usage information
+- <Link to="#install">`install`</Link> - Installs the DocumentFactory client as a service
+- <Link to="#uninstall">`uninstall`</Link> - Uninstalls the DocumentFactory client service
+- <Link to="#run">`run`</Link> - Runs the client as a background service
+- <Link to="#process">`process`</Link> - Processes a single document or a batch of documents
+- <Link to="#processfolders">`processfolders`</Link> - Processes each individual folder in a folder hierarchy
+- <Link to="#completion">`completion`</Link> - Generates an autocompletion script for supported shells
 
 ### `help`
 Detailed usage instructions, flags, and command-specific options are available through the --help flag:
@@ -263,7 +263,7 @@ The primary configuration files located in this directory include:
 Further details and usage examples for each configuration file are provided in the sections below.
 
 ### folderswatch.json
-The `folderswatch.json` file contains configuration settings that control how the service monitors and processes
+The *folderswatch.json* file contains configuration settings that control how the service monitors and processes
 document folders. It defines one or more folder configurations specifying the input directories to watch, where
 to place processed and error documents, the processing pipeline to apply, and other related settings.
 
@@ -297,7 +297,7 @@ different input locations and process documents according to specific pipelines 
 
 ### dfclient.env
 
-The `dfclient.env` file is an environment configuration file used by `dfclient` to define runtime settings, including
+The *dfclient.env* file is an environment configuration file used by `dfclient` to define runtime settings, including
 server connection parameters and other environment-specific options. It follows the standard `dotenv` format, where each
 line defines a key-value pair.
 
@@ -330,12 +330,9 @@ LOG_STDOUT=true
 Common configuration sections:
 - **[**NATS**](/docs/next/getting_started/terminology%20_and_concepts#nats) messaging settings**
     - `NATS_URL` – Connection URL for the NATS server.
-    - `NATS_PUBLICKEY` - The public NKey used to identify the client to the NATS server. It is included in the authentication
-  process and is matched against the server’s list of allowed keys to determine access permissions (e.g., publish, subscribe).
-  This key is not secret and can safely be shared with the server.
-    - `NATS_PRIVATEKEY` – The private NKey seed used to cryptographically sign authentication challenges issued by the NATS server.
-  This proves the client owns the corresponding public key without exposing the private key itself.
-  This key is highly sensitive and must be kept secret.
+    - `NATS_PUBLICKEY`, `NATS_PRIVATEKEY` – NKey credentials used to authenticate the client with the NATS server.
+        These keys can be generated using official NATS tools.
+        See [**How to Generate Access Keys**](../external-сomponents/nats#generating-nats-keys) for instructions.
     - `NATS_SERVERNAME` – The expected server name for identity verification.
     - `NATS_MAX_PENDING` – The maximum number of pending messages allowed.
     - `NATS_INMEMORY` – Determines the storage backend for NATS JetStream. If set to true, document processing state and message streams
@@ -361,6 +358,11 @@ Common configuration sections:
 
 This file centralizes all runtime configuration required for standalone or service-based execution, enabling flexible deployment and simplified management.
 
+### pipeline.json
 
+The *pipeline.json* file defines a sequence of processing steps that dfclient sends to DocumentFactory to be applied
+to the input documents.
+
+For detailed information about the pipeline structure, refer to the [**Pipeline Actions**](../category/pipeline-actions) section.
 
 

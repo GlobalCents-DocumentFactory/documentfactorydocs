@@ -46,3 +46,10 @@ GIT_USER=<user> npm run deploy - macOS
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+
+New docs version:
+
+```cmd
+yarn docusaurus docs:version 1.1.0
+```

@@ -2,6 +2,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const isDev = process.env.NODE_ENV === 'development';
+debugger;
 const config: Config = {
   title: 'Document Factory',
   tagline: 'Document Process Automation',
@@ -46,6 +48,8 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/GlobalCents-DocumentFactory/documentfactorydocs/tree/main/',
+          //includeCurrentVersion: isDev,
+          lastVersion: 'current',
         },
         blog: {
           showReadingTime: true,
@@ -79,12 +83,6 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial In Work',
-        },
         {
           type: 'docsVersion',
           position: 'left',

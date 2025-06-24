@@ -86,7 +86,7 @@ const config: Config = {
         {
           type: 'docsVersion',
           position: 'left',
-          to: '/docs/category/getting-started',
+          to: '/docs/introduction',
           label: 'Tutorial',
         },
         {
@@ -105,7 +105,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/getting-started/overview',
+              to: '/docs/introduction',
             },
           ],
         },

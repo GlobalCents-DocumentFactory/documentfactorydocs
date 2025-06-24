@@ -109,11 +109,11 @@ Configuration sections:
 
   - `NATS_PUBLICKEY` - The public NKey used to identify the client to the NATS server. It is included in the authentication
     process and is matched against the server’s list of allowed keys to determine access permissions (e.g., publish, subscribe).
-    These should be generated using the nk tool. For more details, see the ([**key generation instructions**](../external-сomponents/nats#generating-nats-keys)).
+    These should be generated using the nk tool. For more details, see the ([**key generation instructions**](../external-сomponents/nats#nats-keys)).
 
   - `NATS_PRIVATEKEY` – The private NKey seed used to cryptographically sign authentication challenges issued by the NATS server.
     This proves the client owns the corresponding public key without exposing the private key itself.
-    This key is highly sensitive and must be kept secret. For more details, see the ([**key generation instructions**](../external-сomponents/nats#generating-nats-keys)).
+    This key is highly sensitive and must be kept secret. For more details, see the ([**key generation instructions**](../external-сomponents/nats#nats-keys)).
 
   - `NATS_SERVERNAME` – The expected server name for identity verification.
 

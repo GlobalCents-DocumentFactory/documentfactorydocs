@@ -328,11 +328,11 @@ LOG_STDOUT=true
 ```
 
 Common configuration sections:
-- **[**NATS**](/docs/next/getting_started/terminology%20_and_concepts#nats) messaging settings**
+- **[<u>**NATS**</u>](../external-сomponents/nats) messaging settings**
     - `NATS_URL` – Connection URL for the NATS server.
     - `NATS_PUBLICKEY`, `NATS_PRIVATEKEY` – NKey credentials used to authenticate the client with the NATS server.
         These keys can be generated using official NATS tools.
-        See [**How to Generate Access Keys**](../external-сomponents/nats#generating-nats-keys) for instructions.
+        See [**How to Generate Access Keys**](../external-сomponents/nats#nats-keys) for instructions.
     - `NATS_SERVERNAME` – The expected server name for identity verification.
     - `NATS_MAX_PENDING` – The maximum number of pending messages allowed.
     - `NATS_INMEMORY` – Determines the storage backend for NATS JetStream. If set to true, document processing state and message streams
@@ -342,7 +342,7 @@ Common configuration sections:
 - **Processing configuration**
     - `MAX_THREADS` – defines the maximum number of processing threads used by the client.
 
-- **MinIO integration**
+- **[<u>**MinIO**</u>](../external-сomponents/minio) integration**
     - `MINIO_USE_MINIO` – enables or disables MinIO integration.
     - `MINIO_URL` – endpoint for MinIO service.
     - `MINIO_ACCESSKEY`, `MINIO_SECRETKEY` – credentials for accessing the MinIO storage.Keys can be generated via the MinIO Console.

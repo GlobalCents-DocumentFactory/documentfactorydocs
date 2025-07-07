@@ -1,0 +1,40 @@
+---
+sidebar_position: 9
+---
+
+# Split
+
+The **Split** action is designed to break down a document into smaller, manageable parts based on its internal structure.
+It is useful when individual sections or elements of a document need to be processed separately — for example,
+when splitting reports into per-page files, isolating logical parts of a document, or preparing files for parallel workflows.
+
+This action is supported for the following document types:
+
+- **PDF files** — each page of the original document becomes a separate PDF.
+- **Word documents** — splitting is done by document sections, preserving their structure and formatting.
+- **Image files** — for multi-frame formats (e.g. TIFF), each frame or page is extracted as a separate image.
+
+## Properties
+
+### `actionsplit`
+
+Type: <code style={{ color: '#0066cc' }}>boolean</code>
+
+The `actionsplit` property is a flag that activates the Split action in the processing pipeline. When set to `true`,
+the input document will be automatically divided into separate parts.
+
+This property can be used within the `processors` or `postprocessors` arrays to instruct the system to perform the split
+operation as part of the document processing workflow.
+
+## Example
+
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+      "actionsplit": true
+    }
+  ]
+}
+```
+This configuration tells the DocumentFactory to split the document during processing.

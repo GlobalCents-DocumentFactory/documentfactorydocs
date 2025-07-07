@@ -27,6 +27,19 @@ the official [**MinIO**](https://min.io/open-source/download) website and follow
 
 For detailed information about MinIO, please refer to the [**official documentation**]( https://min.io/docs ).
 
+If using the standalone MinIO binary, it can be placed in the DocumentFactory **Installation Location**, as specified
+during the [**installation process**](../getting-started/setup#installation-overview).
+
+To enable automatic startup of the MinIO service by DocumentFactory, the following setting should be configured in the
+[**.env**](../configuration/df_configuration) file:
+
+```env title=".env"
+S3_SERVER_START=false
+```
+When this setting is enabled, DocumentFactory will start the MinIO service automatically. In this case, the **Data Directory**
+selected during the "Select the Data Directory" step of the [**installation process**](../getting-started/setup#installation-overview)
+will serve as the container for the data directory used by MinIO.
+
 ## MinIO Access Keys
 
 After installing MinIO, a web-based management interface — MinIO Console — becomes available. By default, it can be accessed via:

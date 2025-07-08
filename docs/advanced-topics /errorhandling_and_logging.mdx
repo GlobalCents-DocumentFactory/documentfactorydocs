@@ -1,0 +1,57 @@
+---
+sidebar_position: 1
+title: Error Handling & Logging
+---
+
+# Logging in DocumentFactory
+
+DocumentFactory produces log output that is written to daily log files located in the \logs subdirectory of the directory
+specified by the NATS_SERVER_ROOTFS property in the DocumentFactory configuration
+([**.env**](../configuration/df_configuration). file).
+
+## Log Location
+
+```log
+{NATS_SERVER_ROOTFS}\logs\
+```
+
+A separate log file is created for each day. The file is named using the following format:
+
+```log
+documentfactory-all-YYYY-MM-DD.log
+```
+
+## Log Entry Format
+
+Each log entry includes the following fields, separated by |:
+
+```log
+<timestamp>|<eventId>|<level>|<logger>|<message>
+```
+
+Fields:
+
+- **timestamp** — full timestamp with milliseconds (yyyy-MM-dd HH:mm:ss.ffff)
+- **eventId** — optional identifier of the event (defaults to 0 if not specified)
+- **level** — log level, e.g. DEBUG, INFO, ERROR
+- **logger** — the source component or class
+- **message** — the log message; may include error details
+
+```log
+2025-07-07 10:43:40.5506|0|DEBUG|PTFDEngine.NATSProcessor|Creating bucket jkepo58qh7aqu053ctgg6
+2025-07-07 10:43:40.5506|0|INFO|PTFDEngine.TasksHandler|Updating task zaqr82osjadexcu16mbxa status to Errored - Document processor not found for doctype unknown
+2025-07-07 10:43:40.6299|0|ERROR|PTFDEngine.WorkflowHandler|Document processor not found for doctype unknown
+```
+
+## Log Usage
+
+Log files are useful for:
+
+- Tracking document processing status
+- Debugging workflows and pipelines
+- Error diagnosis and support
+- Operational monitoring
+
+## Additional Notes
+- Logging is configured automatically and does not require manual setup.
+- Log rotation is daily, but retention management (e.g. archiving or deletion) must be handled manually.

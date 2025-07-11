@@ -1,0 +1,154 @@
+---
+sidebar_position: 2
+title: Monitoring with Prometheus
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import DocImage from '@site/src/components/ImgFeatures/DocImage';
+
+# Monitoring with Prometheus
+
+DocumentFactory exposes metrics in a format compatible with [**Prometheus**](https://prometheus.io/), enabling integration with modern monitoring
+and alerting systems.
+
+## What is Prometheus?
+
+Prometheus is an open-source monitoring and alerting toolkit designed for reliability and scalability. It collects metrics
+from configured targets at given intervals, stores them efficiently, and allows powerful queries using the PromQL language.
+Prometheus is widely used for observing application performance, resource usage, and system behavior in real time.
+
+## Setting Up Prometheus to Monitor DocumentFactory
+
+To collect and view DocumentFactory metrics, install Prometheus and configure it to scrape the metrics endpoint exposed
+by the application.
+
+**Basic steps:**
+
+- Install Prometheus on your infrastructure. (Instructions and downloads are available in the official
+    [**Prometheus documentation**](https://prometheus.io/docs/introduction/overview/).)
+- Add a scrape job for DocumentFactory in your `prometheus.yml` configuration file, pointing to the /metrics endpoint (on port 5123).
+- Restart Prometheus to apply the new configuration.
+
+## DocumentFactory Metrics
+
+The DocumentFactory exposes internal metrics via the Prometheus-compatible HTTP endpoint:
+
+```txt
+http://<host>:5123/metrics
+```
+:::note
+On Windows, you may need to grant explicit permissions for the HTTP listener if running as a non-administrator or as a service user.
+This is accomplished using the netsh command:
+
+```powershell
+netsh http add urlacl url=http://+:5123/metrics user=YOUR-DOMAIN\YourUser
+```
+:::
+
+### Service Info Metrics
+
+Exposes static information about the application, including the .NET version, application name, and version.
+
+| Metric Name       | Type  | Labels                                      | Description                                                  |
+|-------------------|-------|---------------------------------------------|--------------------------------------------------------------|
+| `ptfdservice_info`| Gauge | `dotnet_version`, `app_name`, `app_version` | Exposes static application info; value is always set to `1`. |
+
+### Workflow Metrics
+
+Metrics related to workflow executions.
+
+| Metric Name             | Type    | Labels         | Description                                        |
+|-------------------------|---------|----------------|----------------------------------------------------|
+| `ptfd_workflow_counter` | Counter | `workflow_type`| Counts total number of workflow executions.        |
+| `ptfd_workflow_errors`  | Counter | `workflow_type`| Counts number of workflows that resulted in error. |
+| `ptfd_workflow_latency` | Summary | `workflow_type`| Measures workflow execution latency (in ms).       |
+
+#### Label Definitions:
+
+- `workflow_type` – Type of workflow (`Standard` is currently the only value used).
+
+### Artifact Metrics
+
+Metrics related to artifact creation or processing.
+
+| Metric Name              | Type    | Labels                             | Description                                          |
+|--------------------------|---------|------------------------------------|------------------------------------------------------|
+| `ptfd_artifact_counter`  | Counter | `artifact_type`, `artifact_action` | Counts total number of artifact operations.          |
+| `ptfd_artifact_errors`   | Counter | `artifact_type`, `artifact_action` | Counts number of artifact-related errors.            |
+| `ptfd_artifact_latency`  | Summary | `artifact_type`, `artifact_action` | Measures artifact processing latency (in ms).        |
+
+#### Label Definitions
+
+- `artifact_type` – Type of storage used for the artifact (e.g., `nuts`, `s3`, `fs`).
+- `artifact_action` – Type of operation performed: `upload` or `download`.
+
+### Job Metrics
+
+Metrics related to job execution, categorized by job and processor types.
+
+| Metric Name           | Type    | Labels                         | Description                                     |
+|-----------------------|---------|--------------------------------|-------------------------------------------------|
+| `ptfd_job_counter`    | Counter | `job_type`, `job_processortype`| Counts total number of job executions.          |
+| `ptfd_job_errors`     | Counter | `job_type`, `job_processortype`| Counts number of jobs that resulted in an error.|
+| `ptfd_job_latency`    | Summary | `job_type`, `job_processortype`| Measures job execution latency (in ms).         |
+
+#### Label Definitions
+
+- `job_type` – Processing stage of the job, e.g., `Preprocess`, `Postprocess`, `Merge`.
+- `job_processortype` – Name of the processor handling the document, e.g., `pdf`, `word`, `image`.
+
+
+### Document Processor Metrics
+
+Metrics related to document processing operations.
+
+| Metric Name                    | Type    | Labels                                 | Description                                           |
+|--------------------------------|---------|----------------------------------------|-------------------------------------------------------|
+| `ptfd_docprocessor_counter`    | Counter | `processor_type`, `processor_action`   | Counts total number of document processor operations. |
+| `ptfd_docprocessor_errors`     | Counter | `processor_type`, `processor_action`   | Counts number of document processor errors.           |
+| `ptfd_docprocessor_latency`    | Summary | `processor_type`, `processor_action`   | Measures document processor latency (in ms).          |
+
+#### Label Definitions
+
+- `processor_type` – Type of the processor handling the document (e.g., `pdf`, `word`, `image`).
+- `processor_action` – The action performed by the processor, such as `merge`, `convert`, or `watermark`.
+
+
+## Viewing Metrics in Grafana
+
+To visualize and analyze DocumentFactory metrics, Grafana can be used—an open-source analytics and dashboard platform.
+
+**Getting started with Grafana:**
+
+- **Grafana is installed** by following the official [**Grafana documentation**](https://grafana.com/get/).
+- **Prometheus is added** as a data source in Grafana.
+- **Dashboards are created** to visualize key DocumentFactory metrics in the form of charts, tables, and indicators.
+
+Grafana dashboards enable the monitoring of system health, workflow performance, error rates, and latency using
+time series graphs, gauges, tables, and more.
+
+
+**Basic workflow for dashboard creation:**
+
+- In the Grafana interface, **select “+” → “Dashboard”**, then add panels with the necessary metrics.
+- The Prometheus data source is set for each panel, and PromQL queries are entered for each metric of interest.
+- Panels can be arranged and customized as required.
+
+A ready-to-use dashboard JSON file, containing sample panels for DocumentFactory metrics, is available:
+
+<a href={useBaseUrl('/files/grafana-dashboard.json')} download>
+    Download Grafana dashboard JSON
+</a>
+
+This file can be imported in Grafana via **“Dashboards” → “Import”**.
+
+Below is a screenshot illustrating the example dashboard:
+
+<DocImage
+    src="monitoring/grafana_dashboard.png"
+    alt="DF config location"
+    maxWidth="800px"/>
+
+Dashboards and panels can be further edited to provide a more convenient or unique view, depending on project or team requirements.
+
+For more details on customization and advanced configuration, refer to the [**Grafana documentation**](https://grafana.com/docs/).

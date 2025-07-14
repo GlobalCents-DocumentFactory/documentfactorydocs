@@ -24,10 +24,10 @@ by the application.
 
 **Basic steps:**
 
-- Install Prometheus on your infrastructure. (Instructions and downloads are available in the official
+- **Install Prometheus** on your infrastructure. (Instructions and downloads are available in the official
     [**Prometheus documentation**](https://prometheus.io/docs/introduction/overview/).)
-- Add a scrape job for DocumentFactory in your `prometheus.yml` configuration file, pointing to the /metrics endpoint (on port 5123).
-- Restart Prometheus to apply the new configuration.
+- **Add a scrape job** for DocumentFactory in your `prometheus.yml` configuration file, pointing to the /metrics endpoint (on port 5123).
+- **Restart Prometheus** to apply the new configuration.
 
 ## DocumentFactory Metrics
 
@@ -114,25 +114,25 @@ Metrics related to document processing operations.
 - `processor_action` – The action performed by the processor, such as `merge`, `convert`, or `watermark`.
 
 
-## Viewing Metrics in Grafana
+## Using Grafana to Visualize Metrics
 
-To visualize and analyze DocumentFactory metrics, Grafana can be used—an open-source analytics and dashboard platform.
+Grafana is an open-source analytics and dashboard platform that provides powerful visualization capabilities for DocumentFactory metrics.
 
-**Getting started with Grafana:**
+**To view and analyze metrics:**
 
-- **Grafana is installed** by following the official [**Grafana documentation**](https://grafana.com/get/).
-- **Prometheus is added** as a data source in Grafana.
-- **Dashboards are created** to visualize key DocumentFactory metrics in the form of charts, tables, and indicators.
+- Install Grafana by following the official [**Grafana documentation**](https://grafana.com/get/).
+- Add Prometheus as a data source in Grafana.
+- Create dashboards to display key DocumentFactory metrics as charts, tables, and indicators.
 
-Grafana dashboards enable the monitoring of system health, workflow performance, error rates, and latency using
-time series graphs, gauges, tables, and more.
+Grafana dashboards can be used to monitor system health, workflow performance, error rates, and latency, utilizing
+visualization options such as time series graphs, gauges, and tables.
 
 
 **Basic workflow for dashboard creation:**
 
-- In the Grafana interface, **select “+” → “Dashboard”**, then add panels with the necessary metrics.
-- The Prometheus data source is set for each panel, and PromQL queries are entered for each metric of interest.
-- Panels can be arranged and customized as required.
+- In the Grafana interface, **select “+” → “Dashboard”** and add panels with the necessary metrics.
+- For each panel, specify Prometheus as the data source and enter the appropriate PromQL queries for the metrics to be displayed.
+- Panels can be arranged and customized to meet specific monitoring needs.
 
 A ready-to-use dashboard JSON file, containing sample panels for DocumentFactory metrics, is available:
 

@@ -3,21 +3,210 @@
  * and scoped locally.
  */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+/* CSS Variables for Theme Support */
+:root {
+  --hex-stroke: #007acc;
+  --hex-fill: rgba(0, 122, 204, 0.1);
+  --feature-bg: var(--ifm-background-color);
+  --feature-border: var(--ifm-color-emphasis-300);
+  --feature-shadow: var(--ifm-color-emphasis-200);
+  --feature-text: var(--ifm-font-color-base);
+  --feature-description: var(--ifm-color-emphasis-700);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+[data-theme='dark'] {
+  --hex-stroke: #4a9eff;
+  --hex-fill: rgba(74, 158, 255, 0.15);
+  --feature-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Hero Section */
+.heroBanner {
+  position: relative;
+  background: linear-gradient(135deg, var(--ifm-background-color) 0%, var(--ifm-color-emphasis-200) 100%);
+  overflow: hidden;
+  padding: 6rem 2rem;
+}
+
+.heroBanner .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hexagonPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.heroLogo {
+  width: 120px;
+  height: 120px;
+  background: #F9B233;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 20px 40px var(--ifm-color-emphasis-300);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.heroBanner h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--ifm-font-color-base) 0%, #F9B233 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+.heroBanner p {
+  font-size: 1.25rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 auto 2.5rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.learnMoreBtn {
+  background: #F9B233 !important;
+  color: #23272F !important;
+  padding: 1rem 2.5rem !important;
+  border-radius: 12px !important;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(249, 178, 51, 0.3);
+  transition: all 0.3s ease;
+  border: none !important;
+  display: inline-block;
+  width: auto;
+}
+
+.learnMoreBtn:hover {
+  background: #ff7a28 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(249, 178, 51, 0.4);
+}
+
+/* Feature Boxes */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featureBox {
+  background: var(--ifm-background-color);
+  border-radius: 20px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--ifm-color-emphasis-200);
+}
+
+.featureBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F9B233, #4a9eff);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.featureBox:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px var(--ifm-color-emphasis-400);
+}
+
+.featureBox:hover::before {
+  transform: translateX(0);
+}
+
+.featureIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.featureTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--ifm-font-color-base);
+}
+
+.featureDescription {
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroBanner {
+    padding: 4rem 1rem;
+  }
+  
+  .heroBanner h1 {
+    font-size: 2.5rem;
+  }
+  
+  .heroBanner p {
+    font-size: 1.1rem;
+  }
+  
+  .heroLogo {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 4rem 1rem;
+  }
+  
+  .featureBox {
+    padding: 2rem 1.5rem;
+  }
+  
+  .featureIcon {
+    width: 70px;
+    height: 70px;
+  }
 }

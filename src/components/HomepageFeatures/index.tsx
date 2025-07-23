@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
-import styles from './styles.module.css';
+import styles from '@site/src/pages/index.module.css';
 
 type FeatureItem = {
   title: string;
@@ -9,50 +9,47 @@ type FeatureItem = {
 };
 
 const FeatureList: FeatureItem[] = [
-    {
-        title: 'Document Workflow Automation',
-        Svg: require('@site/static/img/home_integration.svg').default,
-        description: (
-            <>
-                Document Factory allows to automatically create, edit, and manage documents without manual intervention,
-                significantly saving time and reducing errors.
-            </>
-        ),
-    },
-    {
-        title: 'Flexible Integration',
-        Svg: require('@site/static/img/home_automation.svg').default,
-        description: (
-            <>
-                The platform easily integrates with other business applications and systems, making it a versatile
-                solution for companies of all sizes.
-            </>
-        ),
-    },
-    {
-        title: 'Flexible Document Management',
-        Svg: require('@site/static/img/home_workflow.svg').default,
-        description: (
-            <>
-                The system enables you to configure document workflow rules, control access, and audit changes.
-                This ensures full control and data security.
-            </>
-        ),
-    }
+  {
+    title: 'Document Workflow Automation',
+    Svg: require('@site/static/img/document-workflow-automation.svg').default,
+    description: (
+      <>
+        Document Factory allows to automatically create, edit, and manage documents 
+        without manual intervention, significantly saving time and reducing errors.
+      </>
+    ),
+  },
+  {
+    title: 'Flexible Integration',
+    Svg: require('@site/static/img/flexible-integration.svg').default,
+    description: (
+      <>
+        The platform easily integrates with other business applications and systems, 
+        making it a versatile solution for companies of all sizes.
+      </>
+    ),
+  },
+  {
+    title: 'Flexible Document Management',
+    Svg: require('@site/static/img/document-management.svg').default,
+    description: (
+      <>
+        The system enables you to configure document workflow rules, control access, 
+        and audit changes. This ensures full control and data security.
+      </>
+    ),
+  },
 ];
 
-
-
-
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({Svg, title, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={styles.featureBox}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <Svg className={styles.featureIcon} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+        <h3 className={styles.featureTitle}>{title}</h3>
+        <p className={styles.featureDescription}>{description}</p>
       </div>
     </div>
   );
@@ -60,13 +57,11 @@ function Feature({title, Svg, description}: FeatureItem) {
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
+    <section>
+      <div className={styles.featuresGrid}>
+        {FeatureList.map((props, idx) => (
+          <Feature key={idx} {...props} />
+        ))}
       </div>
     </section>
   );

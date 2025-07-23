@@ -1,0 +1,46 @@
+<svg viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="80" height="69.28" patternTransform="translate(-20, -10)">
+      <polygon points="40,5.33 66.67,18.67 66.67,45.33 40,58.67 13.33,45.33 13.33,18.67" 
+               fill="none" 
+               stroke="#4a9eff" 
+               stroke-width="1" 
+               opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
+      </polygon>
+      <circle cx="40" cy="32" r="2" fill="#4a9eff" opacity="0.5">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    <!-- Add connecting lines pattern -->
+    <pattern id="connectionLines" patternUnits="userSpaceOnUse" width="80" height="69.28" patternTransform="translate(-20, -10)">
+      <line x1="53.33" y1="24" x2="66.67" y2="18.67" stroke="#4a9eff" stroke-width="0.5" opacity="0.2">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite"/>
+      </line>
+      <line x1="26.67" y1="40" x2="13.33" y2="45.33" stroke="#4a9eff" stroke-width="0.5" opacity="0.2">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/>
+      </line>
+    </pattern>
+  </defs>
+  <!-- Base hexagon pattern -->
+  <rect x="-200" y="-100" width="1800" height="1000" fill="url(#hexPattern)"/>
+  <!-- Connection lines overlay -->
+  <rect x="-200" y="-100" width="1800" height="1000" fill="url(#connectionLines)"/>
+  <!-- Additional centered hexagons for logo area -->
+  <g transform="translate(700, 400)">
+    <polygon points="-40,-23.33 -13.33,-36.67 13.33,-36.67 40,-23.33 40,23.33 13.33,36.67 -13.33,36.67 -40,23.33" 
+             fill="none" 
+             stroke="#4a9eff" 
+             stroke-width="1.5" 
+             opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6s" repeatCount="indefinite"/>
+    </polygon>
+    <polygon points="-60,-34.64 -20,-55.28 20,-55.28 60,-34.64 60,34.64 20,55.28 -20,55.28 -60,34.64" 
+             fill="none" 
+             stroke="#4a9eff" 
+             stroke-width="1" 
+             opacity="0.3">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="7s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+</svg>

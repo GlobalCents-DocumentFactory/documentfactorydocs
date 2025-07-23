@@ -13,15 +13,21 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   const { colorMode } = useColorMode();
 
+    const backgroundImage = colorMode === 'dark'
+        ? 'url("img/hexagon-pattern-dark.svg")'
+        : 'url("img/hexagon-pattern-light.svg")';
+
   return (
-    <header className={clsx(styles.heroBanner)}>
-      <img 
-        src={colorMode === 'dark' ? "/documentfactorydocs/img/hexagon-pattern-dark.svg" : "/documentfactorydocs/img/hexagon-pattern-light.svg"}
-        alt="" 
-        className={styles.hexagonPattern}
-        aria-hidden="true"
-      />
-      
+    <header className={clsx(styles.heroBanner)}
+            style={{
+                position: 'relative',
+                background: `${backgroundImage} repeat center center`,
+                color: '#fff',
+                padding: '96px 0 64px 0',
+                overflow: 'hidden',
+
+            }}
+    >
       <div className="container">
         <div className={styles.heroLogo}>DF</div>
         <h1>DocumentFactory</h1>

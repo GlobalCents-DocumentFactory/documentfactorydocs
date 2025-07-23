@@ -8,22 +8,6 @@ import {useColorMode} from '@docusaurus/theme-common';
 
 import styles from './index.module.css';
 
-// const backgroundImage = colorMode === 'dark'
-//     ? 'url("img/circuit_primary_dark.svg")'
-//     : 'url("img/circuit_primary.svg")';
-// return (
-//     <header
-//         className={clsx(styles.heroBanner)}
-//         style={{
-//             position: 'relative',
-//             background: `${backgroundImage} repeat center center`,
-//             color: '#fff',
-//             padding: '96px 0 64px 0',
-//             overflow: 'hidden',
-//
-//         }}
-//     >
-
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();

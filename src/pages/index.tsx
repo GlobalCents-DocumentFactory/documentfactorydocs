@@ -8,6 +8,22 @@ import {useColorMode} from '@docusaurus/theme-common';
 
 import styles from './index.module.css';
 
+// const backgroundImage = colorMode === 'dark'
+//     ? 'url("img/circuit_primary_dark.svg")'
+//     : 'url("img/circuit_primary.svg")';
+// return (
+//     <header
+//         className={clsx(styles.heroBanner)}
+//         style={{
+//             position: 'relative',
+//             background: `${backgroundImage} repeat center center`,
+//             color: '#fff',
+//             padding: '96px 0 64px 0',
+//             overflow: 'hidden',
+//
+//         }}
+//     >
+
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -15,24 +31,13 @@ function HomepageHeader() {
 
   return (
     <header className={clsx(styles.heroBanner)}>
-      <svg className={styles.hexagonPattern} viewBox="0 0 1400 800">
-        <defs>
-          <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="120" height="104">
-            <polygon points="60,8 94,26 94,62 60,80 26,62 26,26"
-                     fill="none"
-                     stroke="var(--hex-stroke)"
-                     strokeWidth="1"
-                     opacity="0.3">
-              <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
-            </polygon>
-            <circle cx="60" cy="44" r="3" fill="var(--hex-stroke)" opacity="0.5">
-              <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-            </circle>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#hexPattern)"/>
-      </svg>
-
+      <img 
+        src={colorMode === 'dark' ? "/documentfactorydocs/img/hexagon-pattern-dark.svg" : "/documentfactorydocs/img/hexagon-pattern-light.svg"}
+        alt="" 
+        className={styles.hexagonPattern}
+        aria-hidden="true"
+      />
+      
       <div className="container">
         <div className={styles.heroLogo}>DF</div>
         <h1>DocumentFactory</h1>

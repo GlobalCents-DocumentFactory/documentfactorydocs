@@ -1,0 +1,31 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="managementGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a9eff"/>
+      <stop offset="100%" style="stop-color:#f78841"/>
+    </linearGradient>
+  </defs>
+  <!-- Person silhouette -->
+  <circle cx="35" cy="25" r="8" fill="url(#managementGrad)"/>
+  <path d="M35 35 Q30 40 25 50 Q30 55 35 60 Q40 55 45 50 Q40 40 35 35" 
+    fill="url(#managementGrad)"/>
+  <!-- Documents/folders -->
+  <rect x="55" y="20" width="20" height="15" rx="2" fill="#f78841" opacity="0.8"/>
+  <rect x="60" y="40" width="20" height="15" rx="2" fill="#f78841" opacity="0.8"/>
+  <rect x="65" y="60" width="20" height="15" rx="2" fill="#f78841" opacity="0.8"/>
+  <!-- Control elements -->
+  <circle cx="58" cy="27" r="2" fill="white"/>
+  <circle cx="63" cy="27" r="2" fill="white"/>
+  <circle cx="68" cy="27" r="2" fill="white"/>
+  <!-- Security shield -->
+  <path d="M75 45 Q85 40 85 50 Q85 65 75 70 Q65 65 65 50 Q65 40 75 45" 
+    fill="#4a9eff" opacity="0.3"/>
+  <path d="M75 48 Q80 46 80 52 Q80 60 75 62 Q70 60 70 52 Q70 46 75 48" 
+    fill="#4a9eff"/>
+  <!-- Lock icon -->
+  <rect x="73" y="53" width="4" height="4" rx="0.5" fill="white"/>
+  <path d="M73 53 Q73 51 75 51 Q77 51 77 53" fill="none" stroke="white" stroke-width="0.8"/>
+  <!-- Connection lines -->
+  <line x1="45" y1="45" x2="55" y2="40" stroke="#4a9eff" stroke-width="1.5" opacity="0.6"/>
+  <line x1="48" y1="50" x2="60" y2="47" stroke="#4a9eff" stroke-width="1.5" opacity="0.6"/>
+</svg>

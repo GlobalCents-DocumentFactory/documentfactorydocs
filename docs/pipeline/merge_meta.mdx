@@ -1,0 +1,193 @@
+---
+sidebar_position: 12
+title: Merge Metadata
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+import Link from "@docusaurus/Link";
+
+# Merge Metadata
+
+The **Merge Metadata** action in DocumentFactory allows dynamic replacement of document property tags with their actual values.
+This action is particularly useful for scenarios where metadata-driven customization is required, such as generating personalized reports,
+contracts, or document templates. By combining metadata with document templates, organizations can streamline workflows
+and ensure consistent, accurate output across multiple formats.
+
+## Properties
+
+### `actionmergemeta`
+
+Type: <code style={{ color: '#0066cc' }}>boolean</code>
+
+The `actionmergemeta` setting activates the metadata merge feature within the processing pipeline. When set to `true`
+within the `processors` or `postprocessors` arrays, the system will process tags within supported documents and replace
+them with their corresponding property values.
+
+### `settingsmergemeta`
+
+Type: <code style={{ color: '#0066cc' }}>object</code>
+
+Additionally, the `settingsmergemeta` object provides configuration parameters for the Merge Metadata action, ensuring flexible
+and precise control of the merge process.
+
+The `settingsmergemeta` property can contain the following properties:
+
+- <Link to="#usestrictreplacement">`usestrictreplacement`</Link> – Require exact property name matching.
+- <Link to="#mergenullorempty">`mergenullorempty`</Link> – Control merging of null or empty values.
+- <Link to="#removeemptylines">`removeemptylines`</Link> – Remove empty lines after replacement.
+- <Link to="#wordtrackchanges">`wordtrackchanges`</Link> – Respect Word’s *Track Changes* feature.
+
+#### `usestrictreplacement`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = false)</code>
+
+The `usestrictreplacement` property defines whether tag replacement must match property names exactly.
+When enabled (`true`), only exact matches between tag names and document properties will be replaced.
+When disabled (`false`), the system allows more flexible matching, which is useful if property names vary slightly across sources.
+
+#### `mergenullorempty`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = false)</code>
+
+The `mergenullorempty` property determines how null or empty values are handled during replacement.
+If it is set to `true`, empty values are still merged into the document, which may leave visible blanks.
+If it is left as `false`, such values are ignored, and corresponding tags remain untouched.
+
+#### `removeemptylines`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = false)</code>
+
+The `removeemptylines` property specifies how the system treats empty lines after replacement.
+When the option is enabled, any extra whitespace or blank lines caused by missing values will be automatically removed,
+producing cleaner output. If disabled, the original document formatting is preserved, even if some tags resolve to nothing.
+
+#### `wordtrackchanges`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean (default = false)</code>
+
+The `wordtrackchanges` property applies only to **Word documents**.
+When this option is enabled, all replacements are inserted using Word’s *Track Changes* feature, allowing authors to review,
+accept, or reject modifications. When disabled, replacements are applied directly without tracking.
+
+## Fluid integration
+
+DocumentFactory uses the [Fluid templating engine](https://github.com/sebastienros/fluid) to handle property tags inside documents.
+Fluid is a high-performance, .NET-based templating engine inspired by [Liquid](https://shopify.github.io/liquid/).
+It allows defining placeholders (tags) in documents, which are dynamically replaced at runtime.
+
+All document properties are wrapped under the `props` object.
+
+For example:
+
+```plaintext
+{{ props.Title }}
+{{ props.Author }}
+```
+
+### Basic Fluid capabilities
+
+#### Variable replacement
+Replace property tags with actual values.
+Example:
+
+```plaintext
+{{ props.Title }} - Replaced with the document's title.
+```
+
+#### Conditionals
+Control whether a section of content is included based on property values.
+
+Example:
+
+```plaintext
+{% if props.Status == "Approved" %}
+    This document is approved.
+{% else %}
+    This document is pending approval.
+{% endif %}
+```
+
+#### Loops
+
+Iterate over collections and dynamically insert rows or repeated content.
+
+Example:
+
+```plaintext
+{% for item in props.Items %}
+    {{ item.Name }}: {{ item.Quantity }}
+{% endfor %}
+```
+
+#### Filters
+
+Transform values during rendering.
+
+Example:
+
+```plaintext
+{{ props.CreatedDate | date: "%Y-%m-%d" }}
+{{ props.Author | upcase }}
+```
+
+For more advanced usage, please refer to the [official Fluid documentation](https://github.com/sebastienros/fluid).
+
+## Supported formats
+
+The **MergeMeta** action works across multiple document formats:
+- **PDF**
+- **Word (DOC, DOCX)**
+- **Excel (XLS, XLSX)**
+- **PowerPoint (PPT, PPTX)**
+- **Visio (VSD, VSDX)**
+
+### Built-in document properties (examples)
+
+- **Word / Excel / PowerPoint / Visio**
+- `props.Title`
+- `props.Subject`
+- `props.Author`
+- `props.Manager`
+- `props.Company`
+- `props.Category`
+- `props.Keywords`
+- `props.Comments`
+- `props.CreatedDate`
+- `props.LastSavedBy`
+
+- **PDF**
+- `props.Title`
+- `props.Author`
+- `props.Subject`
+- `props.Keywords`
+- `props.Creator`
+- `props.Producer`
+
+### Custom properties
+
+Custom properties can be added for **Word, Excel, PowerPoint, and Visio** documents. These allow organizations to define
+their own metadata fields (e.g., `ProjectCode`, `CustomerName`) and use them directly in templates:
+
+```plaintext
+{{ props.ProjectCode }}
+{{ props.CustomerName }}
+```
+
+## Example
+
+```json title="pipeline.json"
+{
+    "processors": [
+        {
+            "actionmergemeta": true,
+            "settingsmergemeta": {
+                "usestrictreplacement": false,
+                "mergenullorempty": false,
+                "removeemptylines": false,
+                "wordtrackchanges": false
+            }
+        }
+    ]
+}
+```

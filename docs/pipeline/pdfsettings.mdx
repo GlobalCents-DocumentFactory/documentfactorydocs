@@ -90,3 +90,132 @@ The value for this property can be one of the following options:
 - `PDF_X_1A`: PDF/X-1a format for graphic arts, ensuring color-managed and reliable printing conditions.
 - `PDF_X_3`: PDF/X-3 format, supporting color management for reliable printing outputs.
 - `ZUGFeRD`: ZUGFeRD format for electronic invoicing, combining a PDF/A-3 document with XML data.
+
+### `settingspdfsecurity`
+
+The `settingspdfsecurity` is a configuration object nested within the `settingspdf`, providing a set of parameters specifically
+for fine-tuning the PDF security process. This property comes into play when the [**actionsecurepdf**](./secure.mdx) flag is set to true,
+allowing for detailed control over how encryption, access restrictions, and user privileges are applied to PDFs.
+
+The `settingspdfsecurity` property can contain the following properties:
+
+- <Link to="#cryptoalgorithm">`cryptoalgorithm`</Link> - Encryption algorithm.
+- <Link to="#ownerpassword">`ownerpassword`</Link> - Full access password.
+- <Link to="#userpassword">`userpassword`</Link> - Password to open PDF.
+- <Link to="#usepdf20">`usepdf20`</Link> - Enable PDF 2.0 encryption.
+
+#### `cryptoalgorithm`
+
+*Type:* <code style={{ color: '#0066cc' }}>string (default = AESx256)</code>
+
+The `cryptoalgorithm` property specifies the encryption algorithm used to secure PDF documents. This setting comes into play
+when the [**actionsecurepdf**](./secure.mdx) flag is set to true, allowing control over the strength and type of encryption applied to the PDF.
+
+Supported values:
+
+- `RC4x40` – 40-bit RC4 encryption, providing basic security suitable for legacy systems.
+- `RC4x128` – 128-bit RC4 encryption, offering stronger protection than RC4x40.
+- `AESx128` – 128-bit AES encryption, providing modern and secure encryption standards.
+- `AESx256` – 256-bit AES encryption, offering the highest level of PDF encryption available in DocumentFactory.
+
+Choosing a stronger encryption algorithm increases document security but may reduce compatibility with older PDF readers.
+
+#### `ownerpassword`
+
+Type: <code style={{ color: '#0066cc' }}>string</code>
+
+The `ownerpassword` property sets the owner password for the PDF document. This password grants full access to the document,
+allowing the owner to override any restrictions or privileges defined in the PDF.
+
+This setting comes into play when the [**actionsecurepdf**](./secure.mdx) flag is set to true, ensuring that users
+who know the owner password can modify, print, copy, or change security settings regardless of other restrictions.
+
+This property is required. If it is undefined or empty, the Secure PDF process will fail with an error.
+
+#### `userpassword`
+
+Type: <code style={{ color: '#0066cc' }}>string</code>
+
+The `userpassword` property sets the password required to open the PDF document. This password comes into play when the
+[**actionsecurepdf**](./secure.mdx) flag is set to true, enforcing access control for users who attempt to open the PDF.
+
+If a user attempts to open the document without the correct `userpassword`, access will be denied, while users who know
+the <Link to="#ownerpassword">`ownerpassword`</Link> can still open the document and override any restrictions.
+
+If this property is not defined, the PDF will open in user mode by default without requiring a password.
+
+#### `usepdf20`
+
+Type: <code style={{ color: '#0066cc' }}>boolean (default = false)</code>
+
+The `usepdf20` property specifies whether to enable encryption features introduced with PDF 2.0 (Revision 6, Extension 8).
+When set to true, it activates the enhanced encryption mode that supports AES-256. This feature is available only when
+targeting PDF v. 1.7 or PDF 2.0.
+
+This setting takes effect only when the [**actionsecurepdf**](./secure.mdx) flag is set to true.
+
+ - If `true`, the document can be encrypted using the modern, stronger AES-256 standard.
+
+ - If `false`, it falls back to the legacy PDF 1.7 encryption model, typically using RC4 or AES-128, ensuring broader
+    compatibility with older PDF viewers.
+
+By default, this property is `false`.
+
+#### `documentprivilege`
+
+Type: <code style={{ color: '#0066cc' }}>object</code>
+
+The `documentprivilege` property is a configuration object nested within `settingspdfsecurity` that defines the actions
+allowed for users who open a PDF with the user password. This object enables fine-grained control over user permissions,
+specifying which operations are permitted on the PDF content.
+
+This property takes effect when the [**actionsecurepdf**](./secure.mdx) flag is set to true and the PDF is secured with `settingspdfsecurity`.
+
+The `documentprivilege` object may include the following properties:
+
+- `allowassembly` (boolean) – Allows users to assemble the document (insert, delete, or rotate pages).
+- `allowcopy` (boolean) – Allows users to copy text, images, and other content from the document.
+- `allowdegradedprinting` (boolean) – Allows printing of the document in a lower quality (degraded) mode.
+- `allowfillin` (boolean) – Allows filling in form fields.
+- `allowmodifyannotations` (boolean) – Allows modifying annotations within the PDF.
+- `allowmodifycontents` (boolean) – Allows editing or modifying the content of the PDF.
+- `allowprint` (boolean) – Allows printing of the document.
+- `allowscreenreaders` (boolean) – Enables access for screen reader devices for visually impaired users.
+
+:::note
+If a property is not specified, the corresponding action is not allowed by default.
+:::
+
+##### Permission Levels
+
+- `changeallowlevel` – Specifies the level of allowed changes:
+    - **None** (default) – No changes allowed.
+    - **InsertingDeletingRotatingPages** – Allows inserting, deleting, or rotating pages.
+    - **FillingInFormfieldsAndSignExistingSignatureFields** – Allows filling forms and signing existing signature fields.
+    - **CommentingFillingInFormfieldsAndSignExistingSignatureFields** – Allows commenting, filling forms, and signing existing signature fields.
+    - **AnyExceptExtract** – Allows any changes except content extraction.
+
+- `copyallowlevel` – Specifies the level of content copying allowed:
+    - **None** (default) – Copying not allowed.
+    - **EnableTextAccessForScreenReaderDevicesForTheVisuallyImpaired** – Allows text access for screen readers.
+    - **EnableCopyingOfTextImagesAndOtherContent** – Allows copying of text, images, and other content.
+- `printallowlevel` – Specifies the level of printing allowed:
+    - **None** (default) – Printing not allowed.
+    - **LowResolution150Dpi** – Printing allowed at low resolution (150 DPI).
+    - **HighResolution** – Printing allowed at full/high resolution.
+
+:::note
+
+PDF security settings (**UserPassword**, **OwnerPassword**, and **DocumentPrivileges**) provide control over document access and user actions.
+However, behavior may vary across different PDF viewers:
+
+- **User password**: strictly prevents opening the document without the correct password.
+
+- **Document privileges** (AllowCopy, AllowPrint, etc.) are soft restrictions—enforced only by compliant viewers.
+    Some readers (e.g., PDFGear, Chrome/Edge built-in viewers) may ignore them partially or entirely.
+
+- **PDF version / encryption** (UsePdf20, AES-256) may reduce compatibility with older viewers.
+
+Owner password allows overriding all restrictions; these protections are mainly for casual users, not guaranteed security.
+
+**Recommendation**: Always test secured PDFs in target viewers and do not rely solely on privileges for protecting sensitive content.

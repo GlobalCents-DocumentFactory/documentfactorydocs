@@ -1,0 +1,54 @@
+---
+sidebar_position: 11
+---
+
+# Secure PDF
+
+The **Secure PDF** action in DocumentFactory enables encryption and access control for PDF documents. This ensures
+sensitive documents are protected, and specific privileges can be restricted or allowed based on user roles. This feature
+is particularly useful for organizations that need to secure PDF content before distribution or storage.
+
+## Properties
+
+### `actionsecurepdf`
+
+*Type:* <code style={{ color: '#0066cc' }}>boolean</code>
+
+The `actionsecurepdf` setting activates the PDF security feature within the processing pipeline. By setting this property
+to `true` within the `processors` or `postprocessors` arrays, the system will automatically apply the specified security
+settings to the PDF documents during execution.
+
+Security settings in DocumentFactory allow applying encryption and access control to PDF documents, ensuring that sensitive
+content is protected and user privileges are controlled.
+
+The [**settingspdfsecurity**](./pdfsettings#settingspdfsecurity) property inside the [**settingspdf**](./pdfsettings) object
+provides detailed configuration for securing PDF files. It enables defining encryption algorithms, passwords, PDF version compatibility,
+and specific document privileges, allowing fine-grained control over how PDF security is enforced.
+
+## Example
+
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+        "actionsecurepdf": true,
+        "settingspdf": {
+            "settingspdfsecurity": {
+                "ownerpassword": "ownerpassword",
+                "userpassword": "userpassword",
+                "documentprivilege": {
+                    "allowprint":  true
+                }
+            }
+        }
+    }
+  ]
+}
+```
+In the example above:
+
+- The document is secured using the actionsecurepdf processor.
+- An owner password (ownerpassword) is defined, granting full control over the PDF.
+- A user password (userpassword) is required to open the document.
+- Within documentprivilege, the allowprint option is enabled, allowing users who open the PDF with the user password to print the document.
+- All other actions (copying, modifying, filling forms, etc.) are not allowed by default.

@@ -75,6 +75,18 @@ Additionally, a Windows service named **GCI DocumentFactory Engine** is created.
 This service ensures that the document conversion engine starts automatically and operates continuously in the background,
 enabling automated document processing without requiring manual intervention.
 
+:::warning Antivirus Configuration Required
+After installation, it is recommended to configure your antivirus software to exclude the data directory (`DocFactoryData`) from real-time scanning. This directory contains frequently accessed runtime files and temporary processing data. Antivirus scanning can significantly impact performance and may interfere with document processing operations.
+
+**Steps to configure antivirus exclusion:**
+1. Open your antivirus software settings
+2. Navigate to exclusions or exceptions
+3. Add the data directory path (specified during installation step 3) to the exclusion list
+4. Ensure both file and folder scanning exclusions are applied
+
+Failure to configure this exclusion may result in slower processing speeds, file access errors, or processing interruptions.
+:::
+
 ### Linux Installation
 
 ### Kubernetes Deployment

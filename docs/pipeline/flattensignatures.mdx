@@ -1,0 +1,49 @@
+---
+sidebar_position: 10
+---
+
+# Flatten Signatures
+
+The **Flatten Signatures** action is designed to permanently apply all interactive elements of a PDF — including digital
+signatures, form fields, and annotations — by converting them into static page content.
+
+After flattening:
+
+- **Signature fields** are fixed into the document and cannot be moved, edited, or removed.
+
+- **Form fields** (text boxes, checkboxes, radio buttons, drop-downs, etc.) are rendered as plain content, no longer editable.
+
+- **Annotations** (comments, highlights, stamps, notes, links, etc.) are embedded into the page and lose their interactivity.
+
+This ensures document integrity, prevents tampering with fields or annotations, and prepares the file for reliable archiving, viewing, or printing.
+
+This action is supported for the following document types:
+
+- **PDF files** — all signatures, forms, and annotations are flattened into static content.
+
+- (Other formats are not supported.)
+
+## Properties
+
+### `actionflattensignatures`
+
+Type: <code style={{ color: '#0066cc' }}>boolean</code>
+
+The `actionflattensignatures` property is a flag that activates the FlattenSignatures action in the processing pipeline.
+When set to `true`, all digital signatures, form fields, and annotations in the PDF will be flattened and made non-editable.
+
+This property can be used within the `processors` or `postprocessors` arrays to instruct the system to apply flattening
+as part of the document processing workflow.
+
+## Example
+
+```json title="pipeline.json"
+{
+  "processors": [
+    {
+      "actionflattensignatures": true
+    }
+  ]
+}
+```
+This configuration tells the DocumentFactory to flatten all signatures, forms, and annotations in the PDF during processing.
